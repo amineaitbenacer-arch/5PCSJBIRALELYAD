@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
+import { Almarai } from "next/font/google";
 import "./globals.css";
+
+const almarai = Almarai({
+  subsets: ["arabic"],
+  weight: ["300", "400", "700", "800"],
+  variable: "--font-almarai",
+});
 
 export const metadata: Metadata = {
   title: "FingerCare | جبيرة الأصابع الطبية - الحل الطبي والبراتيك",
@@ -25,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl">
+    <html lang="ar" dir="rtl" className={almarai.variable}>
       <head>
         {/* Facebook Pixel */}
         <script

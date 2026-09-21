@@ -204,7 +204,7 @@ export default function Home() {
       </section>
 
       {/* ===== 5. THE ENEMY: WHY PILLS & CREAMS FAIL (NEW) ===== */}
-      <section className="emotional-pain-section" style={{ background: '#FEF2F2', padding: '32px 16px', borderTop: '2px solid #FECACA', borderBottom: '2px solid #FECACA' }}>
+      <section className="emotional-pain-section" style={{ background: 'rgba(230, 57, 70, 0.15)', padding: '32px 16px', borderTop: '2px solid #FECACA', borderBottom: '2px solid #FECACA' }}>
         <div className="pain-icon-wrapper" style={{ textAlign: 'center', fontSize: 40, marginBottom: 12 }}>💊❌</div>
         <h2 style={{ fontSize: 22, fontWeight: 900, color: '#991B1B', textAlign: 'center', marginBottom: 16 }}>
           لماذا تفشل المراهم والأدوية المسكنة؟
@@ -213,7 +213,7 @@ export default function Home() {
           الكريمات والأقراص المسكنة <strong>تخدر الألم لساعتين فقط</strong>، لكنها لا تعالج المشكل الميكانيكي! كلما حركت إصبعك المصاب، زاد التهاب الوتر وتفاقمت الحالة، وقد ينتهي بك المطاف فوق طاولة العمليات الجراحية! 🚨
         </p>
 
-        <div className="pain-conclusion-box" style={{ background: '#FFF', border: '2px solid #DC2626', padding: 20, borderRadius: 16, boxShadow: '0 10px 25px rgba(220,38,38,0.1)' }}>
+        <div className="pain-conclusion-box" style={{ background: 'var(--surface)', border: '2px solid var(--danger)', padding: 20, borderRadius: 16, boxShadow: '0 10px 25px rgba(220,38,38,0.1)' }}>
           <h3 style={{ fontSize: 18, color: '#DC2626', fontWeight: 900, marginBottom: 8, textAlign: 'center' }}>
             الحل الطبي الحقيقي: التثبيت الفيزيائي 🛠️
           </h3>
@@ -224,7 +224,7 @@ export default function Home() {
       </section>
 
       {/* ===== 6. DEEP SCIENTIFIC BREAKDOWN (DARK PREMIUM THEME) ===== */}
-      <section className="tech-explanation-section" style={{ padding: '40px 16px', background: '#12141D', color: 'white' }}>
+      <section className="faq-section" style={{ padding: '32px 16px', background: 'var(--dark-bg)' }}>
         <h2 style={{ fontSize: 24, fontWeight: 900, color: 'white', textAlign: 'center', marginBottom: 8, lineHeight: 1.4 }}>
           🔬 التفسير العلمي: <br/> كيف تشفي الجبيرة إصبعك؟
         </h2>
@@ -267,7 +267,7 @@ export default function Home() {
         
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12 }}>
           {/* Danger Col */}
-          <div style={{ background: '#FEF2F2', padding: 20, borderRadius: 16, border: '2px solid #FECACA' }}>
+          <div style={{ background: 'var(--surface)', padding: 20, borderRadius: 16, border: '1px solid var(--border-light)' }}>
             <h3 style={{ fontSize: 16, fontWeight: 900, color: '#DC2626', marginBottom: 12 }}>❌ بدون الجبيرة</h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
               <li style={{ fontSize: 14, color: '#7F1D1D' }}>⚠️ ألم شديد عند ثني الإصبع</li>
@@ -278,7 +278,7 @@ export default function Home() {
           </div>
 
           {/* Success Col */}
-          <div style={{ background: '#F0FDF4', padding: 20, borderRadius: 16, border: '2px solid #34D399', boxShadow: '0 10px 25px rgba(16,185,129,0.15)', transform: 'scale(1.02)' }}>
+          <div style={{ background: 'var(--surface-highlight)', padding: 20, borderRadius: 16, border: '1px solid var(--gold)', boxShadow: '0 10px 25px rgba(255,193,7,0.1)', transform: 'scale(1.02)' }}>
             <div style={{ background: '#10B981', color: 'white', padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 800, width: 'max-content', marginBottom: 12 }}>✨ الحل الطبي المضمون</div>
             <h3 style={{ fontSize: 18, fontWeight: 900, color: '#059669', marginBottom: 12 }}>✅ مع FingerCare®</h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -322,7 +322,7 @@ export default function Home() {
 
       {/* ===== 9. THE COST OF INACTION (PRICE ANCHOR) ===== */}
       <section style={{ padding: '40px 16px', textAlign: 'center' }}>
-        <div style={{ display: 'inline-block', background: '#FEE2E2', color: '#B91C1C', padding: '8px 16px', borderRadius: 20, fontSize: 14, fontWeight: 800, marginBottom: 16 }}>💰 الحسبة ساهلة...</div>
+        <div style={{ display: 'inline-block', background: 'var(--surface-highlight)', color: '#B91C1C', padding: '8px 16px', borderRadius: 20, fontSize: 14, fontWeight: 800, marginBottom: 16 }}>💰 الحسبة ساهلة...</div>
         <h2 style={{ fontSize: 24, fontWeight: 900, color: '#0F172A', marginBottom: 16 }}>العملية الجراحية تكلف 15,000 درهم!</h2>
         <p style={{ fontSize: 16, color: '#475569', lineHeight: 1.8, marginBottom: 24 }}>
           إذا أهملت علاج إصبعك الآن، قد يتصلب الوتر تماماً ويصبح التدخل الجراحي هو الحل الوحيد، ناهيك عن حصص الترويض الطبي الباهظة الثمن. 
@@ -336,7 +336,7 @@ export default function Home() {
       </section>
 
       {/* ===== 10. 15 REVIEWS CAROUSEL (MASSIVE SOCIAL PROOF) ===== */}
-      <section className="reviews-section" style={{ background: '#F8FAFC', borderTop: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>
+      <section className="reviews-section" style={{ background: 'var(--dark-bg)', borderTop: '1px solid var(--border-light)', borderBottom: '1px solid var(--border-light)' }}>
         <h2 className="section-heading" style={{ fontSize: 24 }}>⭐ آراء 15 زبون مغربي (تقييمات حقيقية 🇲🇦)</h2>
         <p className="section-subheading">انضم لأكثر من 5,000 عائلة مغربية تخلصت من ألم الأصابع.</p>
 
@@ -351,7 +351,7 @@ export default function Home() {
               className="reviews-page"
             >
               {ALL_REVIEWS[reviewPage].map((review, i) => (
-                <div key={i} className="review-card" style={{ background: 'white', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
+                <div key={i} className="review-card" style={{ background: 'var(--surface)', border: '1px solid var(--border-light)' }}>
                   <div className="review-head">
                     <div className="reviewer-avatar">{review.avatar}</div>
                     <div>
@@ -421,7 +421,7 @@ export default function Home() {
       {/* ===== 13. FINAL CTA REPEAT (THE CLOSER) ===== */}
       <section className="final-cta-section">
         <div className="final-cta-inner" style={{ border: '3px solid #F59E0B', boxShadow: '0 15px 35px rgba(245,158,11,0.15)' }}>
-          <div style={{ background: '#FEF2F2', color: '#DC2626', padding: '4px 12px', borderRadius: 20, fontSize: 13, fontWeight: 800, width: 'max-content', margin: '0 auto 12px' }}>🔥 العرض ينتهي قريباً</div>
+          <div style={{ background: 'rgba(230, 57, 70, 0.15)', color: '#DC2626', padding: '4px 12px', borderRadius: 20, fontSize: 13, fontWeight: 800, width: 'max-content', margin: '0 auto 12px' }}>🔥 العرض ينتهي قريباً</div>
           <h2 style={{ fontSize: 22, fontWeight: 900, marginBottom: 16 }}>أكد طلبك الآن واستفد من التخفيض:</h2>
           
           <div className="offers-grid" style={{ marginBottom: 20 }}>
@@ -441,7 +441,7 @@ export default function Home() {
             🛒 إضغط هنا للطلب والدفع عند الاستلام
           </button>
           
-          <div style={{ marginTop: 16, padding: '12px', background: '#F0FDF4', borderRadius: 12, border: '1px dashed #10B981', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+          <div style={{ marginTop: 16, padding: '12px', background: 'rgba(6, 214, 160, 0.1)', borderRadius: 12, border: '1px dashed #10B981', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
             <span style={{ fontSize: 20 }}>🚚</span> <span style={{ fontWeight: 800, color: '#059669', fontSize: 14 }}>التوصيل مجاني لجميع المدن + الدفع عند الاستلام</span>
           </div>
         </div>
@@ -455,7 +455,7 @@ export default function Home() {
             <div key={i} className={`faq-item ${openFaq === i ? 'open' : ''}`}>
               <button className="faq-question" onClick={() => toggleFaq(i)}>
                 <span style={{ paddingLeft: 16 }}>{faq.q}</span>
-                <span className="faq-chevron" style={{ background: openFaq === i ? '#F59E0B' : '#E2E8F0', color: openFaq === i ? 'white' : '#64748B', width: 24, height: 24, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{openFaq === i ? '−' : '+'}</span>
+                <span className="faq-chevron" style={{ background: openFaq === i ? 'var(--gold)' : 'var(--surface-highlight)', color: openFaq === i ? 'black' : 'var(--text-muted)', width: 24, height: 24, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{openFaq === i ? '−' : '+'}</span>
               </button>
               <AnimatePresence>
                 {openFaq === i && (

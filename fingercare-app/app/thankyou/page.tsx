@@ -50,13 +50,13 @@ export default function ThankYouPage() {
   }, []);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#F8FAFC', padding: '40px 16px', direction: 'rtl', fontFamily: '"Almarai", sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--dark-bg)', padding: '40px 16px', direction: 'rtl', fontFamily: '"Almarai", sans-serif' }}>
       
       {/* Luxury Navbar */}
-      <nav style={{ background: 'white', padding: '12px 16px', display: 'flex', justifyContent: 'center', alignItems: 'center', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 30 }}>
+      <nav style={{ background: 'var(--surface)', padding: '12px 16px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderBottom: '1px solid var(--border-light)', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 30 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontSize: 24, filter: 'drop-shadow(0 0 4px rgba(16,185,129,0.3))' }}>🩹</span>
-          <h1 style={{ fontSize: 20, fontWeight: 900, color: '#0F172A', margin: 0 }}>Finger<span style={{ color: '#10B981' }}>Care</span></h1>
+          <h1 style={{ fontSize: 20, fontWeight: 900, color: 'var(--text-main)', margin: 0 }}>Finger<span style={{ color: '#10B981' }}>Care</span></h1>
         </div>
       </nav>
 
@@ -90,34 +90,34 @@ export default function ThankYouPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          style={{ background: 'white', borderRadius: 20, padding: 24, border: '1px solid #E2E8F0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}
+          style={{ background: 'var(--surface)', borderRadius: 20, padding: 24, border: '1px solid var(--border-light)', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}
         >
-          <h2 style={{ fontSize: 18, fontWeight: 900, color: '#0F172A', marginBottom: 20, borderBottom: '2px solid #F1F5F9', paddingBottom: 12 }}>
+          <h2 style={{ fontSize: 18, fontWeight: 900, color: 'var(--text-main)', marginBottom: 20, borderBottom: '2px solid var(--border-light)', paddingBottom: 12 }}>
             📦 ماذا سيحدث الآن؟
           </h2>
           
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div className="timeline-step">
-              <div className="timeline-icon" style={{ background: '#EFF6FF', color: '#3B82F6' }}>📞</div>
+              <div className="timeline-icon" style={{ background: 'var(--surface-highlight)', color: '#3B82F6' }}>📞</div>
               <div>
-                <h3 style={{ fontSize: 15, fontWeight: 800, color: '#0F172A', marginBottom: 4 }}>اتصال هاتفي قريب</h3>
-                <p style={{ fontSize: 13, color: '#64748B', margin: 0, lineHeight: 1.6 }}>سيتصل بك فريق الدعم الخاص بنا في أقرب وقت لتأكيد عنوان التسليم بدقة.</p>
+                <h3 style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-main)', marginBottom: 4 }}>اتصال هاتفي قريب</h3>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', margin: 0, lineHeight: 1.6 }}>سيتصل بك فريق الدعم الخاص بنا في أقرب وقت لتأكيد عنوان التسليم بدقة.</p>
               </div>
             </div>
             
             <div className="timeline-step">
-              <div className="timeline-icon" style={{ background: '#FFFBEB', color: '#F59E0B' }}>🚚</div>
+              <div className="timeline-icon" style={{ background: 'var(--surface-highlight)', color: '#F59E0B' }}>🚚</div>
               <div>
-                <h3 style={{ fontSize: 15, fontWeight: 800, color: '#0F172A', marginBottom: 4 }}>شحن سريع ومجاني</h3>
-                <p style={{ fontSize: 13, color: '#64748B', margin: 0, lineHeight: 1.6 }}>سيتم تجهيز طلبيتك بعناية وشحنها فوراً مع أولوية التوصيل (VIP).</p>
+                <h3 style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-main)', marginBottom: 4 }}>شحن سريع ومجاني</h3>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', margin: 0, lineHeight: 1.6 }}>سيتم تجهيز طلبيتك بعناية وشحنها فوراً مع أولوية التوصيل (VIP).</p>
               </div>
             </div>
 
             <div className="timeline-step">
-              <div className="timeline-icon" style={{ background: '#F0FDF4', color: '#10B981' }}>🤝</div>
+              <div className="timeline-icon" style={{ background: 'var(--surface-highlight)', color: '#10B981' }}>🤝</div>
               <div>
-                <h3 style={{ fontSize: 15, fontWeight: 800, color: '#0F172A', marginBottom: 4 }}>الاستلام والدفع</h3>
-                <p style={{ fontSize: 13, color: '#64748B', margin: 0, lineHeight: 1.6 }}>ستصلك الطلبية حتى باب منزلك. لا تدفع أي شيء حتى تستلمها وتتفحصها!</p>
+                <h3 style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-main)', marginBottom: 4 }}>الاستلام والدفع</h3>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', margin: 0, lineHeight: 1.6 }}>ستصلك الطلبية حتى باب منزلك. لا تدفع أي شيء حتى تستلمها وتتفحصها!</p>
               </div>
             </div>
           </div>
@@ -129,22 +129,22 @@ export default function ThankYouPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            style={{ background: '#FFFBEB', borderRadius: 20, padding: 24, border: '2px dashed #FCD34D' }}
+            style={{ background: 'rgba(255,193,7,0.1)', borderRadius: 20, padding: 24, border: '2px dashed var(--gold)' }}
           >
-            <h2 style={{ fontSize: 16, fontWeight: 800, color: '#D97706', marginBottom: 16, textAlign: 'center' }}>
+            <h2 style={{ fontSize: 16, fontWeight: 800, color: 'var(--gold)', marginBottom: 16, textAlign: 'center' }}>
               🧾 تفاصيل الطلب
             </h2>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, fontSize: 14 }}>
-              <span style={{ color: '#64748B' }}>المنتج:</span>
-              <strong style={{ color: '#0F172A' }}>{order.packId === 1 ? '5 قطع' : order.packId === 2 ? '10 قطع' : '15 قطعة'} (جبيرة الأصابع)</strong>
+              <span style={{ color: 'var(--text-muted)' }}>المنتج:</span>
+              <strong style={{ color: 'var(--text-main)' }}>{order.packId === 1 ? '5 قطع' : order.packId === 2 ? '10 قطع' : '15 قطعة'} (جبيرة الأصابع)</strong>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, fontSize: 14 }}>
-              <span style={{ color: '#64748B' }}>المدينة:</span>
-              <strong style={{ color: '#0F172A' }}>{order.city}</strong>
+              <span style={{ color: 'var(--text-muted)' }}>المدينة:</span>
+              <strong style={{ color: 'var(--text-main)' }}>{order.city}</strong>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 12, paddingTop: 12, borderTop: '1px solid #FDE68A', fontSize: 16 }}>
-              <span style={{ color: '#92400E', fontWeight: 700 }}>المجموع للأداء:</span>
-              <strong style={{ color: '#B45309', fontWeight: 900 }}>{order.price} درهم</strong>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 12, paddingTop: 12, borderTop: '1px solid var(--border-light)', fontSize: 16 }}>
+              <span style={{ color: 'var(--gold)', fontWeight: 700 }}>المجموع للأداء:</span>
+              <strong style={{ color: 'var(--gold)', fontWeight: 900 }}>{order.price} درهم</strong>
             </div>
           </motion.div>
         )}

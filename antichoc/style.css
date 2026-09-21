@@ -644,8 +644,8 @@ body {
     transform: translateX(-50%);
     width: 100%;
     max-width: 480px;
-    background-color: rgba(18, 20, 29, 0.95);
-    backdrop-filter: blur(10px);
+    background-color: rgba(18, 20, 29, 0.85);
+    backdrop-filter: blur(15px);
     padding: 15px 20px;
     border-top: 1px solid var(--border-color);
     display: flex;
@@ -658,6 +658,7 @@ body {
     margin-top: 0;
     width: 60%;
     padding: 15px;
+    animation: pulse 2s infinite;
 }
 
 .sticky-price {
@@ -678,4 +679,103 @@ body {
 
 .new-sticky .curr {
     font-size: 14px;
+}
+
+/* --- Premium Marketing Upgrades --- */
+
+/* Urgency Bar */
+.urgency-bar {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: white;
+    text-align: center;
+    padding: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+.blinking-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-red);
+    border-radius: 50%;
+    animation: blink 1s infinite;
+}
+
+/* Countdown Timer */
+.countdown-container {
+    background: linear-gradient(135deg, rgba(230,57,70,0.1) 0%, rgba(230,57,70,0.05) 100%);
+    border: 1px solid rgba(230, 57, 70, 0.3);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.countdown-title {
+    color: var(--accent-red);
+    font-weight: 800;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    direction: ltr; /* keep timer ltr */
+}
+
+.time-box {
+    background-color: var(--bg-card-highlight);
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    min-width: 50px;
+}
+
+.time-box span {
+    font-size: 20px;
+    font-weight: 900;
+    color: white;
+}
+
+.time-box small {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+.colon {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(6, 214, 160, 0.4); }
+    70% { transform: scale(1.03); box-shadow: 0 0 0 10px rgba(6, 214, 160, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(6, 214, 160, 0); }
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Button hover effects */
+.buy-btn {
+    animation: pulse 2.5s infinite;
+    background: linear-gradient(90deg, #06d6a0 0%, #05b083 100%);
 }

@@ -50,7 +50,7 @@ export default function ThankYouPage() {
   }, []);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#F8FAFC', padding: '40px 16px', direction: 'rtl', fontFamily: '"Cairo", sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: '#F8FAFC', padding: '40px 16px', direction: 'rtl', fontFamily: '"Almarai", sans-serif' }}>
       
       {/* Luxury Navbar */}
       <nav style={{ background: 'white', padding: '12px 16px', display: 'flex', justifyContent: 'center', alignItems: 'center', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 30 }}>

@@ -41,4 +41,36 @@ document.addEventListener('DOMContentLoaded', () => {
         stickyAmountElement.textContent = price;
         oldStickyElement.textContent = oldPrice + ' درهم';
     }
+
+    // --- Countdown Timer Logic ---
+    function startCountdown() {
+        let hours = 4;
+        let minutes = 29;
+        let seconds = 59;
+
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+
+        setInterval(() => {
+            seconds--;
+            if (seconds < 0) {
+                seconds = 59;
+                minutes--;
+                if (minutes < 0) {
+                    minutes = 59;
+                    hours--;
+                    if (hours < 0) {
+                        hours = 4; // Reset to loop for marketing purposes
+                    }
+                }
+            }
+
+            hoursEl.textContent = hours.toString().padStart(2, '0');
+            minutesEl.textContent = minutes.toString().padStart(2, '0');
+            secondsEl.textContent = seconds.toString().padStart(2, '0');
+        }, 1000);
+    }
+
+    startCountdown();
 });

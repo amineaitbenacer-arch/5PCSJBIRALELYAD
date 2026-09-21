@@ -223,29 +223,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== 6. DEEP SCIENTIFIC BREAKDOWN (NEW) ===== */}
-      <section className="tech-explanation-section" style={{ padding: '32px 16px', background: '#F8FAFC' }}>
-        <span className="pvd-badge" style={{ display: 'block', width: 'max-content', margin: '0 auto 12px', background: '#DBEAFE', color: '#1E3A8A', padding: '6px 16px', borderRadius: 20, fontWeight: 800 }}>🔬 الهندسة الطبية</span>
-        <h2 style={{ fontSize: 22, fontWeight: 900, color: '#0F172A', textAlign: 'center', marginBottom: 24 }}>كيف تعمل جبيرة FingerCare®؟</h2>
+      {/* ===== 6. DEEP SCIENTIFIC BREAKDOWN (DARK PREMIUM THEME) ===== */}
+      <section className="tech-explanation-section" style={{ padding: '40px 16px', background: '#12141D', color: 'white' }}>
+        <h2 style={{ fontSize: 24, fontWeight: 900, color: 'white', textAlign: 'center', marginBottom: 8, lineHeight: 1.4 }}>
+          🔬 التفسير العلمي: <br/> كيف تشفي الجبيرة إصبعك؟
+        </h2>
+        <p style={{ color: '#FFD700', textAlign: 'center', fontWeight: 800, fontSize: 16, marginBottom: 24 }}>
+          تقنية التثبيت الفيزيائي المتقدمة
+        </p>
         
         <div className="tech-grid" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           
-          <div className="tech-card" style={{ background: 'white', padding: 20, borderRadius: 16, border: '1px solid #E2E8F0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
-            <div style={{ fontSize: 32, marginBottom: 12 }}>✈️</div>
-            <h3 style={{ fontSize: 16, fontWeight: 900, color: '#0F172A', marginBottom: 8 }}>دعامة من الألومنيوم المستخدم في الطيران</h3>
-            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.6 }}>يحتوي قلب الجبيرة على لوح صلب من الألومنيوم الخفيف، يمنع الإصبع من الثني نهائياً، ومع ذلك يمكنك تعديل زاوية انحنائه بلطف ليناسب شكل إصبعك تماماً.</p>
+          <div className="tech-card" style={{ background: 'rgba(255,255,255,0.03)', padding: 20, borderRadius: 16, border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+            <div style={{ background: 'rgba(255,215,0,0.1)', color: '#FFD700', width: 32, height: 32, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, flexShrink: 0, marginTop: 4 }}>1</div>
+            <div>
+              <h3 style={{ fontSize: 16, fontWeight: 900, color: '#FFD700', marginBottom: 8 }}>دعامة ألومنيوم صلبة 100% ✈️</h3>
+              <p style={{ fontSize: 13, color: '#A0A4B8', lineHeight: 1.7 }}>لوح صلب من الألومنيوم يمنع ثني الوتر الملتهب تماماً، مما يوفر راحة فورية ويقلل الضغط على المفصل.</p>
+            </div>
           </div>
 
-          <div className="tech-card" style={{ background: 'white', padding: 20, borderRadius: 16, border: '1px solid #E2E8F0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
-            <div style={{ fontSize: 32, marginBottom: 12 }}>☁️</div>
-            <h3 style={{ fontSize: 16, fontWeight: 900, color: '#0F172A', marginBottom: 8 }}>فوم طبي بمسامات تهوية (Sponge Foam)</h3>
-            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.6 }}>لن تعاني من العرق أو الروائح الكريهة! الفوم الداخلي ناعم جداً على البشرة ومصمم ليمتص الصدمات ويسمح بمرور الهواء، لدرجة أنك ستنسى أنك ترتديها.</p>
+          <div className="tech-card" style={{ background: 'rgba(255,255,255,0.03)', padding: 20, borderRadius: 16, border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+            <div style={{ background: 'rgba(255,215,0,0.1)', color: '#FFD700', width: 32, height: 32, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, flexShrink: 0, marginTop: 4 }}>2</div>
+            <div>
+              <h3 style={{ fontSize: 16, fontWeight: 900, color: '#FFD700', marginBottom: 8 }}>فوم طبي بمسامات تهوية ☁️</h3>
+              <p style={{ fontSize: 13, color: '#A0A4B8', lineHeight: 1.7 }}>مصنوع من مادة عالية الجودة تمتص الصدمات وتسمح بمرور الهواء، تمنع التعرق وتتحمل الاستعمال المتواصل.</p>
+            </div>
           </div>
 
-          <div className="tech-card" style={{ background: 'white', padding: 20, borderRadius: 16, border: '1px solid #E2E8F0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
-            <div style={{ fontSize: 32, marginBottom: 12 }}>🎯</div>
-            <h3 style={{ fontSize: 16, fontWeight: 900, color: '#0F172A', marginBottom: 8 }}>أشرطة Velcro لاصقة قوية</h3>
-            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.6 }}>أشرطة متينة جداً تضمن بقاء الجبيرة ثابتة في مكانها سواء كنت نائماً أو تمارس نشاطاتك اليومية الخفيفة.</p>
+          <div className="tech-card" style={{ background: 'rgba(255,255,255,0.03)', padding: 20, borderRadius: 16, border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+            <div style={{ background: 'rgba(255,215,0,0.1)', color: '#FFD700', width: 32, height: 32, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, flexShrink: 0, marginTop: 4 }}>3</div>
+            <div>
+              <h3 style={{ fontSize: 16, fontWeight: 900, color: '#FFD700', marginBottom: 8 }}>أشرطة Velcro لاصقة قوية 🎯</h3>
+              <p style={{ fontSize: 13, color: '#A0A4B8', lineHeight: 1.7 }}>وصلات محكمة ضد الارتخاء، تضمن ثبات الجبيرة في مكانها لضمان الشفاء التام وعمر افتراضي طويل.</p>
+            </div>
           </div>
 
         </div>

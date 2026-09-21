@@ -515,3 +515,6 @@ select.form-input {
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 4px; }
+
+/* Hide Next.js Dev Overlay */
+nextjs-portal, #nextjs-portal { display: none !important; }

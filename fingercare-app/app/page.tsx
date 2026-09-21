@@ -4,7 +4,6 @@ import { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import BottomSheet from './components/BottomSheet';
-import ExitPopup from './components/ExitPopup';
 
 const PRODUCT_IMAGES = [
   { id: 1, src: '/images/product-action.jpg', alt: 'جبيرة الأصابع الطبية أثناء الاستخدام اليومي' },
@@ -487,9 +486,6 @@ export default function Home() {
 
       {/* ===== BOTTOM SHEET ===== */}
       <BottomSheet isOpen={isBottomSheetOpen} onClose={() => setIsBottomSheetOpen(false)} />
-
-      {/* ===== EXIT POPUP ===== */}
-      <ExitPopup />
     </div>
   );
 }

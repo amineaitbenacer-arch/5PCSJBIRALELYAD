@@ -15,7 +15,6 @@ const PRODUCT_IMAGES = [
 const OFFERS = [
   { id: 1, name: 'طقم العناية الفردية', pieces: 5, price: 179, desc: '5 قطع 🩹 لليد الواحدة', popular: false },
   { id: 2, name: 'طقم الحماية الكاملة', pieces: 10, price: 279, desc: '10 قطع ⭐ لليدين + توفير 79 درهم', popular: true },
-  { id: 3, name: 'طقم العائلة الطبي', pieces: 15, price: 349, desc: '15 قطعة 🔥 لك ولعائلتك (أقوى عرض)', popular: false },
 ];
 
 const REVIEWS_PAGE_1 = [
@@ -161,7 +160,6 @@ export default function Home() {
             {OFFERS.map((offer) => (
               <div key={offer.id} className={`offer-card ${selectedOffer.id === offer.id ? 'selected' : ''} ${offer.popular ? 'popular' : ''} flip-effect`} onClick={() => setSelectedOffer(offer)}>
                 {offer.popular && <div className="offer-badge-top">⭐ الأكثر مبيعاً (ينصح به)</div>}
-                {offer.id === 3 && <div className="offer-badge-top offer-badge-green">🔥 عرض قوي جداً</div>}
                 <div className="offer-radio">{selectedOffer.id === offer.id && <div className="offer-radio-inner" />}</div>
                 <div className="offer-info">
                   <div className="offer-title">{offer.name}</div>

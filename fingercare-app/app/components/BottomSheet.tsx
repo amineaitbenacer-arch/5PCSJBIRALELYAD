@@ -21,7 +21,6 @@ const MOROCCAN_CITIES = [
 const OFFERS = [
   { id: 1, name: 'Pack 5 قطع', pieces: 5, price: 179, popular: false },
   { id: 2, name: 'Pack 10 قطع', pieces: 10, price: 279, popular: true },
-  { id: 3, name: 'Pack 15 قطع', pieces: 15, price: 349, popular: false },
 ];
 
 export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {

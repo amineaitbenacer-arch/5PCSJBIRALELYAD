@@ -78,23 +78,21 @@ export default function Home() {
 
   return (
     <div className="main-content">
-      {/* ===== 1. ULTRA-AGRESSIVE MARQUEE BANNER ===== */}
-      <div className="marquee-container">
-        <div className="marquee-text">
-          🚀 عروض حصرية: توصيل آمن 100% لكافة المدن المغربية 🇲🇦 | 🎁 الدفع عند الاستلام | 🤝 المعاينة قبل الدفع | 🚀 عروض حصرية: توصيل آمن 100% لكافة المدن المغربية 🇲🇦 | 🎁 الدفع عند الاستلام | 🤝 المعاينة قبل الدفع
-        </div>
+      {/* ===== 1. TOP BANNER (AntiChoc Style) ===== */}
+      <div className="top-banner-antichoc">
+        توصيل آمن 100% لكافة المدن المغربية | 🎁 الدفع عند الاستلام
       </div>
 
-      {/* ===== 2. LUXURY NAVBAR ===== */}
-      <nav className="luxury-navbar">
-        <div className="nav-brand">
-          <span style={{ fontSize: 28, filter: 'drop-shadow(0 0 4px rgba(16,185,129,0.3))' }}>🩹</span>
-          <h1 className="nav-title">Finger<span className="nav-title-accent">Care</span><span style={{fontSize: '10px', verticalAlign: 'super'}}>®</span></h1>
+      {/* ===== 2. HEADER (AntiChoc Style) ===== */}
+      <header className="header-antichoc">
+        <div className="offer-tags-antichoc">
+          <span>5 قطع بـ 179 درهم</span>
+          <span>10 قطع بـ 279 درهم</span>
         </div>
-        <div className="nav-offer-badge pulse-badge">
-          🔥 وفر 220 درهم اليوم
+        <div className="logo-antichoc">
+          FingerCare 🩹
         </div>
-      </nav>
+      </header>
 
       {/* ===== 3. HERO SECTION (THE HOOK) ===== */}
       <section>

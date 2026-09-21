@@ -9,13 +9,13 @@
   --gold-gradient: linear-gradient(135deg, #FFD700 0%, #D97706 100%);
   --gold-bg-glass: rgba(255, 215, 0, 0.08);
   
-  --dark: #0B0F17;
-  --dark2: #131A26;
-  --dark3: #1E293B;
-  --dark4: #334155;
+  --dark: #FFFFFF;
+  --dark2: #F8FAFC;
+  --dark3: #F1F5F9;
+  --dark4: #E2E8F0;
   
-  --text-main: #F8FAFC;
-  --text-muted: #94A3B8;
+  --text-main: #0F172A;
+  --text-muted: #475569;
   --gb: rgba(255, 255, 255, 0.1);
   --glass: rgba(255, 255, 255, 0.04);
   

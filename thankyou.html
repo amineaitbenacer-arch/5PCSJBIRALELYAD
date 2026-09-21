@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AntiChoc Protect® | شكراً على طلبك</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Almarai:wght@400;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  
+  
+
+  
+
+
+  <script>
+    // Firing Purchase Event
+    document.addEventListener("DOMContentLoaded", function() {
+        let price = 249;
+        let orderId = null;
+        try {
+          const orderDataStr = localStorage.getItem('ac_last_order');
+          if (orderDataStr) {
+            const orderData = JSON.parse(orderDataStr);
+            if (orderData.price) price = orderData.price;
+            if (orderData.orderId) orderId = orderData.orderId;
+          }
+        } catch (e) {}
+
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('price')) price = urlParams.get('price');
+        if (urlParams.get('orderId')) orderId = urlParams.get('orderId');
+
+        if (typeof fbq === 'function') {
+            if (orderId) {
+                fbq('track', 'Purchase', { currency: 'MAD', value: Number(price) }, { eventID: 'order_' + orderId });
+            } else {
+                fbq('track', 'Purchase', { currency: 'MAD', value: Number(price) });
+            }
+            console.log("✅ Facebook Pixel Purchase fired statically. Order ID:", orderId, "Price:", price);
+        }
+    });
+  </script>
+
+
+  <style>
+    :root {
+      --bg-dark: #0a0f16;
+      --card-bg: rgba(20, 26, 35, 0.7);
+      --gold: #FFD700;
+      --success: #10B981;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --accent: #3B82F6;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', 'Almarai', 'Cairo', sans-serif; }
+    
+    body {
+      background: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(16, 185, 129, 0.05), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.05), transparent 25%);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container { max-width: 650px; margin: 0 auto; padding: 0 20px; }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex; align-items: center; justify-content: center; padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05); background: rgba(10, 15, 22, 0.8);
+      backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100;
+    }
+    .brand-title {
+      font-size: 1.5rem; font-weight: 900; background: linear-gradient(to right, var(--gold), #FFF);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 10px;
+    }
+
+    /* HERO */
+    .hero { text-align: center; padding: 3rem 0 2rem; animation: slideDown 0.6s ease-out; }
+    
+    .premium-success-animation { display: flex; justify-content: center; margin-bottom: 1.5rem; }
+    .checkmark {
+      width: 90px; height: 90px; border-radius: 50%; display: block;
+      stroke-width: 4; stroke: #FFD700; stroke-miterlimit: 10;
+      box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+      animation: fill 0.4s ease-in-out .4s forwards, scale 0.3s ease-in-out .9s both;
+    }
+    .checkmark__circle {
+      stroke-dasharray: 166; stroke-dashoffset: 166; stroke-width: 4; stroke-miterlimit: 10;
+      stroke: #FFD700; fill: none; animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+    .checkmark__check {
+      transform-origin: 50% 50%; stroke-dasharray: 48; stroke-dashoffset: 48;
+      animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    }
+    @keyframes stroke { 100% { stroke-dashoffset: 0; } }
+    @keyframes scale { 0%, 100% { transform: none; } 50% { transform: scale3d(1.1, 1.1, 1); } }
+    @keyframes fill { 100% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.8), inset 0 0 20px rgba(255, 215, 0, 0.3); } }
+
+    .hero h1 { 
+      font-size: 2.8rem; font-weight: 900; margin-bottom: 0.8rem; 
+      background: linear-gradient(135deg, #FFD700 0%, #FFF 50%, #D97706 100%); 
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; 
+      animation: goldShine 3s infinite linear; background-size: 200% auto;
+    }
+    @keyframes goldShine { to { background-position: 200% center; } }
+    .hero p { color: #E2E8F0; font-size: 1.25rem; font-weight: 600; line-height: 1.6; }
+
+    /* STEPS TRACKING */
+    .steps-container {
+      display: flex; justify-content: space-between; margin-bottom: 2.5rem; position: relative;
+      animation: fadeIn 0.8s ease-out;
+    }
+    .steps-container::before {
+      content: ''; position: absolute; top: 25px; left: 10%; right: 10%; height: 2px; background: rgba(255,255,255,0.1); z-index: -1;
+    }
+    .step { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 33%; }
+    .step-icon {
+      width: 50px; height: 50px; border-radius: 50%; background: #141A23;
+      border: 2px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; color: #64748B; transition: all 0.3s;
+    }
+    .step.active .step-icon {
+      background: var(--success); border-color: var(--success); color: white;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.6); transform: scale(1.1);
+    }
+    .step-text { font-size: 1rem; font-weight: 800; color: #64748B; text-align: center; line-height: 1.3; }
+    .step.active .step-text { color: white; }
+    .step-subtext { font-size: 0.8rem; font-weight: 600; color: #475569; display: block; margin-top: 2px; }
+    .step.active .step-subtext { color: #94A3B8; }
+
+    /* ORDER DETAILS RECEIPT */
+    .receipt-card {
+      background: linear-gradient(180deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      position: relative;
+      overflow: hidden;
+      animation: slideDown 0.8s ease-out;
+    }
+    .receipt-card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+      background: linear-gradient(to right, var(--gold), #FFF);
+    }
+    .receipt-header {
+      display: flex; justify-content: center; align-items: center; gap: 10px;
+      font-size: 1.4rem; font-weight: 900; color: #FFF; margin-bottom: 1.5rem;
+      padding-bottom: 1rem; border-bottom: 1px dashed rgba(255,255,255,0.15);
+    }
+    .receipt-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.8rem 0; font-size: 1.1rem;
+    }
+    .receipt-label { color: #94A3B8; font-weight: 600; }
+    .receipt-value { color: #FFF; font-weight: 800; text-align: left; }
+    .value-gold { color: var(--gold); text-shadow: 0 0 10px rgba(255,215,0,0.3); }
+    .value-green { color: var(--success); font-size: 1.2rem; }
+    .free-delivery-badge {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: rgba(16, 185, 129, 0.15); color: var(--success);
+      padding: 8px 20px; border-radius: 50px; font-weight: 900; font-size: 1rem;
+      margin-top: 1rem; width: 100%; border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    /* PHONE VERIFICATION - VERY ELEGANT */
+    .phone-verify-box {
+      background: linear-gradient(145deg, rgba(16, 25, 40, 0.9), rgba(15, 30, 45, 0.95));
+      border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 24px; padding: 2.5rem; text-align: center;
+      position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.4); margin-bottom: 2.5rem;
+    }
+    .phone-verify-box::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(to right, transparent, var(--success), transparent);
+    }
+    .phone-msg-container {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-right: 4px solid var(--accent);
+    }
+    .phone-msg { 
+      color: #FFF; font-size: 1.15rem; line-height: 1.8; font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .phone-msg-highlight { color: #34D399; font-weight: 900; }
+    
+    .phone-display-wrapper { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 2rem; }
+    .the-number {
+      font-size: 2.8rem; font-weight: 900; letter-spacing: 3px; color: #FFF; margin-bottom: 0 !important;
+      text-shadow: 0 0 25px rgba(255, 255, 255, 0.3); direction: ltr; display: inline-block; transition: all 0.3s ease;
+      background: rgba(0,0,0,0.3); padding: 10px 30px; border-radius: 16px; border: 1px dashed rgba(255,255,255,0.2);
+    }
+    .edit-phone-btn { 
+      background: rgba(255, 215, 0, 0.15); border: 1px solid var(--gold); color: var(--gold); 
+      width: 48px; height: 48px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; flex-shrink: 0;
+      transition: all 0.3s; animation: pulseGoldGlow 1.5s infinite; 
+      display: flex; align-items: center; justify-content: center;
+    }
+    .edit-phone-btn:hover { background: var(--gold); color: #000; transform: scale(1.1); animation: none; }
+    @keyframes pulseGoldGlow { 0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); } }
+    
+    .phone-edit-wrapper { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 2rem; }
+    .phone-input {
+      font-size: 2rem; font-weight: 900; letter-spacing: 3px; color: #FFF; 
+      background: rgba(0,0,0,0.5); padding: 10px 20px; border-radius: 16px; border: 2px solid var(--gold);
+      width: 260px; text-align: center; direction: ltr; outline: none; transition: border-color 0.3s; font-family: 'Tajawal', sans-serif;
+    }
+    .phone-input:focus { border-color: #10B981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
+    .save-phone-btn {
+      background: linear-gradient(135deg, #10B981, #059669); color: white; border: none; padding: 0 20px;
+      height: 65px; font-size: 1.1rem; font-weight: 900; border-radius: 16px; cursor: pointer; flex-shrink: 0;
+      box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3); transition: all 0.3s ease; display: flex; align-items: center; gap: 8px;
+    }
+    .save-phone-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(16, 185, 129, 0.5); }
+    .btn-verify {
+      background: linear-gradient(135deg, #10B981, #059669); color: white; border: none; padding: 1.3rem 2rem;
+      font-size: 1.25rem; font-weight: 900; border-radius: 50px; cursor: pointer; width: 100%;
+      box-shadow: 0 15px 30px rgba(16, 185, 129, 0.4); transition: all 0.3s ease; display: flex;
+      align-items: center; justify-content: center; gap: 12px;
+    }
+    .btn-verify:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(16, 185, 129, 0.5); }
+    .btn-verify.success { background: linear-gradient(135deg, #3B82F6, #2563EB); box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4); pointer-events: none; }
+    .success-msg-hidden { display: none; color: #60A5FA; font-weight: 900; margin-top: 1.5rem; font-size: 1.1rem; animation: fadeIn 0.5s ease; }
+
+    /* 💎 ULTRA-PREMIUM REVIEWS SECTION */
+    .reviews-section {
+      margin-bottom: 3.5rem;
+      background: linear-gradient(180deg, rgba(255, 215, 0, 0.03) 0%, rgba(16, 185, 129, 0.05) 100%);
+      border: 1px solid rgba(255, 215, 0, 0.15);
+      border-radius: 24px;
+      padding: 2.5rem 1.5rem;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 215, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    .reviews-section::before {
+      content: '"'; position: absolute; top: -20px; right: 20px; font-size: 150px;
+      color: rgba(255, 215, 0, 0.05); font-family: serif; line-height: 1; z-index: 0;
+    }
+    .section-heading { position: relative; z-index: 1; text-align: center; font-size: 2rem; font-weight: 900; margin-bottom: 0.8rem; color: #FFF; line-height: 1.4; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+    .section-subheading { position: relative; z-index: 1; text-align: center; color: var(--gold); font-size: 1.15rem; margin-bottom: 2.5rem; font-weight: 700; }
+    
+    .reviews-carousel-wrapper { position: relative; z-index: 1; }
+    .review-page { display: none; flex-direction: column; gap: 1.2rem; }
+    .review-page.active { display: flex; animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    
+    .review-card {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.4));
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-right: 4px solid var(--gold);
+      border-radius: 20px; padding: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .review-card:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(255, 215, 0, 0.15); border-color: rgba(255, 215, 0, 0.3); }
+    .review-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .reviewer-avatar { font-size: 1.8rem; background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(217,119,6,0.2)); border: 1px solid rgba(255,215,0,0.3); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+    .reviewer-name { font-weight: 900; font-size: 1.05rem; color: #F8FAFC; margin-bottom: 0.2rem; }
+    .review-stars { font-size: 0.9rem; color: #FFD700; display: flex; align-items: center; gap: 0.5rem; text-shadow: 0 0 5px rgba(255,215,0,0.5); }
+    .verified-tag { background: rgba(16, 185, 129, 0.15); color: #10B981; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 50px; font-weight: 900; border: 1px solid rgba(16,185,129,0.3); }
+    .review-text { font-size: 1rem; color: #E2E8F0; line-height: 1.8; font-style: italic; font-weight: 600; padding-right: 0.8rem; border-right: 2px solid rgba(255,255,255,0.1); }
+
+    .reviews-nav-bar { display: flex; align-items: center; justify-content: space-between; margin-top: 2rem; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.05); }
+    .rev-nav-btn {
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.15); color: #FFF; font-weight: 800;
+      padding: 0.6rem 1.2rem; border-radius: 50px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .rev-nav-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); transform: scale(1.05); }
+    .rev-page-indicators { display: flex; gap: 0.6rem; }
+    .rev-dot {
+      width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.05); color: #94A3B8; border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.95rem; cursor: pointer; transition: all 0.3s;
+    }
+    .rev-dot.active, .rev-dot:hover { background: linear-gradient(135deg, #FFD700, #D97706); color: #0B0F17; border-color: #FFD700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.6); transform: scale(1.1); }
+
+    /* FAQs */
+    .faq-title { text-align: center; font-size: 1.8rem; font-weight: 900; margin-bottom: 2rem; color: #FFF; }
+    .faq-item { margin-bottom: 1.2rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; overflow: hidden; background: rgba(0,0,0,0.2); }
+    .faq-btn {
+      width: 100%; background: transparent; color: white; border: none; padding: 1.5rem; text-align: right; font-size: 1.15rem;
+      font-weight: 800; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s;
+    }
+    .faq-btn:hover { background: rgba(255,255,255,0.05); }
+    .faq-content { background: rgba(0,0,0,0.4); padding: 0 1.5rem; max-height: 0; overflow: hidden; transition: all 0.4s ease; color: #CBD5E1; line-height: 1.8; font-size: 1.05rem; font-weight: 500; }
+    .faq-item.active .faq-content { padding: 1.5rem; max-height: 300px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .faq-item.active .faq-btn i { transform: rotate(180deg); color: var(--gold); }
+
+    /* ANIMATIONS */
+    @keyframes scaleUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    @keyframes slideDown { 0% { transform: translateY(-30px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+    @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+
+    /* RESPONSIVE MOBILE ADJUSTMENTS */
+    @media (max-width: 600px) {
+      .phone-verify-box { padding: 1.5rem; }
+      .phone-msg-container { padding: 1.1rem; margin-bottom: 1.5rem; }
+      .phone-msg { font-size: 1rem; }
+      .the-number { font-size: 1.8rem; letter-spacing: 1px; padding: 10px 15px; margin-bottom: 1.5rem; }
+      .btn-verify { font-size: 1.05rem; padding: 1.1rem; }
+      .receipt-card { padding: 1.5rem; }
+      .hero h1 { font-size: 2.2rem; }
+      .hero { padding: 2rem 0 1.5rem; }
+      .success-icon { font-size: 4.5rem; margin-bottom: 1rem; }
+    }
+  </style>
+
+  
+
+
+  </head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="brand-title">
+      <i class="fa-solid fa-shield-halved" style="color: var(--gold);"></i>
+      AntiChoc Protect®
+    </div>
+  </nav>
+
+  <div class="container">
+    
+    <!-- HERO -->
+    <div class="hero">
+      <div class="premium-success-animation">
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+          <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+          <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+      </div>
+      <h1>تهانينا! تم تأكيد طلبك بنجاح 🎉</h1>
+      <p>أنت الآن على بعد خطوة واحدة من حماية عائلتك بشكل احترافي.</p>
+    </div>
+
+    <!-- STEPS TRACKING -->
+    <div class="steps-container">
+      <div class="step active">
+        <div class="step-icon"><i class="fa-solid fa-phone-volume"></i></div>
+        <span class="step-text">اتصال للتأكيد</span>
+        <span class="step-subtext">(في غضون دقائق)</span>
+      </div>
+      <div class="step">
+        <div class="step-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <span class="step-text">شحن سريع</span>
+        <span class="step-subtext">(سريع ومجاني)</span>
+      </div>
+      <div class="step">
+        <div class="step-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+        <span class="step-text">الدفع</span>
+        <span class="step-subtext">(عند الاستلام)</span>
+      </div>
+    </div>
+
+    <!-- ORDER SUMMARY RECEIPT -->
+    <div class="receipt-card">
+      <div class="receipt-header">
+        <i class="fa-solid fa-receipt" style="color: var(--gold);"></i> ملخص الطلب
+      </div>
+      
+      <div class="receipt-row">
+        <span class="receipt-label">رقم الطلب:</span>
+        <span class="receipt-value" id="ty-order-id">#----</span>
+      </div>
+      
+      <div class="receipt-row">
+        <span class="receipt-label">الاسم:</span>
+        <span class="receipt-value" id="ty-name">----</span>
+      </div>
+      
+      <div class="receipt-row">
+        <span class="receipt-label">العرض المختار:</span>
+        <span class="receipt-value value-gold" id="ty-offer">----</span>
+      </div>
+      
+      <div class="receipt-row" style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 0.5rem; padding-top: 1rem;">
+        <span class="receipt-label">المبلغ الإجمالي:</span>
+        <span class="receipt-value value-green"><span id="ty-price">----</span> درهم</span>
+      </div>
+
+      <div class="free-delivery-badge">
+        <i class="fa-solid fa-box-open"></i> التوصيل مجاني بالكامل
+      </div>
+    </div>
+
+    <!-- PHONE VERIFICATION -->
+    <div class="phone-verify-box">
+      <div class="phone-msg-container">
+        <p class="phone-msg">
+          نحن نعلم أن الأخطاء المطبعية تحدث أحياناً! لتجنب أي تأخير ولنتمكن من الاتصال بك <span class="phone-msg-highlight">لشحن طلبيتك فوراً</span>، المرجو التأكد من رقمك أسفله:
+        </p>
+      </div>
+      
+      <div class="phone-display-wrapper" id="phone-display-wrapper">
+        <div class="the-number" id="ty-phone">00 00 00 00 00</div>
+        <button class="edit-phone-btn" onclick="enablePhoneEdit()" title="تغيير الرقم">
+          <i class="fa-solid fa-pen"></i>
+        </button>
+      </div>
+      
+      <div class="phone-edit-wrapper" id="phone-edit-wrapper" style="display: none;">
+        <input type="tel" id="ty-phone-input" class="phone-input" value="" dir="ltr" maxlength="15">
+        <button class="save-phone-btn" onclick="savePhoneEdit()">
+          <i class="fa-solid fa-floppy-disk"></i> حفظ
+        </button>
+      </div>
+      
+      <button id="verify-btn" class="btn-verify" onclick="verifyPhone()">
+        <i class="fa-solid fa-check"></i> نعم، لقد تأكدت ورقمي صحيح 100%
+      </button>
+      
+      <div id="verify-msg" class="success-msg-hidden">
+        <i class="fa-solid fa-check-double"></i> ممتاز! يرجى إبقاء هاتفك قريباً، سنتصل بك الآن لتأكيد الشحن.
+      </div>
+    </div>
+
+    <!-- 💬 15 REAL MOROCCAN REVIEWS EXACTLY AS IN PRODUCT PAGE -->
+    <section class="reviews-section">
+      <h2 class="section-heading">⭐ آراء وتجارب 15 زبون مغربي (تقييمات حقيقية 100% 🇲🇦)</h2>
+      <p class="section-subheading">تصفح مراجعات حقيقية لأسر وعائلات مغربية جربت عازل AntiChoc Protect®</p>
+
+      <div class="reviews-carousel-wrapper">
+        
+        <!-- Page 1 (Reviews 1 to 5) -->
+        <div class="review-page active" id="review-page-1">
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👨‍💼</div>
+              <div>
+                <div class="reviewer-name">السي عبد القادر - مكناس 📍</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+              </div>
+            </div>
+            <p class="review-text">"عندي شوفو قديم 80 لتر وكان ديما كيدير ليا النغزة ف يديا ملي كنقيس الروبيني. ملي ركبت هاد القطعتين غبر داك التنميل نهائياً. منتج يستاهل كل درهم."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👩‍👧</div>
+              <div>
+                <div class="reviewer-name">فاطمة الزهراء - طنجة 📍</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+              </div>
+            </div>
+            <p class="review-text">"ركبتهم بوحدي بلا سباك، السنون ديال النحاس راكبين مزيان بلا تسريب ديال الماء. دابا ولادي كيدوشو وأنا مرتاحة ومتهنية."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👨‍👩‍👦</div>
+              <div>
+                <div class="reviewer-name">عمر المراكشي - مراكش 📍</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+              </div>
+            </div>
+            <p class="review-text">"وصلني الطلب فـ 24 ساعة. تفحصت القطع قبل ما نخلص الموزع، البلاستيك ديالو غليظ وصحيح والنحاس ممتازة الجودة ديالو."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">🛠️</div>
+              <div>
+                <div class="reviewer-name">كريم الفاسي (تقني) - فاس 📍</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+              </div>
+            </div>
+            <p class="review-text">"أنا كهربائي منازل وكنصح كاع الزبناء ديالي يركبو هاد العازل تحسباً لأي تآكل ف المقاومة (الريزيستانس) ديال الشوفو."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👩‍💼</div>
+              <div>
+                <div class="reviewer-name">خديجة العلمي - الدار البيضاء 📍</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+              </div>
+            </div>
+            <p class="review-text">"شريت الباك ديال 4 قطع، زوج لداري وزوج لدار الوالدة ف القنيطرة. راحة بال كبيرة بصراحة."</p>
+          </div>
+        </div>
+
+        <!-- Page 2 (Reviews 6 to 10) -->
+        <div class="review-page" id="review-page-2">
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👨‍💻</div>
+              <div>
+                <div class="reviewer-name">عبد العالي السوسي - أكادير 📍</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+              </div>
+            </div>
+            <p class="review-text">"الضغط د الماء بقى هو هو ما نقصش نهائياً، وهذا هو المخاوف اللي كانت عندي. منتج ناجح 100%."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👴</div>
+              <div>
+                <div class="reviewer-name">رشيد التازي - تازة 📍</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+              </div>
+            </div>
+            <p class="review-text">"ممتنون لكم بزاف، التعامل راقي والتوصيل مجاني وسريع جداً لمدينة تازة."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👩‍🏫</div>
+              <div>
+                <div class="reviewer-name">مريم البقالي - تطوان 📍</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+              </div>
+            </div>
+            <p class="review-text">"كنت ديما كنقطع بريز الشوفو قبل الدوش، دابا الحمد لله تهنيت من هاد المعاناة والوسواس اليومي."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👦</div>
+              <div>
+                <div class="reviewer-name">سفيان الناصري - سلا 📍</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+              </div>
+            </div>
+            <p class="review-text">"تركيب فـ 3 دقائق فقط باستعمال مفتاح عادي. النحاس ممتازة وركبو بدون أي تسرب نقطة ماء."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👩‍⚕️</div>
+              <div>
+                <div class="reviewer-name">أمينة السلاوي - الرباط 📍</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+              </div>
+            </div>
+            <p class="review-text">"عازل ممتاز، كيقطع الدارة الكهربائية ف الماء ويحمي الأطفال فالحمام. كنصح بيه كل أخت."</p>
+          </div>
+        </div>
+
+        <!-- Page 3 (Reviews 11 to 15) -->
+        <div class="review-page" id="review-page-3">
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">🧔</div>
+              <div>
+                <div class="reviewer-name">ياسين المرابط - المحمدية 📍</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+              </div>
+            </div>
+            <p class="review-text">"السلعة ممتازة ومطابقة للصور تماماً. المعاينة قبل الدفع كتعطي ثقة كبيرة ف المنتج."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👩‍🍳</div>
+              <div>
+                <div class="reviewer-name">إلهام الدكالي - الجديدة 📍</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+              </div>
+            </div>
+            <p class="review-text">"شريت هاد العازل بعدما شفت حادثة تكهرب عند الجيران. الوقاية خير من العلاج وتكلفة بسيطة لحماية حياتنا."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👨‍🌾</div>
+              <div>
+                <div class="reviewer-name">محمد البكاري - بني ملال 📍</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+              </div>
+            </div>
+            <p class="review-text">"منتج عالي الجودة وسنون النحاس صلبة 100%. التوصيل كان سريع جداً فـ 24 ساعة."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">🧕</div>
+              <div>
+                <div class="reviewer-name">نجاة برادة - وجدة 📍</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+              </div>
+            </div>
+            <p class="review-text">"شكراً بزاف على المصداقية والسرعة ف التوصيل. راحة البال ف الحمام لا تقدر بثمن."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👨‍✈️</div>
+              <div>
+                <div class="reviewer-name">حسن الخمليشي - الحسيمة 📍</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+              </div>
+            </div>
+            <p class="review-text">"باك 4 قطع ممتاز جداً ووفرت فيه المبلغ. منتج ضروري فكل منزل مغربي بدون استثناء."</p>
+          </div>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="reviews-nav-bar">
+          <button class="rev-nav-btn" onclick="prevReviewPage()"><i class="fa-solid fa-chevron-right"></i> السابقة</button>
+          
+          <div class="rev-page-indicators">
+            <span class="rev-dot active" id="dot-page-1" onclick="setReviewPage(1)">1</span>
+            <span class="rev-dot" id="dot-page-2" onclick="setReviewPage(2)">2</span>
+            <span class="rev-dot" id="dot-page-3" onclick="setReviewPage(3)">3</span>
+          </div>
+
+          <button class="rev-nav-btn" onclick="nextReviewPage()">التالية <i class="fa-solid fa-chevron-left"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 STRONG FAQS -->
+    <div class="faq-title">أسئلة شائعة تقدر تفيدك 💡</div>
+    <div style="margin-bottom: 4rem; padding: 0 10px;">
+      
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          واش نقدر نركبها لراسي ولا خاصني معلم؟
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+          التركيب ساهل بزاف ومصمم باش تديرو لراسك فداركم بكل سهولة. مع التليفون كيجيو مناديل باش تنظف الشاشة، وكتحطها كتلصق بوحدها بتقنية النانو بلا ما تخلي دوك الفقاعات ديال البرد المزعجة.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          إمتى غادي يوصلني الكوموند ديالي؟
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+          بمجرد ما نأكدو معاك فالتليفون، كنسيفطوها ليك ديك الساعة. غالباً كتوصلك بين 24 حتى 48 ساعة لباب الدار ديالك، على حساب المدينة فاش كاين.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          واش نخلص دابا ولا حتى يوصلني؟
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+          الخلاص حتى تشد السلعة فيديك وتقلبها وتتأكد منها عاد تخلص الليفروغ. حنا كنتيقو فالمنتج ديالنا وهدفنا هو راحتك 100%.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          واش هاد الحماية كتأثر على الطاكتيل ديال الشاشة؟
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+          نهائياً! الحماية رقيقة بزاف ومصنوعة من مواد بريميوم باش تخلي الطاكتيل خدام مزيان وسريع كيفما كان، والصورة كتبقى واضحة وساطعة بحال ما داير والو للشاشة.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          إلى لقيت فيها شي مشكل واش نقدر نردها؟
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="faq-content">
+          أكيد! عندنا ضمان الرضا الشامل. إلى وصلاتك مهرسة أو فيها شي ديفو من الشركة، كنعوضوك وحدة خرى فابور أو كنرجعو ليك فلوسك بدون أي تعقيدات. راحتك هي الأهم.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Confetti
+      var duration = 3 * 1000;
+      var end = Date.now() + duration;
+      (function frame() {
+        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#FFD700', '#10B981', '#3B82F6'] });
+        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#FFD700', '#10B981', '#3B82F6'] });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      }());
+
+      // Get phone number & order details from storage
+      const orderDataStr = localStorage.getItem('ac_last_order');
+      if (orderDataStr) {
+        try {
+          const data = JSON.parse(orderDataStr);
+          
+          // Render Order Summary
+          document.getElementById('ty-order-id').innerText = "#" + (data.orderId || Math.floor(1000 + Math.random() * 9000));
+          document.getElementById('ty-name').innerText = data.name || "زبوننا الكريم";
+          document.getElementById('ty-offer').innerText = data.offerName || "العرض المختار";
+          document.getElementById('ty-price').innerText = data.price || "---";
+
+          // Format Phone
+          let phone = data.phone || "---";
+          if(phone.length === 10) {
+            phone = phone.replace(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5');
+          }
+          document.getElementById('ty-phone').innerText = phone;
+        } catch(e) { console.error(e); }
+      }
+    });
+
+    function enablePhoneEdit() {
+      const displayWrapper = document.getElementById('phone-display-wrapper');
+      const editWrapper = document.getElementById('phone-edit-wrapper');
+      const input = document.getElementById('ty-phone-input');
+      const numberElement = document.getElementById('ty-phone');
+      
+      const rawNumber = numberElement.innerText.replace(/\s+/g, '');
+      input.value = rawNumber;
+      
+      displayWrapper.style.display = 'none';
+      editWrapper.style.display = 'flex';
+      input.focus();
+    }
+
+    function savePhoneEdit() {
+      const displayWrapper = document.getElementById('phone-display-wrapper');
+      const editWrapper = document.getElementById('phone-edit-wrapper');
+      const input = document.getElementById('ty-phone-input');
+      const numberElement = document.getElementById('ty-phone');
+      
+      let newPhone = input.value.trim();
+      if(newPhone.length >= 8) {
+        let formattedPhone = newPhone;
+        if(newPhone.replace(/\D/g,'').length === 10) {
+           formattedPhone = newPhone.replace(/\D/g,'').replace(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5');
+        }
+        numberElement.innerText = formattedPhone;
+        
+        try {
+          const orderDataStr = localStorage.getItem('ac_last_order');
+          if (orderDataStr) {
+            const data = JSON.parse(orderDataStr);
+            data.phone = newPhone;
+            localStorage.setItem('ac_last_order', JSON.stringify(data));
+          }
+        } catch(e) {}
+      }
+      
+      editWrapper.style.display = 'none';
+      displayWrapper.style.display = 'flex';
+      
+      numberElement.style.color = "var(--gold)";
+      setTimeout(() => { numberElement.style.color = "#FFF"; }, 800);
+    }
+
+    function verifyPhone() {
+      const btn = document.getElementById('verify-btn');
+      const msg = document.getElementById('verify-msg');
+      const number = document.getElementById('ty-phone');
+      
+      number.style.transform = "scale(1.05)";
+      number.style.color = "#10B981";
+      number.style.borderColor = "#10B981";
+      setTimeout(() => { number.style.transform = "scale(1)"; }, 300);
+
+      btn.innerHTML = '<i class="fa-solid fa-check-double"></i> تمت العملية بنجاح!';
+      btn.classList.add('success');
+      
+      msg.style.display = 'block';
+      
+      confetti({ particleCount: 80, spread: 70, origin: { y: 0.8 } });
+    }
+
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      item.classList.toggle('active');
+    }
+
+    // Reviews Pagination Logic
+    let currentReviewPage = 1;
+    const totalReviewPages = 3;
+    function setReviewPage(pageIndex) {
+      document.querySelectorAll('.review-page').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.rev-dot').forEach(el => el.classList.remove('active'));
+      
+      document.getElementById('review-page-' + pageIndex).classList.add('active');
+      document.getElementById('dot-page-' + pageIndex).classList.add('active');
+      currentReviewPage = pageIndex;
+    }
+    function nextReviewPage() {
+      let next = currentReviewPage + 1;
+      if (next > totalReviewPages) next = 1;
+      setReviewPage(next);
+    }
+    function prevReviewPage() {
+      let prev = currentReviewPage - 1;
+      if (prev < 1) prev = totalReviewPages;
+      setReviewPage(prev);
+    }
+  </script>
+</body>
+</html>

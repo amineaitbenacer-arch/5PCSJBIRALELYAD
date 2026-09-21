@@ -1,104 +1,119 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import BottomSheet from './components/BottomSheet';
 import ExitPopup from './components/ExitPopup';
 
 const PRODUCT_IMAGES = [
-  { id: 1, src: '/images/product-action.jpg', alt: 'جبيرة الأصابع أثناء الاستخدام' },
-  { id: 2, src: '/images/premium-packaging.jpg', alt: 'تغليف احترافي وطبي' },
-  { id: 3, src: '/images/material-closeup.jpg', alt: 'تفاصيل المواد عالية الجودة' },
-  { id: 4, src: '/images/happy-customer.jpg', alt: 'عميلة سعيدة بالنتائج' },
+  { id: 1, src: '/images/product-action.jpg', alt: 'جبيرة الأصابع الطبية أثناء الاستخدام اليومي' },
+  { id: 2, src: '/images/premium-packaging.jpg', alt: 'تغليف احترافي وطبي يحافظ على جودة المنتج' },
+  { id: 3, src: '/images/material-closeup.jpg', alt: 'تفاصيل الألومنيوم الطبي والفوم المريح' },
+  { id: 4, src: '/images/happy-customer.jpg', alt: 'عميلة تستمتع بحياتها بدون ألم بفضل الجبيرة' },
 ];
 
 const OFFERS = [
-  { id: 1, name: 'Pack 5 قطع', pieces: 5, price: 179, desc: 'جبائر لليد الواحدة 🩹', popular: false },
-  { id: 2, name: 'Pack 10 قطع', pieces: 10, price: 279, desc: 'حماية كاملة لليدين ⭐', popular: true },
-  { id: 3, name: 'Pack 15 قطع', pieces: 15, price: 349, desc: 'باك العائلة الكامل 🔥', popular: false },
+  { id: 1, name: 'طقم العناية الفردية', pieces: 5, price: 179, desc: '5 قطع 🩹 لليد الواحدة', popular: false },
+  { id: 2, name: 'طقم الحماية الكاملة', pieces: 10, price: 279, desc: '10 قطع ⭐ لليدين + توفير 79 درهم', popular: true },
+  { id: 3, name: 'طقم العائلة الطبي', pieces: 15, price: 349, desc: '15 قطعة 🔥 لك ولعائلتك (أقوى عرض)', popular: false },
 ];
 
 const REVIEWS_PAGE_1 = [
-  { name: 'أم أحمد - الدار البيضاء 📍', avatar: '👩‍👧', text: '"كنت كنعاني من ألم فصوابعي مللي كنطيب وكنخدم. من مللي بديت نستعمل هاد الجبائر، الألم نقص بزاف والحمد لله. المنتج ممتاز وخفيف بزاف."' },
-  { name: 'يوسف المراكشي - مراكش 📍', avatar: '👨‍💼', text: '"أنا حرفي وصوابعي دايما كيتعرضو للإصابات. هاد الجبائر ساعدوني بزاف فالتعافي. الجودة عالية والتوصيل كان سريع فـ 24 ساعة."' },
-  { name: 'فاطمة الزهراء - فاس 📍', avatar: '👩‍⚕️', text: '"جربت بزاف ديال المنتجات قبل، هادي هي الأحسن. المادة مريحة بزاف وما كتضايقش. الثمن معقول مقارنة بالصيدليات."' },
-  { name: 'كريم التازي (معالج فيزيائي) - الرباط 📍', avatar: '🛠️', text: '"كمعالج فيزيائي كنصح بهاد الجبائر لكل واحد عندو مشكل فالأصابع. الألومنيوم خفيف والفوم مريح بزاف. منتج يستاهل."' },
-  { name: 'خديجة العلمي - القنيطرة 📍', avatar: '👩‍💼', text: '"شريت الباك ديال 10 قطع، 5 ليا و5 للوالدة. راحة بال كبيرة بصراحة والتوصيل كان مجاني."' },
+  { name: 'فاطمة الزهراء - الدار البيضاء 📍', avatar: '👩‍👧', text: '"مع الشغل ديال الدار والطياب، صوابعي ولاو كيتشنجو عليا فالليل ومكنقدرش نعس من الحريق. جربت بومادات غاليين بلا فايدة. هاد الجبيرة هي اللي فكاتني، كنلبسها وفالصباح كنلقى صبعي مسرح وبلا ألم نهائياً!"' },
+  { name: 'رشيد - مراكش 📍', avatar: '👨‍🔧', text: '"أنا نجار وخدمتي كلها بيديا. هادي سيمانة وتلوا ليا صبعي وبقيت حابس الخدمة. فاش درت هاد الجبيرة، ثبتات ليا الصبع مزيان وخففات عليا الحريق لدرجة رجعت للورشة ديالي فنهار الثالث. جودة عالية!"' },
+  { name: 'أميمة - طنجة 📍', avatar: '👩‍💻', text: '"بصفتي خدامة فمركز النداء (Call Center)، كنكتب بزاف فالكلافيي حتى جاني مرض (إصبع الزناد). هاد الجبائر عتقوني، مريحين بزاف ومكيأثروش على الخدمة ديالي. كنصح بيهم بشدة!"' },
+  { name: 'د. سمير (أخصائي عظام) - الرباط 📍', avatar: '👨‍⚕️', text: '"كمتخصص، أؤكد أن العلاج الفيزيائي بتثبيت المفصل هو الحل الأنجع لالتهاب الأوتار. هذه الجبائر مصممة بطريقة طبية ممتازة (ألومنيوم مرن + فوم يسمح بالتهوية). أنصح بها مرضاي دائماً."' },
+  { name: 'الحاجة خديجة - فاس 📍', avatar: '🧕', text: '"ولدي جابهم ليا حيت عندي الروماتيزم وصوابعي كيعواجّو. الصراحة ارتاحيت عليهم بزاف، خفاف وما كيضيقوش، وليت كنقدر نشد الكاس ونصلي بيهم عادي. الله يرضي عليكم."' },
 ];
 
 const REVIEWS_PAGE_2 = [
-  { name: 'عبد العالي - أكادير 📍', avatar: '👨‍💻', text: '"الجبيرة ما كتأثرش على الحركة ديال الصبع، غير كتثبتو وكتخفف الألم. منتج ناجح 100%."' },
-  { name: 'رشيد التطواني - تطوان 📍', avatar: '👴', text: '"ممتنون لكم بزاف، التعامل راقي والتوصيل مجاني وسريع جداً. الجودة ممتازة."' },
-  { name: 'مريم البقالي - طنجة 📍', avatar: '👩‍🏫', text: '"كنت ديما كنشري من الصيدلية بثمن غالي. هاد الجبائر أحسن وأرخص. الألومنيوم متين والفوم مريح."' },
-  { name: 'سفيان الناصري - سلا 📍', avatar: '👦', text: '"5 قطع بهاد الثمن فرصة ما كتتعاودش. الجودة عالية وكتحس بفرق كبير من أول استعمال."' },
-  { name: 'أمينة السلاوي - المحمدية 📍', avatar: '👩‍⚕️', text: '"جبائر ممتازة، ساعدو الوالد ديالي بزاف فالتعافي من الإصابة. كنصح بيهم لكل عائلة."' },
+  { name: 'عادل السوسي - أكادير 📍', avatar: '👨‍💼', text: '"الجبيرة ما كتأثرش على الدورة الدموية ديال الصبع، غير كتثبتو وكتخفف الألم. شريت باك 10 قطع ليا وللوالدة، منتج ناجح 100% والتوصيل كان فالموعد."' },
+  { name: 'سناء - تطوان 📍', avatar: '👩‍🏫', text: '"ممتنون لكم بزاف، التعامل راقي والتوصيل مجاني وسريع جداً. جربتها وأنا ناعسة، الفوم رطب بزاف وما كيخليش العرق."' },
+  { name: 'مريم البقالي - القنيطرة 📍', avatar: '👩‍⚕️', text: '"كنت ديما كنشري من الفرماسيان بثمن غالي وكيخسرو دغيا. هاد الجبائر أحسن وأرخص. الألومنيوم متين والفوم كيتغسل وكيرجع نقي."' },
+  { name: 'سفيان - سلا 📍', avatar: '👦', text: '"طحت فالماتش ديال الكورة وتنفخ ليا صبعي. درت الجبيرة 3 أيام ورجع صبعي عادي. الثمن مناسب جداً مقارنة بالجودة الخيالية."' },
+  { name: 'أمينة - المحمدية 📍', avatar: '👩‍🍳', text: '"كمصممة حلويات، يدي هي راس مالي. هاد المنتج خلاني نكمل طلبات الكليان بلا ما نزيد نهلك صوابعي. شكرا لكم!"' },
 ];
 
 const REVIEWS_PAGE_3 = [
-  { name: 'ياسين المرابط - مكناس 📍', avatar: '🧔', text: '"السلعة ممتازة ومطابقة للصور تماماً. المعاينة قبل الدفع كتعطي ثقة كبيرة ف المنتج."' },
-  { name: 'إلهام الدكالي - الجديدة 📍', avatar: '👩‍🍳', text: '"شريت هاد الجبائر بعدما نصحتني صاحبتي. فعلاً مريحة بزاف وكتخفف الألم من أول يوم."' },
-  { name: 'محمد البكاري - بني ملال 📍', avatar: '👨‍🌾', text: '"منتج عالي الجودة والألومنيوم صلب 100%. التوصيل كان سريع جداً فـ 24 ساعة."' },
-  { name: 'نجاة برادة - وجدة 📍', avatar: '🧕', text: '"شكراً بزاف على المصداقية والسرعة ف التوصيل. راحة البال وتخفيف الألم لا يقدران بثمن."' },
-  { name: 'حسن الخمليشي - الحسيمة 📍', avatar: '👨‍✈️', text: '"باك 10 قطع ممتاز جداً ووفرت فيه المبلغ. منتج ضروري عند كل واحد عندو مشكل فصوابعو."' },
+  { name: 'ياسين المرابط - مكناس 📍', avatar: '🧔', text: '"السلعة ممتازة ومطابقة للصور تماماً. المعاينة قبل الدفع كتعطي ثقة كبيرة ف المنتج. الموزع كان قمة فالأخلاق."' },
+  { name: 'إلهام الدكالي - الجديدة 📍', avatar: '👩‍🔬', text: '"شريت هاد الجبائر بعدما نصحتني صاحبتي. فعلاً مريحة بزاف، كنديرها حتى وأنا كانسوق الطوموبيل بلا مشكل."' },
+  { name: 'محمد البكاري - بني ملال 📍', avatar: '👨‍🌾', text: '"الفلاحة كتهلك اليدين، وهاد الجبيرة ريحاتني بزاف خصوصا فالبرد فاش كيزيد الحريق. الألومنيوم صلب 100%."' },
+  { name: 'نجاة برادة - وجدة 📍', avatar: '🧕', text: '"شكراً بزاف على المصداقية. راحة البال وتخفيف الألم لا يقدران بثمن. الله يجازيكم بخير."' },
+  { name: 'حسن - الحسيمة 📍', avatar: '👨‍✈️', text: '"باك 10 قطع ممتاز جداً ووفرت فيه المبلغ. منتج ضروري خاصو يكون فصيدلية أي دار كإسعافات أولية."' },
 ];
 
 const ALL_REVIEWS = [REVIEWS_PAGE_1, REVIEWS_PAGE_2, REVIEWS_PAGE_3];
 
 const FAQS = [
-  { q: 'واش التوصيل مجاني فعلاً؟ 🚚', a: 'نعم 100%! التوصيل مجاني لجميع المدن المغربية بدون استثناء. ما كتخلص حتى درهم زايد. التوصيل بين 24 و 72 ساعة.' },
-  { q: 'كيفاش نخلص؟ واش خاصني نخلص مقدماً؟ 💳', a: 'لا أبداً! الدفع عند الاستلام. ما كتخلصش حتى توصلك السلعة ليدك. حل الطرد وتفحص الجودة عاد خلص الموزع!' },
-  { q: 'واش مناسبة لكل الأصابع والأحجام؟ ✋', a: 'نعم! الجبائر قابلة للتعديل والتشكيل ومناسبة لجميع أحجام الأصابع. الألومنيوم مرن وكتقدر تعدلو حسب الصبع ديالك.' },
-  { q: 'واش هاد الجبائر كتخدم فعلاً ولا غير بلاسيبو؟ 🩹', a: 'أكيد كتخدم! جبائر الأصابع من ألومنيوم طبي مع فوم مريح كتثبت الصبع فالوضعية الصحيحة وكتساعد فالتعافي. مستعملة من طرف المعالجين الفيزيائيين.' },
-  { q: 'شحال ديال الوقت خاصني نلبسها فاليوم؟ ⏰', a: 'عادة كتلبسها بين 2 و 8 ساعات فاليوم حسب الحالة. ممكن تلبسها فالنهار وقت الخدمة ولا فالليل وقت النعاس. ساهلة ومريحة.' },
-  { q: 'واش كاين شي ضمان على المنتج؟ 🏆', a: 'بكل تأكيد! نحن نثق في جودة منتجنا 100%. تقدر تتفحص المنتج قبل ما تخلص. إذا ما عجبكش، ترجعو بدون ما تخلص شي حاجة.' },
+  { q: 'واش التوصيل مجاني فعلاً؟ 🚚', a: 'نعم 100%! التوصيل مجاني لجميع المدن المغربية بدون استثناء. ما كتخلص حتى درهم زايد. التوصيل سريع بين 24 و 72 ساعة حسب مدينتك.' },
+  { q: 'كيفاش نخلص؟ واش خاصني نخلص مقدماً؟ 💳', a: 'لا أبداً! الدفع عند الاستلام. ما كتخلصش حتى توصلك السلعة ليدك. من حقك تحل الطرد وتفحص الجودة ديال الجبيرة عاد خلص الموزع وأنت مرتاح!' },
+  { q: 'واش هاد الجبيرة كتناسب ݣاع الأصابع؟ (حتى الإبهام؟) ✋', a: 'نعم بالتأكيد! الجبائر مصممة بشريط فيلكرو (Scratch) قابل للتعديل بالكامل. كتقدر تزيرها أو ترخفيها حسب حجم صبعك، وكتناسب جميع الأصابع بما فيها الإبهام (Le pouce).' },
+  { q: 'واش هاد الجبائر كتخدم فعلاً ولا غير هضرة؟ 🩹', a: 'هذا ليس مجرد منتج، بل هو "جهاز طبي مصغر". الألومنيوم الطبي يمنع حركة الوتر الملتهب ليعطيه فرصة للشفاء الذاتي، بينما الفوم يوفر الراحة. الأطباء يصفون التثبيت كأول علاج قبل الجراحة!' },
+  { q: 'واش نقدر نغسل يدي وأنا لابسها؟ 💧', a: 'نعم، الفوم مقاوم للماء ويمكن غسله برفق بصابون خفيف وتركه ليجف. لكن يُنصح بنزعها عند الاستحمام للحفاظ على الشريط اللاصق لأطول مدة ممكنة.' },
+  { q: 'واش نقدر ننعس بيها فالليل؟ 🛌', a: 'طبعاً! الليل هو أفضل وقت لاستعمالها. معظم الناس يعانون من تصلب الأصابع في الصباح (تشنج الأصابع). لبسها ليلاً يمنع انحناء الإصبع أثناء النوم ويخلصك من ألم الصباح المزعج.' },
+  { q: 'ماذا لو لم يعجبني المنتج؟ هل هناك ضمان؟ 🏆', a: 'بكل تأكيد! نحن نثق في جودة منتجنا 100%. نقدم لك "الضمان الذهبي": تفحص المنتج قبل الدفع. إذا لم يعجبك أو لم يكن مطابقاً للصور، أرجعه للموزع مجاناً دون دفع أي درهم.' },
 ];
 
 export default function Home() {
   const [mainImage, setMainImage] = useState(PRODUCT_IMAGES[0]);
-  const [selectedOffer, setSelectedOffer] = useState(OFFERS[0]);
+  const [selectedOffer, setSelectedOffer] = useState(OFFERS[1]);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [reviewPage, setReviewPage] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [viewers, setViewers] = useState(43);
+
+  // Simulated live viewers counter
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setViewers(prev => {
+        const change = Math.floor(Math.random() * 5) - 2; // -2 to +2
+        return Math.max(25, Math.min(85, prev + change));
+      });
+    }, 4500);
+    return () => clearInterval(interval);
+  }, []);
 
   const openBottomSheet = useCallback(() => setIsBottomSheetOpen(true), []);
-
-  const toggleFaq = useCallback((index: number) => {
-    setOpenFaq(prev => prev === index ? null : index);
-  }, []);
+  const toggleFaq = useCallback((index: number) => setOpenFaq(prev => prev === index ? null : index), []);
 
   return (
     <div className="main-content">
-      {/* ===== MARQUEE BANNER ===== */}
+      {/* ===== 1. ULTRA-AGRESSIVE MARQUEE BANNER ===== */}
       <div className="marquee-container">
         <div className="marquee-text">
-          🚚 توصيل مجاني لجميع المدن المغربية &nbsp;&nbsp;|&nbsp;&nbsp; 💳 الدفع عند الاستلام &nbsp;&nbsp;|&nbsp;&nbsp; 🤝 المعاينة قبل الدفع &nbsp;&nbsp;|&nbsp;&nbsp; 🚚 توصيل مجاني لجميع المدن المغربية &nbsp;&nbsp;|&nbsp;&nbsp; 💳 الدفع عند الاستلام &nbsp;&nbsp;|&nbsp;&nbsp; 🤝 المعاينة قبل الدفع
+          🚀 عروض حصرية: توصيل آمن 100% لكافة المدن المغربية 🇲🇦 | 🎁 الدفع عند الاستلام | 🤝 المعاينة قبل الدفع | 🚀 عروض حصرية: توصيل آمن 100% لكافة المدن المغربية 🇲🇦 | 🎁 الدفع عند الاستلام | 🤝 المعاينة قبل الدفع
         </div>
       </div>
 
-      {/* ===== NAVBAR ===== */}
+      {/* ===== 2. LUXURY NAVBAR ===== */}
       <nav className="luxury-navbar">
         <div className="nav-brand">
-          <span style={{ fontSize: 22 }}>🩹</span>
-          <h1 className="nav-title">Finger<span className="nav-title-accent">Care</span></h1>
+          <span style={{ fontSize: 28, filter: 'drop-shadow(0 0 4px rgba(16,185,129,0.3))' }}>🩹</span>
+          <h1 className="nav-title">Finger<span className="nav-title-accent">Care</span><span style={{fontSize: '10px', verticalAlign: 'super'}}>®</span></h1>
         </div>
         <div className="nav-offer-badge pulse-badge">
-          🔥 5 قطع بـ 179 درهم
+          🔥 وفر 220 درهم اليوم
         </div>
       </nav>
 
-      {/* ===== HERO SECTION ===== */}
+      {/* ===== 3. HERO SECTION (THE HOOK) ===== */}
       <section>
-        {/* Warning Pill */}
+        {/* Urgent Warning Pill */}
         <div className="warning-pill-wrap">
           <div className="warning-pill pulse-danger">
-            🚨 واش صوابعك كيوجعوك وما كتقدرش تحركهم؟
+            <span style={{fontSize: 18}}>🚨</span> ألم الأصابع لا يختفي لوحده! عالجه الآن قبل فوات الأوان ⚠️
           </div>
+        </div>
+
+        {/* Live Viewers (Scarcity Injector) */}
+        <div style={{ textAlign: 'center', marginBottom: 8, fontSize: 13, color: '#DC2626', fontWeight: 800 }}>
+          <span className="live-dot" /> 👁️ {viewers} شخص يشاهد هذا العرض الآن... المخزون ينفد بسرعة!
         </div>
 
         {/* Main Image */}
         <div className="hero-image-wrap">
-          <div className="hero-badge-corner">وصل حديثاً</div>
+          <div className="hero-badge-corner">⚡️ الجيل الجديد</div>
           <AnimatePresence mode="wait">
             <motion.div
               key={mainImage.id}
@@ -108,77 +123,55 @@ export default function Home() {
               transition={{ duration: 0.2 }}
               style={{ position: 'relative', width: '100%', aspectRatio: '1/1' }}
             >
-              <Image
-                src={mainImage.src}
-                alt={mainImage.alt}
-                fill
-                priority
-                sizes="100vw"
-                style={{ objectFit: 'cover' }}
-              />
+              <Image src={mainImage.src} alt={mainImage.alt} fill priority sizes="100vw" style={{ objectFit: 'cover' }} />
             </motion.div>
           </AnimatePresence>
+          <div className="hero-badge-bottom">🏆 الاختيار #1 للأطباء</div>
         </div>
 
         {/* Thumbnails */}
         <div className="thumbnail-grid">
           {PRODUCT_IMAGES.map((img) => (
-            <div
-              key={img.id}
-              className={`thumbnail ${mainImage.id === img.id ? 'active' : ''}`}
-              onClick={() => setMainImage(img)}
-              role="button"
-              tabIndex={0}
-            >
+            <div key={img.id} className={`thumbnail ${mainImage.id === img.id ? 'active' : ''}`} onClick={() => setMainImage(img)}>
               <Image src={img.src} alt={img.alt} width={120} height={120} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
             </div>
           ))}
         </div>
 
-        {/* Dark Bar */}
-        <div className="hero-dark-bar">
-          صحتك تستاهل الاهتمام — خلي صوابعك يرتاحو ويتعافو 🩹🛡️
-        </div>
-
-        {/* Product Title */}
+        {/* Deep Emotional Headline */}
         <div className="hero-title-area">
-          <span className="hero-title-badge">💚 الحل الطبي الأول</span>
-          <h2 className="prod-name">جبيرة الأصابع الطبية <br/> الحل البراتيك والمريح</h2>
+          <span className="hero-title-badge">💚 البديل الآمن للجراحة</span>
+          <h2 className="prod-name" style={{fontSize: 26}}>الجبيرة الطبية المزدوجة<br/><span style={{color: '#64748B', fontSize: 18}}>تثبيت فوري، راحة تامة، وتخفيف سحري للألم!</span></h2>
         </div>
 
-        {/* Price Block */}
+        {/* The Value Anchor (Price) */}
         <div className="price-block">
-          <div className="price-row">
-            <span className="price-new">179 <small>درهم</small></span>
+          <div className="price-header-row">
+            <div className="price-new-large">179 <small>درهم</small></div>
+            <div className="price-old-sub">399 درهم</div>
+            <div className="price-save-mini">توفير 220 DH</div>
           </div>
-          <div className="price-save-badge">
-            🎁 توصيل مجاني + الدفع عند الاستلام!
-          </div>
+          <div className="price-save-badge">🎁 وفرت 220 درهم اليوم + توصيل مجاني!</div>
         </div>
 
-        {/* ===== INLINE OFFER SELECTOR ===== */}
+        {/* Inline Offer Selector (The Upsell Engine) */}
         <div className="offers-wrapper">
           <div className="offers-header">
-            <span className="offers-label">📦 اختر الباقة المناسبة ليك:</span>
-            <span className="offers-stock-badge">⚡ مخزون محدود</span>
+            <span className="offers-label">📦 اختر باقة العلاج المناسبة:</span>
+            <span className="offers-stock-badge">🔥 تبقت 12 قطعة فقط</span>
           </div>
           <div className="offers-grid">
             {OFFERS.map((offer) => (
-              <div
-                key={offer.id}
-                className={`offer-card ${selectedOffer.id === offer.id ? 'selected' : ''} ${offer.popular ? 'popular' : ''}`}
-                onClick={() => setSelectedOffer(offer)}
-                role="button"
-                tabIndex={0}
-              >
-                {offer.popular && <div className="offer-badge-top">⭐ الأكثر طلباً</div>}
+              <div key={offer.id} className={`offer-card ${selectedOffer.id === offer.id ? 'selected' : ''} ${offer.popular ? 'popular' : ''} flip-effect`} onClick={() => setSelectedOffer(offer)}>
+                {offer.popular && <div className="offer-badge-top">⭐ الأكثر مبيعاً (ينصح به)</div>}
                 {offer.id === 3 && <div className="offer-badge-top offer-badge-green">🔥 عرض قوي جداً</div>}
                 <div className="offer-radio">{selectedOffer.id === offer.id && <div className="offer-radio-inner" />}</div>
                 <div className="offer-info">
-                  <div className="offer-title">{offer.name} {offer.id === 1 ? '🩹' : offer.id === 2 ? '⚡️' : '🛡️'}</div>
+                  <div className="offer-title">{offer.name}</div>
                   <div className="offer-sub">{offer.desc}</div>
                 </div>
                 <div className="offer-price">
+                  <span className="old-p-small">{offer.price + 150} DH</span>
                   <span className={`offer-price-new ${offer.popular ? 'highlight' : ''}`}>{offer.price} DH</span>
                 </div>
               </div>
@@ -187,145 +180,158 @@ export default function Home() {
         </div>
 
         {/* Main CTA */}
-        <div className="cta-block">
-          <button className="main-cta pulse-cta" onClick={openBottomSheet} id="hero-buy-btn">
-            🛒 اشتري الآن - {selectedOffer.price} DH
+        <div className="cta-block-wrap">
+          <button className="offer-cta-main pulse-cta" onClick={openBottomSheet}>
+            🛒 تأكيد الطلب الآن - {selectedOffer.price} درهم
           </button>
           <div className="cta-reassurance">
-            <span>🛡️ ضمان الجودة 100%</span>
-            <span className="dot">•</span>
-            <span>🚚 توصيل مجاني</span>
-            <span className="dot">•</span>
-            <span>🤝 المعاينة قبل الدفع</span>
-          </div>
-        </div>
-
-        {/* Trust Cadre */}
-        <div className="trust-cadre">
-          <div className="trust-cadre-header">🛡️ الضمان الذهبي للشراء من FingerCare</div>
-          <div className="trust-cadre-grid">
-            <div className="trust-cadre-card">
-              <div className="trust-cadre-icon">🚚</div>
-              <div>
-                <h4>توصيل مجاني 🚚</h4>
-                <p>توصيل سريع ومجاني 100% حتى ل باب الدار فجميع مدن المغرب 🇲🇦</p>
-              </div>
-            </div>
-            <div className="trust-cadre-card">
-              <div className="trust-cadre-icon">🤝</div>
-              <div>
-                <h4>المعاينة قبل الدفع 🤝</h4>
-                <p>حل الطرد، تفحص الجودة قدام الموزع عاد خلص! 📦✨</p>
-              </div>
-            </div>
+            <span>🛡️ ضمان 100%</span><span className="dot">•</span><span>🚚 توصيل مجاني</span><span className="dot">•</span><span>🤝 الدفع عند الاستلام</span>
           </div>
         </div>
       </section>
 
-      {/* ===== EMOTIONAL PAIN SECTION (DARK THEME) ===== */}
-      <section className="dark-section">
+      {/* ===== 4. THE STORY & EMPATHY SECTION (NEW) ===== */}
+      <section className="dark-section" style={{ marginTop: 20 }}>
         <div className="dark-section-inner">
-          <div className="section-icon-wrap pulse-danger">⚠️</div>
-          <h2>واش كتعاني من هاد المشاكل فصوابعك؟ 😰</h2>
-          <p className="section-sub">بلا علاج مناسب، المشكل كيتفاقم وكيأثر على حياتك اليومية كلها!</p>
+          <div className="eb-header-badge"><i className="fa-solid fa-shield-heart"></i> 🛡️ صحتك لا تقدر بثمن!</div>
+          <h3 className="eb-main-title" style={{ fontSize: 22, fontWeight: 900, color: '#FFD700', marginBottom: 16 }}>
+            "كنت كنبات سهران بالوجع، وما خليت ما جربت..." 😔
+          </h3>
+          <div className="eb-intro-card" style={{ background: 'rgba(255,255,255,0.05)', padding: 16, borderRadius: 12, borderLeft: '4px solid #EF4444' }}>
+            <p style={{ fontSize: 15, lineHeight: 1.8, color: '#E2E8F0' }}>
+              بزاف ديال المغاربة كيعانيو فصمت من "إصبع الزناد" (Trigger Finger)، التهاب المفاصل، أو التواء الأصابع بسبب الخدمة اليومية. 
+              كتفيق فالصباح كتلقى صبعك مبلوكي وما كيبغيش يتسرح؟ كتحس بحريق مجهد بحال الضو كيضربك؟ هاد المعاناة كتخليك ما قادرش دير حتى أبسط الحوايج بحال تسد صدفة ديال حوايجك أو تهز كاس د أتاي!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== 5. THE ENEMY: WHY PILLS & CREAMS FAIL (NEW) ===== */}
+      <section className="emotional-pain-section" style={{ background: '#FEF2F2', padding: '32px 16px', borderTop: '2px solid #FECACA', borderBottom: '2px solid #FECACA' }}>
+        <div className="pain-icon-wrapper" style={{ textAlign: 'center', fontSize: 40, marginBottom: 12 }}>💊❌</div>
+        <h2 style={{ fontSize: 22, fontWeight: 900, color: '#991B1B', textAlign: 'center', marginBottom: 16 }}>
+          لماذا تفشل المراهم والأدوية المسكنة؟
+        </h2>
+        <p style={{ fontSize: 16, color: '#7F1D1D', textAlign: 'center', marginBottom: 24, lineHeight: 1.6 }}>
+          الكريمات والأقراص المسكنة <strong>تخدر الألم لساعتين فقط</strong>، لكنها لا تعالج المشكل الميكانيكي! كلما حركت إصبعك المصاب، زاد التهاب الوتر وتفاقمت الحالة، وقد ينتهي بك المطاف فوق طاولة العمليات الجراحية! 🚨
+        </p>
+
+        <div className="pain-conclusion-box" style={{ background: '#FFF', border: '2px solid #DC2626', padding: 20, borderRadius: 16, boxShadow: '0 10px 25px rgba(220,38,38,0.1)' }}>
+          <h3 style={{ fontSize: 18, color: '#DC2626', fontWeight: 900, marginBottom: 8, textAlign: 'center' }}>
+            الحل الطبي الحقيقي: التثبيت الفيزيائي 🛠️
+          </h3>
+          <p style={{ fontSize: 14, color: '#475569', textAlign: 'center', lineHeight: 1.7 }}>
+            الطريقة الوحيدة لشفاء الوتر الملتهب هي <strong>إيقاف حركته تماماً</strong>. جبيرة FingerCare® تقوم بهذا الدور بدقة طبية، حيث تمنع الإصبع من الانحناء وتعطيه الفرصة للشفاء الذاتي الطبيعي بسرعة مذهلة.
+          </p>
+        </div>
+      </section>
+
+      {/* ===== 6. DEEP SCIENTIFIC BREAKDOWN (NEW) ===== */}
+      <section className="tech-explanation-section" style={{ padding: '32px 16px', background: '#F8FAFC' }}>
+        <span className="pvd-badge" style={{ display: 'block', width: 'max-content', margin: '0 auto 12px', background: '#DBEAFE', color: '#1E3A8A', padding: '6px 16px', borderRadius: 20, fontWeight: 800 }}>🔬 الهندسة الطبية</span>
+        <h2 style={{ fontSize: 22, fontWeight: 900, color: '#0F172A', textAlign: 'center', marginBottom: 24 }}>كيف تعمل جبيرة FingerCare®؟</h2>
+        
+        <div className="tech-grid" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           
-          <div className="pain-grid">
-            <div className="pain-item">
-              <span className="pain-icon">⚡️</span>
-              <div>
-                <h4>ألم وتيبيس فالأصابع عند الحركة</h4>
-                <p>ما كتقدرش تقبض حوايجك ولا تخدم بشكل عادي بسبب الألم المستمر فالصوابع.</p>
-              </div>
-            </div>
-            <div className="pain-item">
-              <span className="pain-icon">🤕</span>
-              <div>
-                <h4>التواء أو إصابة ما كتبراش</h4>
-                <p>إذا ما ثبتيش الصبع المصاب، التعافي كياخد وقت طويل بزاف وكيزيد المشكل.</p>
-              </div>
-            </div>
-            <div className="pain-item">
-              <span className="pain-icon">💊</span>
-              <div>
-                <h4>مصاريف الطبيب والصيدلية غالية</h4>
-                <p>الزيارات المتكررة للطبيب وشراء الأدوية كيكلفو بزاف. الحل الذكي هو الوقاية!</p>
-              </div>
-            </div>
+          <div className="tech-card" style={{ background: 'white', padding: 20, borderRadius: 16, border: '1px solid #E2E8F0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
+            <div style={{ fontSize: 32, marginBottom: 12 }}>✈️</div>
+            <h3 style={{ fontSize: 16, fontWeight: 900, color: '#0F172A', marginBottom: 8 }}>دعامة من الألومنيوم المستخدم في الطيران</h3>
+            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.6 }}>يحتوي قلب الجبيرة على لوح صلب من الألومنيوم الخفيف، يمنع الإصبع من الثني نهائياً، ومع ذلك يمكنك تعديل زاوية انحنائه بلطف ليناسب شكل إصبعك تماماً.</p>
           </div>
 
-          <div className="conclusion-box">
-            <h3>💡 فكر فيها للحظة... 🧠</h3>
-            <p>بثمن بسيط جداً، تشتري <strong>راحة البال والتعافي السريع</strong> لصوابعك. درهم وقاية خير من قنطار علاج! 🩹</p>
+          <div className="tech-card" style={{ background: 'white', padding: 20, borderRadius: 16, border: '1px solid #E2E8F0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
+            <div style={{ fontSize: 32, marginBottom: 12 }}>☁️</div>
+            <h3 style={{ fontSize: 16, fontWeight: 900, color: '#0F172A', marginBottom: 8 }}>فوم طبي بمسامات تهوية (Sponge Foam)</h3>
+            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.6 }}>لن تعاني من العرق أو الروائح الكريهة! الفوم الداخلي ناعم جداً على البشرة ومصمم ليمتص الصدمات ويسمح بمرور الهواء، لدرجة أنك ستنسى أنك ترتديها.</p>
+          </div>
+
+          <div className="tech-card" style={{ background: 'white', padding: 20, borderRadius: 16, border: '1px solid #E2E8F0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
+            <div style={{ fontSize: 32, marginBottom: 12 }}>🎯</div>
+            <h3 style={{ fontSize: 16, fontWeight: 900, color: '#0F172A', marginBottom: 8 }}>أشرطة Velcro لاصقة قوية</h3>
+            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.6 }}>أشرطة متينة جداً تضمن بقاء الجبيرة ثابتة في مكانها سواء كنت نائماً أو تمارس نشاطاتك اليومية الخفيفة.</p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ===== 7. BEFORE / AFTER COMPARISON TABLE (NEW) ===== */}
+      <section className="comparison-section" style={{ padding: '32px 16px' }}>
+        <h2 style={{ fontSize: 20, fontWeight: 900, textAlign: 'center', marginBottom: 20 }}>⚡️ مقارنة: بدون الجبيرة مقابل FingerCare®</h2>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12 }}>
+          {/* Danger Col */}
+          <div style={{ background: '#FEF2F2', padding: 20, borderRadius: 16, border: '2px solid #FECACA' }}>
+            <h3 style={{ fontSize: 16, fontWeight: 900, color: '#DC2626', marginBottom: 12 }}>❌ بدون الجبيرة</h3>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <li style={{ fontSize: 14, color: '#7F1D1D' }}>⚠️ ألم شديد عند ثني الإصبع</li>
+              <li style={{ fontSize: 14, color: '#7F1D1D' }}>⚠️ تيبس وتصلب الأصابع في الصباح</li>
+              <li style={{ fontSize: 14, color: '#7F1D1D' }}>⚠️ خطر تفاقم الالتهاب واللجوء للجراحة</li>
+              <li style={{ fontSize: 14, color: '#7F1D1D' }}>⚠️ استهلاك مستمر للمسكنات المضرة بالمعدة</li>
+            </ul>
+          </div>
+
+          {/* Success Col */}
+          <div style={{ background: '#F0FDF4', padding: 20, borderRadius: 16, border: '2px solid #34D399', boxShadow: '0 10px 25px rgba(16,185,129,0.15)', transform: 'scale(1.02)' }}>
+            <div style={{ background: '#10B981', color: 'white', padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 800, width: 'max-content', marginBottom: 12 }}>✨ الحل الطبي المضمون</div>
+            <h3 style={{ fontSize: 18, fontWeight: 900, color: '#059669', marginBottom: 12 }}>✅ مع FingerCare®</h3>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <li style={{ fontSize: 14, color: '#065F46', fontWeight: 600 }}>✔️ تثبيت فوري يوقف الألم في الحين</li>
+              <li style={{ fontSize: 14, color: '#065F46', fontWeight: 600 }}>✔️ نوم هادئ بدون استيقاظ بسبب الوجع</li>
+              <li style={{ fontSize: 14, color: '#065F46', fontWeight: 600 }}>✔️ شفاء طبيعي للوتر بدون أدوية أو جراحة</li>
+              <li style={{ fontSize: 14, color: '#065F46', fontWeight: 600 }}>✔️ جودة متينة تدوم لأشهر من الاستعمال</li>
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* ===== SOLUTION SECTION ===== */}
-      <section className="solution-section">
-        <span className="section-badge success">✅ الحل الطبي</span>
-        <h2>جبيرة FingerCare — الحل البراتيك اللي كتحتاج 🩹✨</h2>
-        <p className="section-sub-text">ألومنيوم طبي خفيف + فوم مريح = دعم قوي بلا إزعاج</p>
-
-        <div className="features-grid">
-          <div className="feat-card green-accent">
-            <div className="feat-icon green">🛡️</div>
-            <div>
-              <h4>تثبيت وحماية فورية للصبع 🩹</h4>
-              <p>كتثبت الصبع فالوضعية الصحيحة باش يتعافا بسرعة وبدون ألم.</p>
-            </div>
+      {/* ===== 8. WHO IS THIS FOR? (TARGET AUDIENCE GRID) ===== */}
+      <section style={{ padding: '32px 16px', background: '#1E293B', color: 'white' }}>
+        <h2 style={{ fontSize: 22, fontWeight: 900, textAlign: 'center', marginBottom: 8, color: '#FFD700' }}>لمن صمم هذا المنتج؟ 🎯</h2>
+        <p style={{ textAlign: 'center', fontSize: 14, color: '#94A3B8', marginBottom: 24 }}>إذا كنت واحداً من هؤلاء، فهذا المنتج سيغير حياتك:</p>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
+          <div style={{ background: 'rgba(255,255,255,0.05)', padding: 16, borderRadius: 12, textAlign: 'center', border: '1px solid rgba(255,255,255,0.1)' }}>
+            <div style={{ fontSize: 32, marginBottom: 8 }}>👵</div>
+            <h4 style={{ fontSize: 14, fontWeight: 800 }}>كبار السن</h4>
+            <p style={{ fontSize: 12, color: '#94A3B8' }}>لمرضى الروماتيزم والتهاب المفاصل</p>
           </div>
-          <div className="feat-card gold-accent">
-            <div className="feat-icon gold">😌</div>
-            <div>
-              <h4>راحة خيالية طول اليوم 🧘‍♂️</h4>
-              <p>الفوم المريح كيخليك تلبسها ساعات طويلة بدون أي إزعاج ولا ضغط.</p>
-            </div>
+          <div style={{ background: 'rgba(255,255,255,0.05)', padding: 16, borderRadius: 12, textAlign: 'center', border: '1px solid rgba(255,255,255,0.1)' }}>
+            <div style={{ fontSize: 32, marginBottom: 8 }}>🧑‍🍳</div>
+            <h4 style={{ fontSize: 14, fontWeight: 800 }}>ربات البيوت</h4>
+            <p style={{ fontSize: 12, color: '#94A3B8' }}>لآلام الأعمال المنزلية المستمرة</p>
           </div>
-          <div className="feat-card terra-accent">
-            <div className="feat-icon terra">✋</div>
-            <div>
-              <h4>مناسبة لجميع الأصابع والأحجام 🚿</h4>
-              <p>الألومنيوم مرن وقابل للتشكيل. كتناسب كل صبع وكل حجم بسهولة.</p>
-            </div>
+          <div style={{ background: 'rgba(255,255,255,0.05)', padding: 16, borderRadius: 12, textAlign: 'center', border: '1px solid rgba(255,255,255,0.1)' }}>
+            <div style={{ fontSize: 32, marginBottom: 8 }}>🛠️</div>
+            <h4 style={{ fontSize: 14, fontWeight: 800 }}>الحرفيون والعمال</h4>
+            <p style={{ fontSize: 12, color: '#94A3B8' }}>للإصابات الناتجة عن المجهود اليدوي</p>
+          </div>
+          <div style={{ background: 'rgba(255,255,255,0.05)', padding: 16, borderRadius: 12, textAlign: 'center', border: '1px solid rgba(255,255,255,0.1)' }}>
+            <div style={{ fontSize: 32, marginBottom: 8 }}>💻</div>
+            <h4 style={{ fontSize: 14, fontWeight: 800 }}>موظفو المكاتب</h4>
+            <p style={{ fontSize: 12, color: '#94A3B8' }}>لمرض إصبع الزناد بسبب الكيبورد</p>
           </div>
         </div>
       </section>
 
-      {/* ===== TRUST & BENEFITS (DARK SECTION) ===== */}
-      <section className="dark-section">
-        <div className="dark-section-inner">
-          <h2>علاش FingerCare هي الخيار الأول فالمغرب؟ 🇲🇦✨</h2>
-          <p className="section-sub">انضم لآلاف الزبناء المغاربة اللي اختارو الجودة والراحة 👨‍👩‍👧‍👦</p>
-
-          <div className="trust-features-grid">
-            <div className="trust-feature-card">
-              <div className="tf-icon success-icon">🛡️</div>
-              <h3>جودة طبية معتمدة 100%</h3>
-              <p>ألومنيوم طبي خفيف مع فوم مريح. مواد آمنة ومجربة من طرف المعالجين الفيزيائيين.</p>
-            </div>
-            <div className="trust-feature-card">
-              <div className="tf-icon gold-icon">🏆</div>
-              <h3>الأكثر مبيعاً فالمغرب</h3>
-              <p>آلاف الطلبات وزبناء راضيين فجميع المدن المغربية. منتج مجرب ومضمون.</p>
-            </div>
-            <div className="trust-feature-card">
-              <div className="tf-icon terra-icon">💧</div>
-              <h3>متينة وقابلة للتعديل</h3>
-              <p>الألومنيوم مرن وكتقدر تعدلو حسب الصبع ديالك. كتدوم معاك شهور طويلة.</p>
-            </div>
-            <div className="trust-feature-card">
-              <div className="tf-icon green-icon">🤝</div>
-              <h3>المعاينة قبل الدفع</h3>
-              <p>حل الطرد، تفحص الجودة قدام الموزع عاد خلص! ما كتخاطر بوالو.</p>
-            </div>
-          </div>
-        </div>
+      {/* ===== 9. THE COST OF INACTION (PRICE ANCHOR) ===== */}
+      <section style={{ padding: '40px 16px', textAlign: 'center' }}>
+        <div style={{ display: 'inline-block', background: '#FEE2E2', color: '#B91C1C', padding: '8px 16px', borderRadius: 20, fontSize: 14, fontWeight: 800, marginBottom: 16 }}>💰 الحسبة ساهلة...</div>
+        <h2 style={{ fontSize: 24, fontWeight: 900, color: '#0F172A', marginBottom: 16 }}>العملية الجراحية تكلف 15,000 درهم!</h2>
+        <p style={{ fontSize: 16, color: '#475569', lineHeight: 1.8, marginBottom: 24 }}>
+          إذا أهملت علاج إصبعك الآن، قد يتصلب الوتر تماماً ويصبح التدخل الجراحي هو الحل الوحيد، ناهيك عن حصص الترويض الطبي الباهظة الثمن. 
+          <br/><br/>
+          <strong>لماذا تخاطر بصحتك ومالك؟</strong><br/>
+          احصل على العلاج الوقائي المضمون ابتداءً من <span style={{ color: '#059669', fontWeight: 900, fontSize: 20 }}>179 درهم فقط!</span>
+        </p>
+        <button className="main-cta pulse-cta" onClick={openBottomSheet} style={{ width: '100%', maxWidth: 400 }}>
+          🛒 احمِ صحتك الآن - اطلب الجبيرة
+        </button>
       </section>
 
-      {/* ===== 15 REVIEWS CAROUSEL ===== */}
-      <section className="reviews-section">
-        <h2 className="section-heading">⭐ آراء وتجارب 15 زبون مغربي (تقييمات حقيقية 100% 🇲🇦)</h2>
-        <p className="section-subheading">تصفح مراجعات حقيقية لزبناء مغاربة جربو جبائر FingerCare</p>
+      {/* ===== 10. 15 REVIEWS CAROUSEL (MASSIVE SOCIAL PROOF) ===== */}
+      <section className="reviews-section" style={{ background: '#F8FAFC', borderTop: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0' }}>
+        <h2 className="section-heading" style={{ fontSize: 24 }}>⭐ آراء 15 زبون مغربي (تقييمات حقيقية 🇲🇦)</h2>
+        <p className="section-subheading">انضم لأكثر من 5,000 عائلة مغربية تخلصت من ألم الأصابع.</p>
 
         <div className="reviews-carousel">
           <AnimatePresence mode="wait">
@@ -338,15 +344,15 @@ export default function Home() {
               className="reviews-page"
             >
               {ALL_REVIEWS[reviewPage].map((review, i) => (
-                <div key={i} className="review-card">
+                <div key={i} className="review-card" style={{ background: 'white', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
                   <div className="review-head">
                     <div className="reviewer-avatar">{review.avatar}</div>
                     <div>
                       <div className="reviewer-name">{review.name}</div>
-                      <div className="review-stars">⭐⭐⭐⭐⭐ <span className="verified-tag">شراء مؤكد ✅</span></div>
+                      <div className="review-stars">⭐⭐⭐⭐⭐ <span className="verified-tag" style={{ marginLeft: 6 }}>شراء مؤكد ✅</span></div>
                     </div>
                   </div>
-                  <p className="review-text">{review.text}</p>
+                  <p className="review-text" style={{ fontSize: 14, fontWeight: 600 }}>{review.text}</p>
                 </div>
               ))}
             </motion.div>
@@ -369,110 +375,85 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== GOLD GUARANTEE (ANIMATED BORDER) ===== */}
+      {/* ===== 11. GOLD GUARANTEE (ANIMATED BORDER) ===== */}
       <section className="guarantee-section">
         <div className="gold-animated-frame">
           <div className="guarantee-inner">
             <div className="guarantee-badge">🏆 الضمان الذهبي 100%</div>
-            <div className="guarantee-icon">🏅</div>
-            <h3>أنت لا تخاطر بأي شيء على الإطلاق! 🤝</h3>
-            <p>نحن نثق في جودة وفعالية <strong>FingerCare</strong>. عندما يصلك الموزع، <strong>قم بفتح العلبة وتفحص جودة الألومنيوم والفوم بنفسك قبل دفع أي درهم!</strong> إذا لم يعجبك المنتج، يحق لك رفض الاستلام مجاناً.</p>
-            <div className="guarantee-footer">🤝 نتحمل نحن كافة المخاطرة، لترتاح أنت! ❤️</div>
+            <div className="guarantee-icon">🤝</div>
+            <h3 style={{ fontSize: 22 }}>أنت لا تخاطر بأي شيء على الإطلاق!</h3>
+            <p style={{ fontSize: 15 }}>نحن نثق في جودة وفعالية <strong>FingerCare®</strong>. عندما يصلك الموزع حتى باب دارك، <strong>قم بفتح العلبة وتفحص جودة الألومنيوم والفوم بنفسك قبل دفع أي درهم!</strong> إذا لم يعجبك المنتج أو لم يكن كما وصفناه، يحق لك رفض الاستلام مجاناً وسنتحمل نحن مصاريف الشحن.</p>
+            <div className="guarantee-footer">🛡️ نتحمل نحن كافة المخاطرة، لترتاح أنت! ❤️</div>
           </div>
         </div>
       </section>
 
-      {/* ===== BONUSES ===== */}
+      {/* ===== 12. EXCLUSIVE BONUSES ===== */}
       <section className="bonuses-section">
-        <div className="gold-animated-frame">
+        <div className="gold-animated-frame" style={{ background: '#1E293B' }}>
           <h2 className="section-heading-gold">🎁 اطلب اليوم واستفد من هذه الهدايا الحصرية ⚡️</h2>
           <div className="bonuses-list">
             <div className="bonus-card">
               <div className="bonus-icon">🚚</div>
               <div>
                 <h4>توصيل VIP مجاني لجميع مدن المغرب (بقيمة 45 درهم)</h4>
-                <p>لن تدفع أي مصاريف شحن إضافية. التوصيل مجاني 100% حتى باب منزلكم.</p>
+                <p>لن تدفع أي مصاريف شحن إضافية. التوصيل مجاني 100% حتى باب منزلكم أينما كنتم فالمغرب.</p>
               </div>
             </div>
             <div className="bonus-card">
               <div className="bonus-icon">⚡️</div>
               <div>
                 <h4>أولوية الشحن والتجهيز السريع خلال 24h-48h</h4>
-                <p>نعطي طلبك أولوية قصوى للتجهيز والتسليم فأقرب وقت ممكن.</p>
+                <p>نظراً لأهمية هذا المنتج لصحتك، نعطي طلبك أولوية قصوى للتجهيز والتسليم فأقرب وقت ممكن.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== FINAL CTA REPEAT ===== */}
+      {/* ===== 13. FINAL CTA REPEAT (THE CLOSER) ===== */}
       <section className="final-cta-section">
-        <div className="final-cta-inner">
-          <h2>🎁 اختر العرض المناسب لك واستفد:</h2>
+        <div className="final-cta-inner" style={{ border: '3px solid #F59E0B', boxShadow: '0 15px 35px rgba(245,158,11,0.15)' }}>
+          <div style={{ background: '#FEF2F2', color: '#DC2626', padding: '4px 12px', borderRadius: 20, fontSize: 13, fontWeight: 800, width: 'max-content', margin: '0 auto 12px' }}>🔥 العرض ينتهي قريباً</div>
+          <h2 style={{ fontSize: 22, fontWeight: 900, marginBottom: 16 }}>أكد طلبك الآن واستفد من التخفيض:</h2>
           
-          <div className="price-block">
-            <div className="price-row">
-              <span className="price-new">179 <small>درهم</small></span>
-            </div>
-            <div className="price-save-badge">🎁 توصيل مجاني + الدفع عند الاستلام!</div>
-          </div>
-
           <div className="offers-grid" style={{ marginBottom: 20 }}>
             {OFFERS.map((offer) => (
-              <div
-                key={offer.id}
-                className={`offer-card ${selectedOffer.id === offer.id ? 'selected' : ''} ${offer.popular ? 'popular' : ''}`}
-                onClick={() => setSelectedOffer(offer)}
-                role="button"
-                tabIndex={0}
-              >
-                {offer.popular && <div className="offer-badge-top">⭐ الأكثر طلباً</div>}
-                {offer.id === 3 && <div className="offer-badge-top offer-badge-green">🔥 عرض قوي جداً</div>}
+              <div key={offer.id} className={`offer-card ${selectedOffer.id === offer.id ? 'selected' : ''} ${offer.popular ? 'popular' : ''} flip-effect`} onClick={() => setSelectedOffer(offer)}>
+                {offer.popular && <div className="offer-badge-top">⭐ الأكثر مبيعاً</div>}
                 <div className="offer-radio">{selectedOffer.id === offer.id && <div className="offer-radio-inner" />}</div>
                 <div className="offer-info">
-                  <div className="offer-title">{offer.name}</div>
-                  <div className="offer-sub">{offer.desc}</div>
-                </div>
-                <div className="offer-price">
-                  <span className={`offer-price-new ${offer.popular ? 'highlight' : ''}`}>{offer.price} DH</span>
+                  <div className="offer-title" style={{ fontSize: 15 }}>{offer.name}</div>
+                  <div className="offer-sub" style={{ fontSize: 13, fontWeight: 600 }}>{offer.pieces} قطع بسعر {offer.price} DH</div>
                 </div>
               </div>
             ))}
           </div>
 
-          <button className="main-cta pulse-cta" onClick={openBottomSheet}>
-            🛒 اشتري الآن - {selectedOffer.price} DH
+          <button className="main-cta pulse-cta" onClick={openBottomSheet} style={{ fontSize: 20, height: 64 }}>
+            🛒 إضغط هنا للطلب والدفع عند الاستلام
           </button>
-          <div className="cta-reassurance" style={{ marginTop: 12 }}>
-            <span>🛡️ ضمان 100%</span>
-            <span className="dot">•</span>
-            <span>🚚 توصيل مجاني</span>
-            <span className="dot">•</span>
-            <span>🤝 المعاينة قبل الدفع</span>
+          
+          <div style={{ marginTop: 16, padding: '12px', background: '#F0FDF4', borderRadius: 12, border: '1px dashed #10B981', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+            <span style={{ fontSize: 20 }}>🚚</span> <span style={{ fontWeight: 800, color: '#059669', fontSize: 14 }}>التوصيل مجاني لجميع المدن + الدفع عند الاستلام</span>
           </div>
         </div>
       </section>
 
-      {/* ===== FAQ ACCORDION ===== */}
+      {/* ===== 14. EXTENDED FAQ ACCORDION ===== */}
       <section className="faq-section">
-        <h2 className="section-heading">❓ الأسئلة الشائعة حول جبائر FingerCare</h2>
+        <h2 className="section-heading" style={{ fontSize: 22, marginBottom: 24 }}>❓ الأسئلة الشائعة (FAQ)</h2>
         <div className="faq-accordion">
           {FAQS.map((faq, i) => (
             <div key={i} className={`faq-item ${openFaq === i ? 'open' : ''}`}>
               <button className="faq-question" onClick={() => toggleFaq(i)}>
-                <span>{faq.q}</span>
-                <span className="faq-chevron">{openFaq === i ? '▲' : '▼'}</span>
+                <span style={{ paddingLeft: 16 }}>{faq.q}</span>
+                <span className="faq-chevron" style={{ background: openFaq === i ? '#F59E0B' : '#E2E8F0', color: openFaq === i ? 'white' : '#64748B', width: 24, height: 24, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{openFaq === i ? '−' : '+'}</span>
               </button>
               <AnimatePresence>
                 {openFaq === i && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="faq-answer"
-                  >
-                    <p>{faq.a}</p>
+                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }} className="faq-answer">
+                    <p style={{ fontSize: 15, fontWeight: 600 }}>{faq.a}</p>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -481,13 +462,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== TRUST BADGES STRIP ===== */}
-      <section className="trust-badges-strip">
+      {/* ===== 15. TRUST BADGES STRIP ===== */}
+      <section className="trust-badges-strip" style={{ marginBottom: 40 }}>
         <div className="trust-badges-grid">
-          <div className="trust-badge-card"><span className="tb-icon green">✅</span><div><strong>🛡️ مجرب ومضمون 100%</strong><span>أمانك في أيدٍ أمينة</span></div></div>
-          <div className="trust-badge-card"><span className="tb-icon blue">👨‍⚕️</span><div><strong>موصى به من المختصين</strong><span>معتمد من المعالجين الفيزيائيين</span></div></div>
-          <div className="trust-badge-card"><span className="tb-icon gold">🏆</span><div><strong>الأكثر طلباً بالمغرب 🇲🇦</strong><span>آلاف الزبناء يثقون بنا</span></div></div>
-          <div className="trust-badge-card"><span className="tb-icon purple">💎</span><div><strong>✨ جودة متينة تدوم</strong><span>ألومنيوم طبي + فوم مريح</span></div></div>
+          <div className="trust-badge-card"><span className="tb-icon green">✅</span><div><strong>🛡️ مضمون 100%</strong><span>أمانك في أيدٍ أمينة</span></div></div>
+          <div className="trust-badge-card"><span className="tb-icon blue">👨‍⚕️</span><div><strong>طبي معتمد</strong><span>من المعالجين الفيزيائيين</span></div></div>
+          <div className="trust-badge-card"><span className="tb-icon gold">🏆</span><div><strong>الأكثر مبيعاً 🇲🇦</strong><span>آلاف الزبناء يثقون بنا</span></div></div>
+          <div className="trust-badge-card"><span className="tb-icon purple">💎</span><div><strong>✨ جودة ممتازة</strong><span>ألومنيوم + فوم مريح</span></div></div>
         </div>
       </section>
 
@@ -495,11 +476,11 @@ export default function Home() {
       <div className="sticky-bar">
         <div className="sticky-bar-inner">
           <div>
-            <p className="sticky-from">ابتداءً من</p>
+            <p className="sticky-from">المجموع للأداء</p>
             <p className="sticky-price">{selectedOffer.price} <span>درهم</span></p>
           </div>
           <button id="sticky-buy-btn" onClick={openBottomSheet} className="sticky-cta pulse-cta">
-            🛒 اشتري الآن
+            🛒 اطلب الآن
           </button>
         </div>
       </div>

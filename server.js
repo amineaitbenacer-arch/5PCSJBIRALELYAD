@@ -21,7 +21,17 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname));
+app.use(express.static(__dirname, {
+    setHeaders: function (res, filePath) {
+        if (/\.html?$/i.test(filePath)) {
+            res.setHeader('Cache-Control', 'no-cache');
+            return;
+        }
+        if (/\.(jpe?g|png|webp|gif|svg|woff2|css|js)$/i.test(filePath)) {
+            res.setHeader('Cache-Control', 'public, max-age=604800');
+        }
+    }
+}));
 app.get(['/admin', '/admin/'], (req, res) => {
     res.sendFile(path.join(__dirname, 'admin.html'));
 });

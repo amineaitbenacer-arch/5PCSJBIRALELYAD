@@ -28,7 +28,7 @@
   
   --r: 16px;
   --tr: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-  --font-arabic: 'Tajawal', 'Almarai', 'IBM Plex Sans Arabic', 'Cairo', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-arabic: 'Tajawal', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', -apple-system, BlinkMacSystemFont, sans-serif;
   
   /* Backward Compatibility Mappings */
   --primary: var(--gold);

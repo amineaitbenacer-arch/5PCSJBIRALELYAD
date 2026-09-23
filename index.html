@@ -11,16 +11,17 @@
   <meta property="og:type" content="product" />
   <meta property="og:locale" content="ar_MA" />
   <meta name="theme-color" content="#0B0F17" />
-  <meta property="og:image" content="images/logo.png" />
-  <link rel="icon" type="image/png" href="images/logo.png" />
+  <meta property="og:image" content="images/logo.jpg" />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
   <link rel="apple-touch-icon" href="images/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Almarai:wght@400;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css?v=cvr-reviews2" />
-  <link rel="preload" as="image" href="images/product-action.jpg" />
-  <!-- Pixels stay empty here. IDs are loaded from the private dashboard when you send them. -->
+  <link rel="dns-prefetch" href="https://connect.facebook.net">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+  <link rel="stylesheet" href="style.css?v=lite1" />
+  <link rel="preload" as="image" href="images/product-action.jpg" fetchpriority="high">
   <script src="pixels.js"></script>
   </head>
 <body>
@@ -45,7 +46,7 @@
 
       <!-- Center: Brand Logo — aluminum finger splint -->
       <div class="nav-logo-center">
-        <img src="images/logo.png" alt="FingerCare" class="nav-brand-logo" width="54" height="54" />
+        <img fetchpriority="high" src="images/logo.jpg" alt="FingerCare" class="nav-brand-logo" width="54" height="54" decoding="async" />
       </div>
 
       <!-- Left: Dynamic Offer Badge -->
@@ -117,17 +118,17 @@
       <!-- 🖼️ HERO MAIN IMAGE FULL BLEED -->
       <div class="hero-image-fullbleed" style="position: relative;">
         <div class="hero-badge-top-right">جديد 🔥</div>
-        <img src="images/product-action.jpg" id="hero-main-img" alt="جبيرة تقويم الأصابع مركبة على اليد" />
+        <img decoding="async" fetchpriority="high" src="images/product-action.jpg" id="hero-main-img" alt="جبيرة تقويم الأصابع مركبة على اليد" />
         
         <div class="hero-badge-bottom-left">تثبيت واضح… من أول ليلة</div>
       </div>
 
       <!-- 📸 THUMBNAILS GALLERY -->
       <div class="thumb-gallery">
-        <img src="images/product-action.jpg" class="thumb-img active" onclick="changeImage(this)" alt="الجبيرة على اليد" />
-        <img src="images/material-closeup.jpg" class="thumb-img" onclick="changeImage(this)" alt="تفاصيل الجودة" />
-        <img src="images/premium-packaging.jpg" class="thumb-img" onclick="changeImage(this)" alt="باقة 5 قطع" />
-        <img src="images/happy-customer.jpg" class="thumb-img" onclick="changeImage(this)" alt="زبونة مرتاحة" />
+        <img decoding="async" src="images/product-action.jpg" class="thumb-img active" onclick="changeImage(this)" alt="الجبيرة على اليد" />
+        <img decoding="async" src="images/material-closeup.jpg" class="thumb-img" onclick="changeImage(this)" alt="تفاصيل الجودة" />
+        <img decoding="async" src="images/premium-packaging.jpg" class="thumb-img" onclick="changeImage(this)" alt="باقة 5 قطع" />
+        <img decoding="async" src="images/happy-customer.jpg" class="thumb-img" onclick="changeImage(this)" alt="زبونة مرتاحة" />
       </div>
 
       <!-- 🏷️ PRODUCT HEADER INFO -->
@@ -256,7 +257,7 @@
 
       <!-- 💡 EXPANDED EMOTIONAL & SAFETY HIGHLIGHT BOX (Luxury Cadre Frame) -->
       <div class="emotional-box-enhanced" style="padding: 0; overflow: hidden;">
-        <img src="images/happy-customer.jpg" alt="زبونة بعد استعمال الجبيرة" style="width: 100%; display: block; border-radius: 16px 16px 0 0;" />
+        <img loading="lazy" decoding="async" src="images/happy-customer.jpg" alt="زبونة بعد استعمال الجبيرة" style="width: 100%; display: block; border-radius: 16px 16px 0 0;" />
         <div style="padding: 24px;">
         <div class="eb-header-badge">
           <i class="fa-solid fa-shield-heart"></i> يدك جزء من حضورك
@@ -268,7 +269,7 @@
         
         <div class="eb-intro-card eb-visual-explain">
           <div class="eb-visual-shot" data-swap-img="mechanism">
-            <img src="images/product-action.jpg" alt="الجبيرة تثبّت الإصبع مستقيماً على اليد" />
+            <img loading="lazy" decoding="async" src="images/product-action.jpg" alt="الجبيرة تثبّت الإصبع مستقيماً على اليد" />
             <span class="angle-visual-tag">هكذا تثبّت الجبيرة الإصبع</span>
           </div>
           <p class="eb-intro-text">
@@ -317,7 +318,7 @@
   <!-- 🚨 EMOTIONAL AGITATION & SAFETY SECTION -->
   <section class="emotional-pain-section">
     <div class="container">
-      <div class="pain-container-box" style="padding: 0; overflow: hidden;"><img src="images/ad-creative.png" alt="إصبع منحني والجبيرة التي تثبّته" style="width: 100%; display: block; border-radius: 16px 16px 0 0;" />
+      <div class="pain-container-box" style="padding: 0; overflow: hidden;"><img loading="lazy" decoding="async" src="images/ad-creative.jpg" alt="إصبع منحني والجبيرة التي تثبّته" style="width: 100%; display: block; border-radius: 16px 16px 0 0;" />
 <div style="padding: 18px 14px;">
         <div class="pain-icon-wrapper">
           <i class="fa-solid fa-triangle-exclamation pulse-danger"></i>
@@ -363,7 +364,7 @@
     <div class="container">
       <div class="angle-surgery-card">
         <div class="angle-visual-img" data-swap-img="surgery">
-          <img src="images/product-action.jpg" alt="جبيرة تُرتدى في البيت بدل العملية" />
+          <img loading="lazy" decoding="async" src="images/product-action.jpg" alt="جبيرة تُرتدى في البيت بدل العملية" />
           <span class="angle-visual-tag">حل من البيت… دون عملية</span>
         </div>
         <div class="angle-visual-body">
@@ -405,7 +406,7 @@
     <div class="container">
       <div class="angle-life-card">
         <div class="angle-visual-img" data-swap-img="daily-life">
-          <img src="images/happy-customer.jpg" alt="اليد في الحياة اليومية بعد التثبيت" />
+          <img loading="lazy" decoding="async" src="images/happy-customer.jpg" alt="اليد في الحياة اليومية بعد التثبيت" />
           <span class="angle-visual-tag">المصافحة… الصورة… الخاتم</span>
         </div>
         <div class="angle-visual-body">
@@ -455,7 +456,7 @@
         <div class="vba-card danger-card">
           <div class="vba-card-badge danger">❌ بدون جبيرة</div>
           <div class="vba-img-wrapper" style="padding: 10px; padding-bottom: 0; height: auto !important; max-height: none !important; overflow: visible !important;">
-            <img src="images/ad-creative.png" alt="إصبع منحني بدون جبيرة" style="width: 100%; display: block; border-radius: 12px;" />
+            <img loading="lazy" decoding="async" src="images/ad-creative.jpg" alt="إصبع منحني بدون جبيرة" style="width: 100%; display: block; border-radius: 12px;" />
           </div>
           <div class="vba-card-content">
             <h4>بدون جبيرة:</h4>
@@ -471,7 +472,7 @@
         <div class="vba-card success-card" style="transform: none !important; max-width: 100% !important; padding: 1.5rem !important; width: auto !important;">
           <div class="vba-card-badge success">مع الجبيرة</div>
           <div class="vba-img-wrapper">
-            <img src="images/product-action.jpg" alt="إصبع مثبت بالجبيرة" style="width: 100%; display: block; border-radius: 12px;" />
+            <img loading="lazy" decoding="async" src="images/product-action.jpg" alt="إصبع مثبت بالجبيرة" style="width: 100%; display: block; border-radius: 12px;" />
           </div>
           <div class="vba-card-content">
             <h4>مع الجبيرة:</h4>
@@ -492,7 +493,7 @@
   <section class="tech-explanation-section">
     <div class="container">
 <div style="background: #111827; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #374151;">
-<img src="images/material-closeup.jpg" alt="جودة الألمنيوم والفيلكرو" style="width: 100%; display: block;" />
+<img loading="lazy" decoding="async" src="images/material-closeup.jpg" alt="جودة الألمنيوم والفيلكرو" style="width: 100%; display: block;" />
 <div style="padding: 18px 14px;">
 <h2 class="section-heading">لماذا هذه الجبيرة؟</h2>
       <p class="section-subheading">لوح ألمنيوم يثبّت الإصبع… وهذا ما تراه بعينك</p>
@@ -805,7 +806,7 @@
   <section class="trust-marketing-section">
     <div class="container">
 <div style="background: #111827; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #374151;">
-<img src="images/happy-customer.jpg" alt="زبناء مع الجبيرة" style="width: 100%; display: block;" />
+<img loading="lazy" decoding="async" src="images/happy-customer.jpg" alt="زبناء مع الجبيرة" style="width: 100%; display: block;" />
 <div style="padding: 18px 14px;">
 <div class="trust-header">
         <h2>لماذا يختار الزبناء هذه الجبيرة؟</h2>
@@ -851,7 +852,7 @@
         <div class="materials-grid">
           
           <div class="materials-img-col">
-            <img src="images/material-closeup.jpg" alt="ألمنيوم مثقب وفيلكرو متين" style="width: 100%; display: block; border-radius: 16px;" />
+            <img loading="lazy" decoding="async" src="images/material-closeup.jpg" alt="ألمنيوم مثقب وفيلكرو متين" style="width: 100%; display: block; border-radius: 16px;" />
           </div>
 
           <div class="materials-text-col">
@@ -896,7 +897,7 @@
         <!-- Photo Block 1 -->
         <div class="pvd-block-card">
           <div class="pvd-img-box">
-            <img src="images/product-action.jpg" alt="الجبيرة مركبة على الإصبع" style="width: 100%; display: block; border-radius: 16px;" />
+            <img loading="lazy" decoding="async" src="images/product-action.jpg" alt="الجبيرة مركبة على الإصبع" style="width: 100%; display: block; border-radius: 16px;" />
           </div>
           <div class="pvd-content-box">
             <span class="pvd-step-num">1</span>
@@ -914,7 +915,7 @@
         <!-- Photo Block 2 -->
         <div class="pvd-block-card reverse">
           <div class="pvd-img-box">
-            <img src="images/material-closeup.jpg" alt="إسفنج مريح ومهوى" style="width: 100%; display: block; border-radius: 16px;" />
+            <img loading="lazy" decoding="async" src="images/material-closeup.jpg" alt="إسفنج مريح ومهوى" style="width: 100%; display: block; border-radius: 16px;" />
           </div>
           <div class="pvd-content-box">
             <span class="pvd-step-num">2</span>
@@ -932,7 +933,7 @@
         <!-- Photo Block 3 -->
         <div class="pvd-block-card">
           <div class="pvd-img-box">
-            <img src="images/premium-packaging.jpg" alt="باقة 5 قطع" style="width: 100%; display: block; border-radius: 16px;" />
+            <img loading="lazy" decoding="async" src="images/premium-packaging.jpg" alt="باقة 5 قطع" style="width: 100%; display: block; border-radius: 16px;" />
           </div>
           <div class="pvd-content-box">
             <span class="pvd-step-num">3</span>
@@ -985,7 +986,7 @@
   <section class="installation-section">
     <div class="container">
 <div style="background: #111827; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #374151;">
-<img src="images/product-action.jpg" alt="طريقة استعمال الجبيرة" style="width: 100%; display: block;" />
+<img loading="lazy" decoding="async" src="images/product-action.jpg" alt="طريقة استعمال الجبيرة" style="width: 100%; display: block;" />
 <div style="padding: 18px 14px;">
 <h2 class="section-heading">طريقة الاستعمال</h2>
 
@@ -1021,7 +1022,7 @@
     <div class="container">
       <div class="results-card">
         <div class="angle-visual-img" data-swap-img="night-protocol">
-          <img src="images/product-action.jpg" alt="ارتداء الجبيرة ليلاً لتثبيت الإصبع" />
+          <img loading="lazy" decoding="async" src="images/product-action.jpg" alt="ارتداء الجبيرة ليلاً لتثبيت الإصبع" />
           <span class="angle-visual-tag">تلبسها قبل النوم… والإصبع يبقى مسطّح</span>
         </div>
         <div class="angle-visual-body">
@@ -1160,7 +1161,7 @@
     <div class="container">
       <div class="value-stack-card angle-visual-card">
         <div class="angle-visual-img" data-swap-img="value-pack">
-          <img src="images/premium-packaging.jpg" alt="باقة 5 جبائر تصل في العلبة" />
+          <img loading="lazy" decoding="async" src="images/premium-packaging.jpg" alt="باقة 5 جبائر تصل في العلبة" />
           <span class="angle-visual-tag">هذا ما يصلك إلى الباب</span>
         </div>
         <div class="angle-visual-body">
@@ -1190,7 +1191,7 @@
     <div class="container">
       <div class="angle-wait-card">
         <div class="angle-visual-img" data-swap-img="waiting">
-          <img src="images/ad-creative.png" alt="كلما بقي الإصبع منحنياً اعتاد هذا الشكل" />
+          <img loading="lazy" decoding="async" src="images/ad-creative.jpg" alt="كلما بقي الإصبع منحنياً اعتاد هذا الشكل" />
           <span class="angle-visual-tag">كل ما تأخّرت… الصبع كيعتاد العوج</span>
         </div>
         <div class="angle-visual-body">
@@ -1228,7 +1229,7 @@
     <div class="container">
       <div class="angle-pharma-card">
         <div class="angle-visual-img" data-swap-img="pack">
-          <img src="images/premium-packaging.jpg" alt="باقة 5 قطع تصل إلى باب المنزل" />
+          <img loading="lazy" decoding="async" src="images/premium-packaging.jpg" alt="باقة 5 قطع تصل إلى باب المنزل" />
           <span class="angle-visual-tag">5 قطع… تفحصها ثم تدفع</span>
         </div>
         <div class="angle-visual-body">
@@ -1264,7 +1265,7 @@
     <div class="container">
       <div class="angle-object-card">
         <div class="angle-visual-img" data-swap-img="comfort">
-          <img src="images/material-closeup.jpg" alt="إسفنج مريح وشريط يُضبط على مقاسك" />
+          <img loading="lazy" decoding="async" src="images/material-closeup.jpg" alt="إسفنج مريح وشريط يُضبط على مقاسك" />
           <span class="angle-visual-tag">مريحة… وتُضبط على إصبعك</span>
         </div>
         <div class="angle-visual-body">
@@ -1297,7 +1298,7 @@
     <div class="container">
       <div class="who-for-card">
         <div class="angle-visual-img" data-swap-img="who-for">
-          <img src="images/ad-creative.png" alt="لمن تناسب جبيرة تقويم الأصابع" />
+          <img loading="lazy" decoding="async" src="images/ad-creative.jpg" alt="لمن تناسب جبيرة تقويم الأصابع" />
           <span class="angle-visual-tag">إصبع معوج من الصغر أو من ضربة</span>
         </div>
         <div class="angle-visual-body">
@@ -1620,7 +1621,7 @@
         <div class="sheet-selected-offer-card" id="sheet-offer-trigger" onclick="toggleSheetOfferDrawer()" title="انقر لتغيير الباقة">
           <div class="sheet-offer-live-badge"><span class="sheet-live-dot"></span> انقر لتغيير الباقة</div>
           <div class="sheet-offer-card-top">
-            <img id="sheet-preview-img" class="sheet-card-thumb" src="images/premium-packaging.jpg" alt="باقة الجبيرة" />
+            <img loading="lazy" decoding="async" id="sheet-preview-img" class="sheet-card-thumb" src="images/premium-packaging.jpg" alt="باقة الجبيرة" />
             <div class="sheet-offer-card-info">
               <div class="sheet-active-tag" id="sheet-active-badge">العرض الأساسي</div>
               <div class="sheet-active-title" id="sheet-bundle-name">باقة 5 قطع (يد واحدة)</div>

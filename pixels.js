@@ -1,7 +1,12 @@
-/* FingerCare pixels stay empty until IDs are saved in the admin. */
+/* FingerCare pixels: fire instantly from cache, then refresh IDs from admin. */
 (function () {
+    var injectedFb = {};
+    var injectedTt = {};
+    var injectedSnap = {};
+
     function injectFacebook(pixelId, isSecondary) {
-        if (!pixelId) return;
+        if (!pixelId || injectedFb[pixelId]) return;
+        injectedFb[pixelId] = true;
         if (!window.fbq) {
             !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
@@ -13,7 +18,8 @@
     }
 
     function injectTikTok(pixelId) {
-        if (!pixelId) return;
+        if (!pixelId || injectedTt[pixelId]) return;
+        injectedTt[pixelId] = true;
         !function (w, d, t) {
             w.TiktokAnalyticsObject = t;
             var ttq = w[t] = w[t] || [];
@@ -49,7 +55,8 @@
     }
 
     function injectSnap(pixelId) {
-        if (!pixelId || window.snaptr) return;
+        if (!pixelId || injectedSnap[pixelId] || window.snaptr) return;
+        injectedSnap[pixelId] = true;
         (function(e,t,n){if(e.snaptr)return;var a=e.snaptr=function(){
             a.handleRequest?a.handleRequest.apply(a,arguments):a.queue.push(arguments)};
             a.queue=[];var s='script';var r=t.createElement(s);r.async=!0;
@@ -59,18 +66,29 @@
         window.snaptr('track', 'PAGE_VIEW');
     }
 
+    function applyPixels(s) {
+        if (!s) return;
+        var fb1 = (s.fb_pixel_1 || s.fb_pixel_id || '').trim();
+        var fb2 = (s.fb_pixel_2 || '').trim();
+        var tt = (s.tiktok_pixel || s.tiktok_pixel_id || '').trim();
+        var snap = (s.snapchat_pixel || '').trim();
+        if (fb1) injectFacebook(fb1, false);
+        if (fb2 && fb2 !== fb1) injectFacebook(fb2, true);
+        if (tt) injectTikTok(tt);
+        if (snap) injectSnap(snap);
+    }
+
+    try {
+        var cached = localStorage.getItem('fc_pixel_settings');
+        if (cached) applyPixels(JSON.parse(cached));
+    } catch (e) {}
+
     window.FC_PIXELS_READY = fetch('/api/settings')
         .then(function (res) { return res.json(); })
         .then(function (data) {
             var s = (data && data.settings) || {};
-            var fb1 = (s.fb_pixel_1 || s.fb_pixel_id || '').trim();
-            var fb2 = (s.fb_pixel_2 || '').trim();
-            var tt = (s.tiktok_pixel || s.tiktok_pixel_id || '').trim();
-            var snap = (s.snapchat_pixel || '').trim();
-            if (fb1) injectFacebook(fb1, false);
-            if (fb2 && fb2 !== fb1) injectFacebook(fb2, true);
-            if (tt) injectTikTok(tt);
-            if (snap) injectSnap(snap);
+            try { localStorage.setItem('fc_pixel_settings', JSON.stringify(s)); } catch (e) {}
+            applyPixels(s);
             return s;
         })
         .catch(function () { return {}; });

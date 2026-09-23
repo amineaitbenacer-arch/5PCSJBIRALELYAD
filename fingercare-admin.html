@@ -551,7 +551,7 @@
 
     <!-- Scripts -->
     <script>
-        const PASS = "fingercare2026";
+        const PASS = "Jbira5pcs179";
         let allOrders = [];
         let currentTab = 'stats';
         let analyticsStats = {
@@ -611,7 +611,7 @@
         function unlockPixelSettings(e) {
             e.preventDefault();
             const code = document.getElementById('pixel-passcode').value.trim();
-            if (code === PASS || code === '2026' || code === 'pixel2026') {
+            if (code === PASS) {
                 sessionStorage.setItem('fc_pixel_unlocked', 'true');
                 document.getElementById('pixel-lock-error').classList.add('hidden');
                 document.getElementById('pixel-lock-screen').style.display = 'none';

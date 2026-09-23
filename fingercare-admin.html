@@ -103,15 +103,6 @@
         .st-annule { background-color: rgba(239,68,68,0.15); color: #EF4444; border-color: rgba(239,68,68,0.4); text-shadow: 0 0 10px rgba(239,68,68,0.5); box-shadow: 0 0 15px rgba(239,68,68,0.2); }
         .st-pasreponse { background-color: rgba(59,130,246,0.15); color: #3B82F6; border-color: rgba(59,130,246,0.4); text-shadow: 0 0 10px rgba(59,130,246,0.5); box-shadow: 0 0 15px rgba(59,130,246,0.2); }
 
-        /* Login Screen */
-        #login-screen {
-            position: fixed; inset: 0;
-            background: #031512;
-            display: flex; align-items: center; justify-content: center;
-            z-index: 9999;
-            background-image: radial-gradient(circle at center, rgba(45, 212, 191,0.05) 0%, transparent 70%);
-        }
-
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #0B0F17; }
@@ -121,32 +112,8 @@
 </head>
 <body class="p-4 md:p-8" style="font-family: 'Inter', sans-serif !important;">
 
-    <!-- 🔒 LOGIN SCREEN -->
-    <div id="login-screen">
-        <div class="glass-card p-10 max-w-md w-full text-center relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-teal-400 to-transparent"></div>
-            
-            <div class="w-20 h-20 bg-teal-400 rounded-2xl flex items-center justify-center text-black text-4xl mx-auto mb-6 shadow-[0_0_30px_rgba(45,212,191,0.4)] transform rotate-3">
-                <i class="fa-solid fa-hand"></i>
-            </div>
-            <h2 class="text-3xl font-black text-white mb-2 glow-text">FingerCare Admin</h2>
-            <p class="text-sm text-gray-400 mb-8">النظام الآمن لإدارة المبيعات والتأكيدات</p>
-            
-            <form onsubmit="handleLogin(event)">
-                <div class="relative mb-6">
-                    <i class="fa-solid fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    <input type="password" id="admin-pass" placeholder="Password..." class="w-full bg-gray-900/80 border-2 border-gray-700 text-white rounded-xl pl-12 pr-4 py-4 focus:outline-none focus:border-teal-400 transition-all text-center font-bold text-lg en-font shadow-inner" required>
-                </div>
-                <button type="submit" class="w-full btn-gold font-black text-xl py-4 rounded-xl flex items-center justify-center gap-3">
-                    تسجيل الدخول <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                </button>
-            </form>
-            <p id="login-error" class="text-red-500 text-sm mt-4 hidden font-bold bg-red-500/10 py-2 rounded-lg border border-red-500/20 animate-pulse">❌ Incorrect password!</p>
-        </div>
-    </div>
-
     <!-- 📊 DASHBOARD CONTENT -->
-    <div class="max-w-[1400px] mx-auto" id="app-container" style="display: none;">
+    <div class="max-w-[1400px] mx-auto" id="app-container">
         
         <!-- Premium Header -->
         <header class="flex flex-col lg:flex-row justify-between items-center mb-10 glass-card p-6 md:p-8 relative overflow-hidden">
@@ -218,9 +185,9 @@
                 </button>
             </div>
             
-            <button onclick="handleLogout()" class="text-gray-400 hover:text-red-400 font-bold text-sm flex items-center gap-2 px-4 py-2.5 rounded-xl hover:bg-red-500/10 transition">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
-            </button>
+            <a href="/" class="text-gray-400 hover:text-teal-400 font-bold text-sm flex items-center gap-2 px-4 py-2.5 rounded-xl hover:bg-teal-400/10 transition">
+                <i class="fa-solid fa-store"></i> Store
+            </a>
         </div>
 
         <!-- 📊 VIEW 1: STATISTIQUES & ANALYTICS DASHBOARD -->
@@ -423,38 +390,14 @@
 
         <!-- 🔐 VIEW 3: PROTECTED PIXELS & SETTINGS -->
         <div id="settings-view" style="display: none;">
-            <!-- SECURITY GATE (PASSWORD PROMPT) -->
-            <div id="pixel-lock-screen" class="glass-card p-8 md:p-12 max-w-lg mx-auto text-center border border-red-500/30 shadow-[0_0_50px_rgba(239,68,68,0.15)]">
-                <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-amber-600 rounded-3xl flex items-center justify-center text-white text-3xl mx-auto mb-6 shadow-[0_0_30px_rgba(239,68,68,0.4)] transform rotate-3">
-                    <i class="fa-solid fa-lock"></i>
-                </div>
-                <h3 class="text-2xl font-black text-white glow-text mb-2">منطقة الإعدادات الSecuredة 🔐</h3>
-                <p class="text-sm text-gray-400 mb-6 font-semibold">This section is for Facebook & TikTok Pixels & Tokens. Enter passcode to continue:</p>
-                
-                <form onsubmit="unlockPixelSettings(event)" class="space-y-4">
-                    <div class="relative">
-                        <i class="fa-solid fa-key absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="password" id="pixel-passcode" placeholder="Enter Passcode..." class="w-full bg-gray-900 border-2 border-gray-700 text-white rounded-xl pl-12 pr-4 py-3.5 focus:outline-none focus:border-teal-400 transition-all text-center font-black en-font shadow-inner text-lg" required>
-                    </div>
-                    <button type="submit" class="w-full btn-gold py-3.5 rounded-xl font-black text-base flex items-center justify-center gap-2 shadow-lg">
-                        <i class="fa-solid fa-lock-open"></i> Unlock Settings
-                    </button>
-                    <p id="pixel-lock-error" class="text-red-400 text-xs font-bold hidden bg-red-500/10 py-2 rounded-lg border border-red-500/20">❌ Incorrect Passcode!</p>
-                </form>
-            </div>
-
-            <!-- UNLOCKED SETTINGS PANEL -->
-            <div id="pixel-unlocked-panel" style="display: none;" class="glass-card p-6 md:p-8">
+            <div id="pixel-unlocked-panel" class="glass-card p-6 md:p-8">
                 <div class="flex flex-wrap items-center justify-between mb-8 pb-4 border-b border-gray-700/50 gap-4">
                     <div>
                         <h2 class="text-2xl md:text-3xl font-black text-white glow-text flex items-center gap-3">
                             <i class="fa-solid fa-sliders text-teal-400"></i> Pixels & Integrations
                         </h2>
-                        <p class="text-sm text-gray-400 mt-1 font-semibold">Manage your tracking pixels and Conversions API tokens securely.</p>
+                        <p class="text-sm text-gray-400 mt-1 font-semibold">Manage your tracking pixels and Conversions API tokens.</p>
                     </div>
-                    <button onclick="lockPixelSettings()" class="bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded-xl text-xs font-bold border border-gray-700 flex items-center gap-2 transition">
-                        <i class="fa-solid fa-lock text-teal-400"></i> Lock Settings
-                    </button>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -551,7 +494,6 @@
 
     <!-- Scripts -->
     <script>
-        const PASS = "Jbira5pcs179";
         let allOrders = [];
         let currentTab = 'stats';
         let analyticsStats = {
@@ -591,51 +533,13 @@
             } else if (tabName === 'settings') {
                 settingsView.style.display = 'block';
                 settingsBtn.className = "px-5 md:px-7 py-3 rounded-xl font-black text-sm md:text-base flex items-center gap-2.5 transition-all bg-gradient-to-r from-blue-600 via-indigo-600 to-pink-600 text-white shadow-[0_0_25px_rgba(59,130,246,0.4)]";
-
-                // Check security lock
-                if (sessionStorage.getItem('fc_pixel_unlocked') === 'true') {
-                    document.getElementById('pixel-lock-screen').style.display = 'none';
-                    document.getElementById('pixel-unlocked-panel').style.display = 'block';
-                    loadSettings();
-                } else {
-                    document.getElementById('pixel-lock-screen').style.display = 'block';
-                    document.getElementById('pixel-unlocked-panel').style.display = 'none';
-                    setTimeout(() => {
-                        const input = document.getElementById('pixel-passcode');
-                        if (input) input.focus();
-                    }, 100);
-                }
-            }
-        }
-
-        function unlockPixelSettings(e) {
-            e.preventDefault();
-            const code = document.getElementById('pixel-passcode').value.trim();
-            if (code === PASS) {
-                sessionStorage.setItem('fc_pixel_unlocked', 'true');
-                document.getElementById('pixel-lock-error').classList.add('hidden');
-                document.getElementById('pixel-lock-screen').style.display = 'none';
-                document.getElementById('pixel-unlocked-panel').style.display = 'block';
                 loadSettings();
-            } else {
-                document.getElementById('pixel-lock-error').classList.remove('hidden');
             }
         }
 
-        function lockPixelSettings() {
-            sessionStorage.removeItem('fc_pixel_unlocked');
-            document.getElementById('pixel-passcode').value = '';
-            document.getElementById('pixel-lock-screen').style.display = 'block';
-            document.getElementById('pixel-unlocked-panel').style.display = 'none';
-        }
-
-        function unlockDashboard() {
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('app-container').style.display = 'block';
+        function openDashboard() {
             fetchOrders();
             fetchAnalyticsStats();
-
-            // Check if URL specifies tab
             const urlParams = new URLSearchParams(window.location.search);
             const reqTab = urlParams.get('tab') || (window.location.hash ? window.location.hash.replace('#', '') : '');
             if (reqTab === 'orders' || reqTab === 'settings') {
@@ -645,32 +549,7 @@
             }
         }
 
-        function handleLogin(e) {
-            e.preventDefault();
-            const pass = document.getElementById('admin-pass').value;
-            if (pass === PASS) {
-                sessionStorage.setItem('fc_admin_pass', PASS);
-                document.getElementById('login-screen').style.opacity = '0';
-                setTimeout(() => {
-                    unlockDashboard();
-                }, 250);
-            } else {
-                document.getElementById('login-error').classList.remove('hidden');
-            }
-        }
-
-        function handleLogout() {
-            sessionStorage.removeItem('fc_admin_pass');
-            sessionStorage.removeItem('fc_pixel_unlocked');
-            window.location.reload();
-        }
-
-        // Auto-unlock if already authenticated in this session
-        window.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('fc_admin_pass') === PASS) {
-                unlockDashboard();
-            }
-        });
+        window.addEventListener('DOMContentLoaded', openDashboard);
 
         async function fetchAnalyticsStats(force = false) {
             try {

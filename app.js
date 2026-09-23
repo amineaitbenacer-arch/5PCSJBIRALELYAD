@@ -1,11 +1,11 @@
 /* ==========================================================================
-   AntiChoc Protect® - Mobile E-Commerce JavaScript Application
+   FingerCare 🩹 - Mobile E-Commerce JavaScript Application
    ========================================================================== */
 
-// Selected Bundle State: 1 = 2 PCS (179 DH), 2 = 4 PCS (249 DH)
+// Selected Bundle: 1 = 5 PCS (179 DH), 2 = 10 PCS (279 DH)
 let currentBundle = {
     id: 1,
-    name: 'طقم الحماية الأساسي (2 قطع) 🛡️',
+    name: 'باقة 5 قطع (يد واحدة)',
     price: 179
 };
 
@@ -27,29 +27,8 @@ window.addEventListener('error', function(e) {
 }, true);
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize default bundle state
     selectModalPack(1);
-    startHeaderCountdown();
 });
-
-/* --------------------------------------------------------------------------
-   Countdown Scarcity Timer for Header Announcement (CVR Booster)
-   -------------------------------------------------------------------------- */
-function startHeaderCountdown() {
-    let totalSeconds = 14 * 60 + 59; // 14 mins 59 secs default
-    const timerEl = document.getElementById('header-timer');
-    if (!timerEl) return;
-
-    setInterval(() => {
-        if (totalSeconds <= 0) {
-            totalSeconds = 14 * 60 + 59; // Reset to keep urgency active
-        }
-        totalSeconds--;
-        const m = Math.floor(totalSeconds / 60);
-        const s = totalSeconds % 60;
-        timerEl.textContent = `${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`;
-    }, 1000);
-}
 
 /* --------------------------------------------------------------------------
    1. Image Gallery Thumb Switcher
@@ -108,56 +87,38 @@ function closeOrderModal() {
    3. Bundle Selector (Synchronizes Hero, Final Section & Checkout Drawer)
    -------------------------------------------------------------------------- */
 function selectModalPack(packId, fromUserClick) {
-    const id = parseInt(packId) || 1;
+    let id = parseInt(packId, 10) || 1;
+    if (id !== 2) id = 1;
+
     let price = 179;
     let oldPrice = 399;
     let saveAmount = 220;
-    let name = 'طقم 2 قطع (شوفو واحد) 🛡️';
-    let subtext = 'عازل مزدوج (بارد + سخون) • توصيل مجاني 🚚';
+    let name = 'باقة 5 قطع (يد واحدة)';
+    let subtext = '5 قطع للاستبدال عند الحاجة • توصيل مجاني';
     let tag = 'العرض الأساسي';
-    const fixedImg = 'images/hero_father_daughter.jpg';
+    const fixedImg = 'images/premium-packaging.jpg';
 
     if (id === 2) {
-        price = 249;
+        price = 279;
         oldPrice = 599;
-        saveAmount = 350;
-        name = 'باك 4 قطع (2 حمامات) ⚡️';
-        subtext = 'حماية لشوفويين • وفرت 350 DH اليوم 🎁';
-        tag = '⭐ الأكثر طلباً بالمغرب';
-    } else if (id === 3) {
-        price = 299;
-        oldPrice = 899;
-        saveAmount = 600;
-        name = 'باك 6 قطع (3 حمامات) 🛡️';
-        subtext = 'حماية شاملة لكل الدار • وفرت 600 DH كاش 🔥';
-        tag = '🔥 أعلى توفير وأفضل قيمة';
+        saveAmount = 320;
+        name = 'باقة 10 قطع (لليدين)';
+        subtext = '10 قطع لليدين • توفير 320 درهماً';
+        tag = 'توفير أكبر';
     }
-    
+
     currentBundle = { id: id, price: price, name: name };
 
-    // 1. Update Offer Cards Across Page (Hero & Final Sections)
-    const allOfferCards = document.querySelectorAll('.hero-offer-card, .offer-card');
-    allOfferCards.forEach((card) => {
-        const pack = parseInt(card.getAttribute('data-pack'));
-        if (pack === id) {
-            card.classList.add('selected');
-        } else {
-            card.classList.remove('selected');
-        }
+    document.querySelectorAll('.hero-offer-card, .offer-card').forEach((card) => {
+        const pack = parseInt(card.getAttribute('data-pack'), 10);
+        card.classList.toggle('selected', pack === id);
     });
 
-    // 2. Update Checkout Drawer Cards (AOV Selector)
-    const sodCards = document.querySelectorAll('.sod-card');
-    sodCards.forEach((card) => {
-        const pack = parseInt(card.getAttribute('data-pack'));
-        if (pack === id) {
-            card.classList.add('selected');
-        } else {
-            card.classList.remove('selected');
-        }
+    document.querySelectorAll('.sod-card').forEach((card) => {
+        const pack = parseInt(card.getAttribute('data-pack'), 10);
+        card.classList.toggle('selected', pack === id);
     });
 
-    // 3. Update All Price Blocks Dynamically (Hero & Final Section)
     document.querySelectorAll('.price-new-large').forEach(el => {
         el.innerHTML = `${price} <small>درهم</small>`;
     });
@@ -168,15 +129,15 @@ function selectModalPack(packId, fromUserClick) {
         el.textContent = `توفير ${saveAmount} DH`;
     });
     document.querySelectorAll('.price-save-badge').forEach(el => {
-        el.textContent = `🎁 وفرت ${saveAmount} درهم اليوم + توصيل مجاني!`;
+        el.textContent = `توفير ${saveAmount} درهماً + توصيل مجاني`;
     });
 
-    // 4. Update All Main CTA Buttons Text & Price
     document.querySelectorAll('.offer-cta-main').forEach(btn => {
-        btn.innerHTML = `<i class="fa-solid fa-cart-shopping"></i> ⚡️ اشتري الآن - ${price} DH`;
+        btn.innerHTML = `<i class="fa-solid fa-cart-shopping"></i> اطلب الآن - ${price} درهم`;
     });
+    const buyBtn = document.querySelector('.buy-bar .buy-btn');
+    if (buyBtn) buyBtn.innerHTML = `اطلب الآن — ${price} درهم`;
 
-    // 5. Update Checkout Sheet Selected Offer Display
     const sheetBundleName = document.getElementById('sheet-bundle-name');
     if (sheetBundleName) sheetBundleName.textContent = name;
 
@@ -195,7 +156,6 @@ function selectModalPack(packId, fromUserClick) {
     const sheetPreviewImg = document.getElementById('sheet-preview-img');
     if (sheetPreviewImg) sheetPreviewImg.src = fixedImg;
 
-    // 6. Update Checkout Total Box & Sticky Bar
     const sheetTotal = document.getElementById('sheet-total-price');
     if (sheetTotal) sheetTotal.textContent = price + ' درهم';
 
@@ -205,22 +165,17 @@ function selectModalPack(packId, fromUserClick) {
     const stickyOldPrice = document.querySelector('.buy-bar .bar-old');
     if (stickyOldPrice) stickyOldPrice.textContent = oldPrice + ' درهم';
 
-    // 7. Update AOV Congratulation Banner in Checkout
     const aovCongrats = document.getElementById('sheet-aov-congrats');
     const aovMsg = document.getElementById('sheet-aov-msg');
     if (aovCongrats && aovMsg) {
         if (id === 2) {
             aovCongrats.style.display = 'flex';
-            aovMsg.textContent = '⭐ اختيار ذكي! وفرت 350 درهم وحصلت على حماية كاملة لحمامين.';
-        } else if (id === 3) {
-            aovCongrats.style.display = 'flex';
-            aovMsg.textContent = '🔥 أقوى توفير! وفرت 600 درهم وحصلت على حماية قصوى لكافة حمامات المنزل.';
+            aovMsg.textContent = 'تم اختيار باقة 10 قطع. التوفير: 320 درهماً.';
         } else {
             aovCongrats.style.display = 'none';
         }
     }
 
-    // 8. Auto-collapse drawer on customer selection after short smooth feedback
     if (fromUserClick) {
         setTimeout(() => {
             const drawer = document.getElementById('sheet-offers-drawer');
@@ -252,7 +207,7 @@ async function handleOrderSubmit(event) {
     const address = addressInp ? addressInp.value.trim() : city;
 
     if (!name || !phone || !city) {
-        alert("عافاك كمل جميع المعلومات (الاسم، الهاتف والمدينة).");
+        alert("يرجى إكمال جميع المعلومات (الاسم، الهاتف، والمدينة).");
         return;
     }
 
@@ -299,23 +254,6 @@ async function handleOrderSubmit(event) {
         })
     }).catch(err => console.log('Running in local/offline mode:', err));
 
-    // 🚀 Send data to Google Sheets (Background)
-    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbx-mpVnPpNLIdBDluqbLoAuNoflC26-6HtnUWpYWsPGf0zJmw90p_FG9mgnKdbW4nboiw/exec';
-    fetch(GOOGLE_SHEET_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-            orderId: orderId,
-            name: name,
-            phone: phone,
-            city: city,
-            address: fullLocation,
-            offerName: currentBundle.name,
-            price: currentBundle.price
-        })
-    }).catch(err => console.error('Google Sheets Error:', err));
-
     // Save order details to localStorage for the Thank You page
     const orderData = {
         orderId: orderId,
@@ -325,6 +263,7 @@ async function handleOrderSubmit(event) {
         offerName: currentBundle.name,
         price: currentBundle.price
     };
+    localStorage.setItem('fc_last_order', JSON.stringify(orderData));
     localStorage.setItem('ac_last_order', JSON.stringify(orderData));
 
     // Redirect to Thank You Page instantly but let network requests fire
@@ -346,7 +285,7 @@ function closeSuccessModal() {
    5. Floating Scroll to Top & Offers Selector Handler
    -------------------------------------------------------------------------- */
 function scrollToTop() {
-    const heroOffers = document.querySelector('.hero-offers-wrapper') || document.querySelector('.hero-offers-grid');
+    const heroOffers = document.querySelector('.hero-offers-wrapper') || document.querySelector('.price-block');
     if (heroOffers) {
         heroOffers.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } else {
@@ -361,7 +300,7 @@ function scrollToOffers() {
 window.addEventListener('scroll', () => {
     const floatBtn = document.getElementById('floating-top-btn') || document.getElementById('floating-offers-btn');
     if (!floatBtn) return;
-    
+
     // Only show button after scrolling past ~45% of the total page height or 700px
     const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
     const scrollThreshold = Math.max(700, docHeight * 0.45);
@@ -374,7 +313,7 @@ window.addEventListener('scroll', () => {
 });
 
 /* --------------------------------------------------------------------------
-   5. FAQ Accordion Toggle
+   6. FAQ Accordion Toggle
    -------------------------------------------------------------------------- */
 function toggleFaq(btn) {
     const item = btn.parentElement;
@@ -382,14 +321,14 @@ function toggleFaq(btn) {
 }
 
 /* --------------------------------------------------------------------------
-   6. Interactive 15-Reviews Slider Pagination
+   7. Interactive 15-Reviews Slider Pagination
    -------------------------------------------------------------------------- */
 let currentReviewPage = 1;
 const totalReviewPages = 3;
 
 function setReviewPage(pageIndex) {
     currentReviewPage = pageIndex;
-    
+
     // Hide all pages
     document.querySelectorAll('.review-page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.rev-dot').forEach(d => d.classList.remove('active'));
@@ -419,3 +358,5 @@ function escapeHtml(text) {
         return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
     });
 }
+
+

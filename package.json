@@ -1,7 +1,7 @@
 {
-  "name": "antichoc",
+  "name": "fingercare",
   "version": "1.0.0",
-  "description": "AntiChoc Protect Landing Page",
+  "description": "FingerCare Splint Landing Page",
   "main": "server.js",
   "scripts": {
     "dev": "node server.js",

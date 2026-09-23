@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AntiChoc Protect® | شكراً على طلبك</title>
+  <title>FingerCare 🩹 | شكراً على طلبك</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,13 +17,13 @@
   
 
 
+  <script src="pixels.js"></script>
   <script>
-    // Firing Purchase Event
     document.addEventListener("DOMContentLoaded", function() {
-        let price = 249;
+        let price = 179;
         let orderId = null;
         try {
-          const orderDataStr = localStorage.getItem('ac_last_order');
+          const orderDataStr = localStorage.getItem('fc_last_order') || localStorage.getItem('ac_last_order');
           if (orderDataStr) {
             const orderData = JSON.parse(orderDataStr);
             if (orderData.price) price = orderData.price;
@@ -35,27 +35,37 @@
         if (urlParams.get('price')) price = urlParams.get('price');
         if (urlParams.get('orderId')) orderId = urlParams.get('orderId');
 
-        if (typeof fbq === 'function') {
-            if (orderId) {
-                fbq('track', 'Purchase', { currency: 'MAD', value: Number(price) }, { eventID: 'order_' + orderId });
-            } else {
-                fbq('track', 'Purchase', { currency: 'MAD', value: Number(price) });
+        const ready = window.FC_PIXELS_READY || Promise.resolve();
+        ready.then(function () {
+            if (typeof fbq === 'function') {
+                if (orderId) {
+                    fbq('track', 'Purchase', { currency: 'MAD', value: Number(price) }, { eventID: 'order_' + orderId });
+                } else {
+                    fbq('track', 'Purchase', { currency: 'MAD', value: Number(price) });
+                }
             }
-            console.log("✅ Facebook Pixel Purchase fired statically. Order ID:", orderId, "Price:", price);
-        }
+            if (window.ttq && typeof window.ttq.track === 'function') {
+                window.ttq.track('CompletePayment', { currency: 'MAD', value: Number(price) });
+            }
+            if (typeof snaptr === 'function') {
+                snaptr('track', 'PURCHASE', { currency: 'MAD', price: Number(price) });
+            }
+        });
     });
   </script>
 
 
   <style>
     :root {
-      --bg-dark: #0a0f16;
+      --bg-dark: #071410;
       --card-bg: rgba(20, 26, 35, 0.7);
-      --gold: #FFD700;
+      --gold: #34D399;
       --success: #10B981;
+      --mint: #6EE7B7;
+      --joy: #34D399;
       --text-main: #F8FAFC;
       --text-muted: #94A3B8;
-      --accent: #3B82F6;
+      --accent: #2DD4BF;
     }
     
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', 'Almarai', 'Cairo', sans-serif; }
@@ -63,8 +73,8 @@
     body {
       background: var(--bg-dark);
       background-image: 
-        radial-gradient(circle at 15% 50%, rgba(16, 185, 129, 0.05), transparent 25%),
-        radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.05), transparent 25%);
+        radial-gradient(circle at 15% 50%, rgba(16, 185, 129, 0.14), transparent 28%),
+        radial-gradient(circle at 85% 30%, rgba(45, 212, 191, 0.10), transparent 28%);
       color: var(--text-main);
       min-height: 100vh;
       overflow-x: hidden;
@@ -79,7 +89,7 @@
       backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100;
     }
     .brand-title {
-      font-size: 1.5rem; font-weight: 900; background: linear-gradient(to right, var(--gold), #FFF);
+      font-size: 1.5rem; font-weight: 900; background: linear-gradient(to right, #6EE7B7, #FFF);
       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 10px;
     }
 
@@ -89,13 +99,13 @@
     .premium-success-animation { display: flex; justify-content: center; margin-bottom: 1.5rem; }
     .checkmark {
       width: 90px; height: 90px; border-radius: 50%; display: block;
-      stroke-width: 4; stroke: #FFD700; stroke-miterlimit: 10;
-      box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+      stroke-width: 4; stroke: #34D399; stroke-miterlimit: 10;
+      box-shadow: 0 0 40px rgba(52, 211, 153, 0.55);
       animation: fill 0.4s ease-in-out .4s forwards, scale 0.3s ease-in-out .9s both;
     }
     .checkmark__circle {
       stroke-dasharray: 166; stroke-dashoffset: 166; stroke-width: 4; stroke-miterlimit: 10;
-      stroke: #FFD700; fill: none; animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+      stroke: #34D399; fill: none; animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
     }
     .checkmark__check {
       transform-origin: 50% 50%; stroke-dasharray: 48; stroke-dashoffset: 48;
@@ -103,11 +113,11 @@
     }
     @keyframes stroke { 100% { stroke-dashoffset: 0; } }
     @keyframes scale { 0%, 100% { transform: none; } 50% { transform: scale3d(1.1, 1.1, 1); } }
-    @keyframes fill { 100% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.8), inset 0 0 20px rgba(255, 215, 0, 0.3); } }
+    @keyframes fill { 100% { box-shadow: 0 0 50px rgba(52, 211, 153, 0.85), inset 0 0 20px rgba(16, 185, 129, 0.35); } }
 
     .hero h1 { 
       font-size: 2.8rem; font-weight: 900; margin-bottom: 0.8rem; 
-      background: linear-gradient(135deg, #FFD700 0%, #FFF 50%, #D97706 100%); 
+      background: linear-gradient(135deg, #6EE7B7 0%, #FFF 50%, #10B981 100%); 
       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; 
       animation: goldShine 3s infinite linear; background-size: 200% auto;
     }
@@ -151,7 +161,7 @@
     }
     .receipt-card::after {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
-      background: linear-gradient(to right, var(--gold), #FFF);
+      background: linear-gradient(to right, #34D399, #6EE7B7, #2DD4BF);
     }
     .receipt-header {
       display: flex; justify-content: center; align-items: center; gap: 10px;
@@ -164,7 +174,7 @@
     }
     .receipt-label { color: #94A3B8; font-weight: 600; }
     .receipt-value { color: #FFF; font-weight: 800; text-align: left; }
-    .value-gold { color: var(--gold); text-shadow: 0 0 10px rgba(255,215,0,0.3); }
+    .value-gold { color: var(--joy); text-shadow: 0 0 10px rgba(52,211,153,0.35); }
     .value-green { color: var(--success); font-size: 1.2rem; }
     .free-delivery-badge {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
@@ -203,18 +213,18 @@
       background: rgba(0,0,0,0.3); padding: 10px 30px; border-radius: 16px; border: 1px dashed rgba(255,255,255,0.2);
     }
     .edit-phone-btn { 
-      background: rgba(255, 215, 0, 0.15); border: 1px solid var(--gold); color: var(--gold); 
+      background: rgba(52, 211, 153, 0.15); border: 1px solid var(--joy); color: var(--joy); 
       width: 48px; height: 48px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; flex-shrink: 0;
       transition: all 0.3s; animation: pulseGoldGlow 1.5s infinite; 
       display: flex; align-items: center; justify-content: center;
     }
-    .edit-phone-btn:hover { background: var(--gold); color: #000; transform: scale(1.1); animation: none; }
-    @keyframes pulseGoldGlow { 0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); } }
+    .edit-phone-btn:hover { background: var(--joy); color: #06281C; transform: scale(1.1); animation: none; }
+    @keyframes pulseGoldGlow { 0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(52, 211, 153, 0); } 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); } }
     
     .phone-edit-wrapper { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 2rem; }
     .phone-input {
       font-size: 2rem; font-weight: 900; letter-spacing: 3px; color: #FFF; 
-      background: rgba(0,0,0,0.5); padding: 10px 20px; border-radius: 16px; border: 2px solid var(--gold);
+      background: rgba(0,0,0,0.5); padding: 10px 20px; border-radius: 16px; border: 2px solid var(--joy);
       width: 260px; text-align: center; direction: ltr; outline: none; transition: border-color 0.3s; font-family: 'Tajawal', sans-serif;
     }
     .phone-input:focus { border-color: #10B981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
@@ -237,17 +247,17 @@
     /* 💎 ULTRA-PREMIUM REVIEWS SECTION */
     .reviews-section {
       margin-bottom: 3.5rem;
-      background: linear-gradient(180deg, rgba(255, 215, 0, 0.03) 0%, rgba(16, 185, 129, 0.05) 100%);
-      border: 1px solid rgba(255, 215, 0, 0.15);
+      background: linear-gradient(180deg, rgba(52, 211, 153, 0.05) 0%, rgba(16, 185, 129, 0.07) 100%);
+      border: 1px solid rgba(52, 211, 153, 0.18);
       border-radius: 24px;
       padding: 2.5rem 1.5rem;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 215, 0, 0.05);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(52, 211, 153, 0.06);
       position: relative;
       overflow: hidden;
     }
     .reviews-section::before {
       content: '"'; position: absolute; top: -20px; right: 20px; font-size: 150px;
-      color: rgba(255, 215, 0, 0.05); font-family: serif; line-height: 1; z-index: 0;
+      color: rgba(52, 211, 153, 0.07); font-family: serif; line-height: 1; z-index: 0;
     }
     .section-heading { position: relative; z-index: 1; text-align: center; font-size: 2rem; font-weight: 900; margin-bottom: 0.8rem; color: #FFF; line-height: 1.4; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
     .section-subheading { position: relative; z-index: 1; text-align: center; color: var(--gold); font-size: 1.15rem; margin-bottom: 2.5rem; font-weight: 700; }
@@ -260,16 +270,16 @@
       background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.4));
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-right: 4px solid var(--gold);
+      border-right: 4px solid var(--joy);
       border-radius: 20px; padding: 1.5rem;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .review-card:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(255, 215, 0, 0.15); border-color: rgba(255, 215, 0, 0.3); }
+    .review-card:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(52, 211, 153, 0.18); border-color: rgba(52, 211, 153, 0.35); }
     .review-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-    .reviewer-avatar { font-size: 1.8rem; background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(217,119,6,0.2)); border: 1px solid rgba(255,215,0,0.3); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+    .reviewer-avatar { font-size: 1.8rem; background: linear-gradient(135deg, rgba(52,211,153,0.22), rgba(16,185,129,0.18)); border: 1px solid rgba(52,211,153,0.35); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
     .reviewer-name { font-weight: 900; font-size: 1.05rem; color: #F8FAFC; margin-bottom: 0.2rem; }
-    .review-stars { font-size: 0.9rem; color: #FFD700; display: flex; align-items: center; gap: 0.5rem; text-shadow: 0 0 5px rgba(255,215,0,0.5); }
+    .review-stars { font-size: 0.9rem; color: #6EE7B7; display: flex; align-items: center; gap: 0.5rem; text-shadow: 0 0 5px rgba(52,211,153,0.45); }
     .verified-tag { background: rgba(16, 185, 129, 0.15); color: #10B981; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 50px; font-weight: 900; border: 1px solid rgba(16,185,129,0.3); }
     .review-text { font-size: 1rem; color: #E2E8F0; line-height: 1.8; font-style: italic; font-weight: 600; padding-right: 0.8rem; border-right: 2px solid rgba(255,255,255,0.1); }
 
@@ -278,13 +288,13 @@
       background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.15); color: #FFF; font-weight: 800;
       padding: 0.6rem 1.2rem; border-radius: 50px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-    .rev-nav-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); transform: scale(1.05); }
+    .rev-nav-btn:hover { background: var(--joy); color: #06281C; border-color: var(--joy); transform: scale(1.05); }
     .rev-page-indicators { display: flex; gap: 0.6rem; }
     .rev-dot {
       width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.05); color: #94A3B8; border: 1px solid rgba(255,255,255,0.1);
       display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.95rem; cursor: pointer; transition: all 0.3s;
     }
-    .rev-dot.active, .rev-dot:hover { background: linear-gradient(135deg, #FFD700, #D97706); color: #0B0F17; border-color: #FFD700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.6); transform: scale(1.1); }
+    .rev-dot.active, .rev-dot:hover { background: linear-gradient(135deg, #34D399, #059669); color: #06281C; border-color: #34D399; box-shadow: 0 0 15px rgba(52, 211, 153, 0.55); transform: scale(1.1); }
 
     /* FAQs */
     .faq-title { text-align: center; font-size: 1.8rem; font-weight: 900; margin-bottom: 2rem; color: #FFF; }
@@ -326,8 +336,24 @@
   <!-- NAVBAR -->
   <nav class="navbar">
     <div class="brand-title">
-      <i class="fa-solid fa-shield-halved" style="color: var(--gold);"></i>
-      AntiChoc Protect®
+      <svg width="36" height="36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 6px rgba(52, 211, 153, 0.45));" aria-label="FingerCare">
+        <defs>
+          <linearGradient id="fcBgTy" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#065F46" />
+            <stop offset="100%" stop-color="#071410" />
+          </linearGradient>
+          <linearGradient id="fcGoldTy" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#6EE7B7" />
+            <stop offset="100%" stop-color="#059669" />
+          </linearGradient>
+        </defs>
+        <circle cx="50" cy="50" r="46" fill="url(#fcBgTy)" stroke="url(#fcGoldTy)" stroke-width="5"/>
+        <rect x="37" y="14" width="26" height="70" rx="13" fill="#F8FAFC"/>
+        <ellipse cx="50" cy="16" rx="13" ry="14" fill="#F8FAFC"/>
+        <rect x="30" y="38" width="40" height="18" rx="6" fill="url(#fcGoldTy)"/>
+        <path d="M36 47H64" stroke="#064E3B" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
+      </svg>
+      FingerCare
     </div>
   </nav>
 
@@ -342,7 +368,7 @@
         </svg>
       </div>
       <h1>تهانينا! تم تأكيد طلبك بنجاح 🎉</h1>
-      <p>أنت الآن على بعد خطوة واحدة من حماية عائلتك بشكل احترافي.</p>
+      <p>أنت الآن على بعد خطوة واحدة من استعادة صحة أصابعك.</p>
     </div>
 
     <!-- STEPS TRACKING -->
@@ -428,8 +454,9 @@
 
     <!-- 💬 15 REAL MOROCCAN REVIEWS EXACTLY AS IN PRODUCT PAGE -->
     <section class="reviews-section">
-      <h2 class="section-heading">⭐ آراء وتجارب 15 زبون مغربي (تقييمات حقيقية 100% 🇲🇦)</h2>
-      <p class="section-subheading">تصفح مراجعات حقيقية لأسر وعائلات مغربية جربت عازل AntiChoc Protect®</p>
+    <div class="container">
+      <h2 class="section-heading">آراء الزبناء</h2>
+      <p class="section-subheading">ما قاله من جرّب الجبيرة</p>
 
       <div class="reviews-carousel-wrapper">
         
@@ -440,10 +467,10 @@
               <div class="reviewer-avatar">👨‍💼</div>
               <div>
                 <div class="reviewer-name">السي عبد القادر - مكناس 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
               </div>
             </div>
-            <p class="review-text">"عندي شوفو قديم 80 لتر وكان ديما كيدير ليا النغزة ف يديا ملي كنقيس الروبيني. ملي ركبت هاد القطعتين غبر داك التنميل نهائياً. منتج يستاهل كل درهم."</p>
+            <p class="review-text">"ولدي كان عندو الخنصر معوج (Camptodactylie)، بعد ما لبس الجبيرة بانتظام بدا الصبع كيتسرح شوية بشوية. الله يجازيكم بخير!"</p>
           </div>
 
           <div class="review-card">
@@ -451,10 +478,10 @@
               <div class="reviewer-avatar">👩‍👧</div>
               <div>
                 <div class="reviewer-name">فاطمة الزهراء - طنجة 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
               </div>
             </div>
-            <p class="review-text">"ركبتهم بوحدي بلا سباك، السنون ديال النحاس راكبين مزيان بلا تسريب ديال الماء. دابا ولادي كيدوشو وأنا مرتاحة ومتهنية."</p>
+            <p class="review-text">"صبعي كان متني ومعوج، هاد الجبيرة كتشدو مسطي مزيان والبونج ديالها مريح بزاف. الثمن زوين."</p>
           </div>
 
           <div class="review-card">
@@ -462,10 +489,10 @@
               <div class="reviewer-avatar">👨‍👩‍👦</div>
               <div>
                 <div class="reviewer-name">عمر المراكشي - مراكش 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
               </div>
             </div>
-            <p class="review-text">"وصلني الطلب فـ 24 ساعة. تفحصت القطع قبل ما نخلص الموزع، البلاستيك ديالو غليظ وصحيح والنحاس ممتازة الجودة ديالو."</p>
+            <p class="review-text">"وصلني الطلب فـ 24 ساعة. قلبت الجبائر قبل ما نخلص الموزع، الألمنيوم صحيح والبونج مريح بزاف."</p>
           </div>
 
           <div class="review-card">
@@ -473,10 +500,10 @@
               <div class="reviewer-avatar">🛠️</div>
               <div>
                 <div class="reviewer-name">كريم الفاسي (تقني) - فاس 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
               </div>
             </div>
-            <p class="review-text">"أنا كهربائي منازل وكنصح كاع الزبناء ديالي يركبو هاد العازل تحسباً لأي تآكل ف المقاومة (الريزيستانس) ديال الشوفو."</p>
+            <p class="review-text">"جبيرة صحيحة، كتشد الصبع مسطي بلا ما تضيق عليه. ساهلة فاللبسة ومكتعرقش الصبع. شكرا ليكم."</p>
           </div>
 
           <div class="review-card">
@@ -484,10 +511,10 @@
               <div class="reviewer-avatar">👩‍💼</div>
               <div>
                 <div class="reviewer-name">خديجة العلمي - الدار البيضاء 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
               </div>
             </div>
-            <p class="review-text">"شريت الباك ديال 4 قطع، زوج لداري وزوج لدار الوالدة ف القنيطرة. راحة بال كبيرة بصراحة."</p>
+            <p class="review-text">"شريت الباك ديال 10 بياسات، 5 ليا و5 للوالدة فالقنيطرة. راحة كبيرة بصراحة."</p>
           </div>
         </div>
 
@@ -498,10 +525,10 @@
               <div class="reviewer-avatar">👨‍💻</div>
               <div>
                 <div class="reviewer-name">عبد العالي السوسي - أكادير 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
               </div>
             </div>
-            <p class="review-text">"الضغط د الماء بقى هو هو ما نقصش نهائياً، وهذا هو المخاوف اللي كانت عندي. منتج ناجح 100%."</p>
+            <p class="review-text">"كنخدم فالبيسي بزاف وصبعي بدا كيتعوج، جربتها ولقيت راحتي. التوصيل كان سريع."</p>
           </div>
 
           <div class="review-card">
@@ -509,10 +536,10 @@
               <div class="reviewer-avatar">👴</div>
               <div>
                 <div class="reviewer-name">رشيد التازي - تازة 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
               </div>
             </div>
-            <p class="review-text">"ممتنون لكم بزاف، التعامل راقي والتوصيل مجاني وسريع جداً لمدينة تازة."</p>
+            <p class="review-text">"ممتنون لكم بزاف، التعامل راقي والتوصيل فابور وسريع."</p>
           </div>
 
           <div class="review-card">
@@ -520,10 +547,10 @@
               <div class="reviewer-avatar">👩‍🏫</div>
               <div>
                 <div class="reviewer-name">مريم البقالي - تطوان 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
               </div>
             </div>
-            <p class="review-text">"كنت ديما كنقطع بريز الشوفو قبل الدوش، دابا الحمد لله تهنيت من هاد المعاناة والوسواس اليومي."</p>
+            <p class="review-text">"كنت ديما محتارة كيفاش نقوّم صبع بنتي، دابا الحمد لله الجبيرة كتقوم بالمهمة."</p>
           </div>
 
           <div class="review-card">
@@ -531,10 +558,10 @@
               <div class="reviewer-avatar">👦</div>
               <div>
                 <div class="reviewer-name">سفيان الناصري - سلا 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
               </div>
             </div>
-            <p class="review-text">"تركيب فـ 3 دقائق فقط باستعمال مفتاح عادي. النحاس ممتازة وركبو بدون أي تسرب نقطة ماء."</p>
+            <p class="review-text">"طحت فالماتش ديال الكورة وتعوج ليا صبعي. درت الجبيرة مدة ورجع صبعي مسطي عادي."</p>
           </div>
 
           <div class="review-card">
@@ -542,10 +569,10 @@
               <div class="reviewer-avatar">👩‍⚕️</div>
               <div>
                 <div class="reviewer-name">أمينة السلاوي - الرباط 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
               </div>
             </div>
-            <p class="review-text">"عازل ممتاز، كيقطع الدارة الكهربائية ف الماء ويحمي الأطفال فالحمام. كنصح بيه كل أخت."</p>
+            <p class="review-text">"جبيرة ممتازة، كتشد الصبع مسطي وكتريحو. كنصح بيها كل أخت عندها هاد المشكل."</p>
           </div>
         </div>
 
@@ -556,10 +583,10 @@
               <div class="reviewer-avatar">🧔</div>
               <div>
                 <div class="reviewer-name">ياسين المرابط - المحمدية 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
               </div>
             </div>
-            <p class="review-text">"السلعة ممتازة ومطابقة للصور تماماً. المعاينة قبل الدفع كتعطي ثقة كبيرة ف المنتج."</p>
+            <p class="review-text">"السلعة ممتازة ومطابقة للصور تماماً. المعاينة قبل الدفع كتعطي ثقة كبيرة."</p>
           </div>
 
           <div class="review-card">
@@ -567,10 +594,10 @@
               <div class="reviewer-avatar">👩‍🍳</div>
               <div>
                 <div class="reviewer-name">إلهام الدكالي - الجديدة 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
               </div>
             </div>
-            <p class="review-text">"شريت هاد العازل بعدما شفت حادثة تكهرب عند الجيران. الوقاية خير من العلاج وتكلفة بسيطة لحماية حياتنا."</p>
+            <p class="review-text">"شريت هاد الجبائر بعدما نصحتني صاحبتي. فعلاً مريحة بزاف وكتقوّم الصبع."</p>
           </div>
 
           <div class="review-card">
@@ -578,10 +605,10 @@
               <div class="reviewer-avatar">👨‍🌾</div>
               <div>
                 <div class="reviewer-name">محمد البكاري - بني ملال 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
               </div>
             </div>
-            <p class="review-text">"منتج عالي الجودة وسنون النحاس صلبة 100%. التوصيل كان سريع جداً فـ 24 ساعة."</p>
+            <p class="review-text">"منتج عالي الجودة والألمنيوم صلب 100%. التوصيل كان سريع فـ 24 ساعة."</p>
           </div>
 
           <div class="review-card">
@@ -589,10 +616,10 @@
               <div class="reviewer-avatar">🧕</div>
               <div>
                 <div class="reviewer-name">نجاة برادة - وجدة 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
               </div>
             </div>
-            <p class="review-text">"شكراً بزاف على المصداقية والسرعة ف التوصيل. راحة البال ف الحمام لا تقدر بثمن."</p>
+            <p class="review-text">"شكراً بزاف على المصداقية والسرعة فالتوصيل. راحة الأصابع لا تقدر بثمن."</p>
           </div>
 
           <div class="review-card">
@@ -600,10 +627,10 @@
               <div class="reviewer-avatar">👨‍✈️</div>
               <div>
                 <div class="reviewer-name">حسن الخمليشي - الحسيمة 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء مؤكد ✅</span></div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
               </div>
             </div>
-            <p class="review-text">"باك 4 قطع ممتاز جداً ووفرت فيه المبلغ. منتج ضروري فكل منزل مغربي بدون استثناء."</p>
+            <p class="review-text">"باك 10 بياسات ممتاز جداً ووفرت فيه المبلغ. منتج ضروري خاصو يكون فكل دار."</p>
           </div>
         </div>
 
@@ -619,60 +646,62 @@
 
           <button class="rev-nav-btn" onclick="nextReviewPage()">التالية <i class="fa-solid fa-chevron-left"></i></button>
         </div>
+
       </div>
-    </section>
+    </div>
+  </section>
 
     <!-- 5 STRONG FAQS -->
-    <div class="faq-title">أسئلة شائعة تقدر تفيدك 💡</div>
+    <div class="faq-title">أسئلة شائعة</div>
     <div style="margin-bottom: 4rem; padding: 0 10px;">
       
       <div class="faq-item">
         <button class="faq-btn" onclick="toggleFaq(this)">
-          واش نقدر نركبها لراسي ولا خاصني معلم؟
+          هل التوصيل مجاني؟
           <i class="fa-solid fa-chevron-down"></i>
         </button>
         <div class="faq-content">
-          التركيب ساهل بزاف ومصمم باش تديرو لراسك فداركم بكل سهولة. مع التليفون كيجيو مناديل باش تنظف الشاشة، وكتحطها كتلصق بوحدها بتقنية النانو بلا ما تخلي دوك الفقاعات ديال البرد المزعجة.
+          نعم. التوصيل مجاني إلى باب المنزل في جميع المدن المغربية.
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-btn" onclick="toggleFaq(this)">
-          إمتى غادي يوصلني الكوموند ديالي؟
+          هل تناسب أي إصبع؟
           <i class="fa-solid fa-chevron-down"></i>
         </button>
         <div class="faq-content">
-          بمجرد ما نأكدو معاك فالتليفون، كنسيفطوها ليك ديك الساعة. غالباً كتوصلك بين 24 حتى 48 ساعة لباب الدار ديالك، على حساب المدينة فاش كاين.
+          نعم. فيها شريط فيلكرو يُضبط حسب مقاس الإصبع، بما في ذلك الإبهام والخنصر.
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-btn" onclick="toggleFaq(this)">
-          واش نخلص دابا ولا حتى يوصلني؟
+          هل يمكن غسلها؟
           <i class="fa-solid fa-chevron-down"></i>
         </button>
         <div class="faq-content">
-          الخلاص حتى تشد السلعة فيديك وتقلبها وتتأكد منها عاد تخلص الليفروغ. حنا كنتيقو فالمنتج ديالنا وهدفنا هو راحتك 100%.
+          نعم. يمكن غسلها بقليل من الصابون والماء ثم تركها تجف.
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-btn" onclick="toggleFaq(this)">
-          واش هاد الحماية كتأثر على الطاكتيل ديال الشاشة؟
+          كيف أدفع؟ هل أدفع الآن؟
           <i class="fa-solid fa-chevron-down"></i>
         </button>
         <div class="faq-content">
-          نهائياً! الحماية رقيقة بزاف ومصنوعة من مواد بريميوم باش تخلي الطاكتيل خدام مزيان وسريع كيفما كان، والصورة كتبقى واضحة وساطعة بحال ما داير والو للشاشة.
+          لا. الدفع عند وصول الموزع. من حقك فتح الطرد وتفحص الجودة ثم الدفع.
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-btn" onclick="toggleFaq(this)">
-          إلى لقيت فيها شي مشكل واش نقدر نردها؟
+          هل يمكن النوم بها؟
           <i class="fa-solid fa-chevron-down"></i>
         </button>
         <div class="faq-content">
-          أكيد! عندنا ضمان الرضا الشامل. إلى وصلاتك مهرسة أو فيها شي ديفو من الشركة، كنعوضوك وحدة خرى فابور أو كنرجعو ليك فلوسك بدون أي تعقيدات. راحتك هي الأهم.
+          نعم. كثيرون يرتدونها ليلاً حتى يبقى الإصبع مستقيماً وقتاً أطول.
         </div>
       </div>
 
@@ -687,13 +716,13 @@
       var duration = 3 * 1000;
       var end = Date.now() + duration;
       (function frame() {
-        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#FFD700', '#10B981', '#3B82F6'] });
-        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#FFD700', '#10B981', '#3B82F6'] });
+        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#34D399', '#6EE7B7', '#2DD4BF', '#A7F3D0', '#F9A8D4'] });
+        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#34D399', '#6EE7B7', '#2DD4BF', '#A7F3D0', '#F9A8D4'] });
         if (Date.now() < end) requestAnimationFrame(frame);
       }());
 
       // Get phone number & order details from storage
-      const orderDataStr = localStorage.getItem('ac_last_order');
+      const orderDataStr = localStorage.getItem('fc_last_order') || localStorage.getItem('ac_last_order');
       if (orderDataStr) {
         try {
           const data = JSON.parse(orderDataStr);
@@ -743,7 +772,7 @@
         numberElement.innerText = formattedPhone;
         
         try {
-          const orderDataStr = localStorage.getItem('ac_last_order');
+          const orderDataStr = localStorage.getItem('fc_last_order') || localStorage.getItem('ac_last_order');
           if (orderDataStr) {
             const data = JSON.parse(orderDataStr);
             data.phone = newPhone;

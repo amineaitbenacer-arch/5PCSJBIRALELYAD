@@ -1,17 +1,9 @@
 {
   "version": 2,
-  "framework": null,
-  "outputDirectory": "public",
   "rewrites": [
-    { "source": "/", "destination": "/api/render_page" },
-    { "source": "/index.html", "destination": "/api/render_page" },
-    { "source": "/thankyou", "destination": "/api/render_page" },
-    { "source": "/thankyou.html", "destination": "/api/render_page" },
-    { "source": "/images/(.*)", "destination": "/$1" },
     { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/api/orders", "destination": "/api/orders.js" },
-    { "source": "/api/settings", "destination": "/api/settings.js" },
-    { "source": "/api/analytics/(.*)", "destination": "/api/analytics.js" },
-    { "source": "/api/analytics", "destination": "/api/analytics.js" }
+    { "source": "/thankyou", "destination": "/thankyou.html" },
+    { "source": "/api/analytics/visit", "destination": "/api/analytics" },
+    { "source": "/api/analytics/stats", "destination": "/api/analytics" }
   ]
 }

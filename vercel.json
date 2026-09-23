@@ -3,7 +3,6 @@
   "framework": null,
   "rewrites": [
     { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/fingercare-admin", "destination": "/admin.html" },
     { "source": "/thankyou", "destination": "/thankyou.html" },
     { "source": "/api/analytics/visit", "destination": "/api/analytics" },
     { "source": "/api/analytics/stats", "destination": "/api/analytics" }

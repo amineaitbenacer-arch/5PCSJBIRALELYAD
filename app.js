@@ -126,7 +126,7 @@ function selectModalPack(packId, fromUserClick) {
         el.textContent = `${oldPrice} درهم`;
     });
     document.querySelectorAll('.price-save-mini').forEach(el => {
-        el.textContent = `توفير ${saveAmount} DH`;
+        el.textContent = `توفير ${saveAmount} درهم`;
     });
     document.querySelectorAll('.price-save-badge').forEach(el => {
         el.textContent = `توفير ${saveAmount} درهماً + توصيل مجاني`;
@@ -151,7 +151,7 @@ function selectModalPack(packId, fromUserClick) {
     if (sheetPreviewPrice) sheetPreviewPrice.textContent = price + ' درهم';
 
     const sheetPreviewOld = document.getElementById('sheet-preview-old-price');
-    if (sheetPreviewOld) sheetPreviewOld.textContent = oldPrice + ' DH';
+        if (sheetPreviewOld) sheetPreviewOld.textContent = oldPrice + ' درهم';
 
     const sheetPreviewImg = document.getElementById('sheet-preview-img');
     if (sheetPreviewImg) sheetPreviewImg.src = fixedImg;
@@ -321,10 +321,10 @@ function toggleFaq(btn) {
 }
 
 /* --------------------------------------------------------------------------
-   7. Interactive 15-Reviews Slider Pagination
+   7. Interactive reviews slider pagination
    -------------------------------------------------------------------------- */
 let currentReviewPage = 1;
-const totalReviewPages = 3;
+const totalReviewPages = 4;
 
 function setReviewPage(pageIndex) {
     currentReviewPage = pageIndex;

@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FingerCare 🩹 | شكراً على طلبك</title>
+  <title>FingerCare | شكراً على طلبك</title>
+  <link rel="icon" type="image/png" href="images/logo.png" />
+  <link rel="apple-touch-icon" href="images/logo.png" />
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -91,6 +93,11 @@
     .brand-title {
       font-size: 1.5rem; font-weight: 900; background: linear-gradient(to right, #6EE7B7, #FFF);
       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 10px;
+    }
+    .brand-title img {
+      width: 40px; height: 40px; border-radius: 50%; object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(52, 211, 153, 0.45));
+      -webkit-text-fill-color: initial;
     }
 
     /* HERO */
@@ -336,23 +343,7 @@
   <!-- NAVBAR -->
   <nav class="navbar">
     <div class="brand-title">
-      <svg width="36" height="36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 6px rgba(52, 211, 153, 0.45));" aria-label="FingerCare">
-        <defs>
-          <linearGradient id="fcBgTy" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#065F46" />
-            <stop offset="100%" stop-color="#071410" />
-          </linearGradient>
-          <linearGradient id="fcGoldTy" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#6EE7B7" />
-            <stop offset="100%" stop-color="#059669" />
-          </linearGradient>
-        </defs>
-        <circle cx="50" cy="50" r="46" fill="url(#fcBgTy)" stroke="url(#fcGoldTy)" stroke-width="5"/>
-        <rect x="37" y="14" width="26" height="70" rx="13" fill="#F8FAFC"/>
-        <ellipse cx="50" cy="16" rx="13" ry="14" fill="#F8FAFC"/>
-        <rect x="30" y="38" width="40" height="18" rx="6" fill="url(#fcGoldTy)"/>
-        <path d="M36 47H64" stroke="#064E3B" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
-      </svg>
+      <img src="images/logo.png" alt="FingerCare" width="40" height="40" />
       FingerCare
     </div>
   </nav>

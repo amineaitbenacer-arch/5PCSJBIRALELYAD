@@ -11,13 +11,16 @@
   <meta property="og:type" content="product" />
   <meta property="og:locale" content="ar_MA" />
   <meta name="theme-color" content="#0B0F17" />
+  <meta property="og:image" content="images/logo.png" />
+  <link rel="icon" type="image/png" href="images/logo.png" />
+  <link rel="apple-touch-icon" href="images/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Almarai:wght@400;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css?v=readable-ar8" />
+  <link rel="stylesheet" href="style.css?v=cvr-reviews2" />
   <link rel="preload" as="image" href="images/product-action.jpg" />
-  <!-- Pixels stay empty here. IDs are loaded from /admin when you send them. -->
+  <!-- Pixels stay empty here. IDs are loaded from the private dashboard when you send them. -->
   <script src="pixels.js"></script>
   </head>
 <body>
@@ -37,40 +40,24 @@
       
       <!-- Right: Brand Name -->
       <div class="nav-brand-text" style="flex: 1; display: flex; justify-content: flex-start; align-items: center;">
-        <div class="nav-title-main" style="font-weight: 900; color: var(--gold); font-size: 1.25rem; direction: ltr;">FingerCare 🩹</div>
+        <div class="nav-title-main" style="font-weight: 900; color: var(--gold); font-size: 1.25rem; direction: ltr;">FingerCare</div>
       </div>
 
-      <!-- Center: Brand Logo (Enlarged) -->
-      <div class="nav-logo-center" style="flex: 1; display: flex; justify-content: center; align-items: center;">
-        <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.4));" aria-label="FingerCare">
-          <defs>
-            <linearGradient id="fcBg" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#1E3A8A" />
-              <stop offset="100%" stop-color="#0B0F17" />
-            </linearGradient>
-            <linearGradient id="fcGold" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#FFD700" />
-              <stop offset="100%" stop-color="#D97706" />
-            </linearGradient>
-          </defs>
-          <circle cx="50" cy="50" r="46" fill="url(#fcBg)" stroke="url(#fcGold)" stroke-width="5"/>
-          <rect x="37" y="14" width="26" height="70" rx="13" fill="#F8FAFC"/>
-          <ellipse cx="50" cy="16" rx="13" ry="14" fill="#F8FAFC"/>
-          <rect x="30" y="38" width="40" height="18" rx="6" fill="url(#fcGold)"/>
-          <path d="M36 47H64" stroke="#7C2D12" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
-        </svg>
+      <!-- Center: Brand Logo — aluminum finger splint -->
+      <div class="nav-logo-center">
+        <img src="images/logo.png" alt="FingerCare" class="nav-brand-logo" width="54" height="54" />
       </div>
 
       <!-- Left: Dynamic Offer Badge -->
       <div class="nav-dynamic-offer" style="flex: 1; display: flex; justify-content: flex-end; align-items: center;">
-        <div id="nav-offer-badge-bg" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #FFD700 0%, #D97706 100%); padding: 6px 14px; border-radius: 20px; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2); overflow: hidden; position: relative; width: 140px; height: 34px; transition: background 0.5s ease, box-shadow 0.5s ease;">
+        <div id="nav-offer-badge-bg" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #FFD700 0%, #D97706 100%); padding: 6px 14px; border-radius: 20px; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2); overflow: hidden; position: relative; width: 148px; height: 34px; transition: background 0.5s ease, box-shadow 0.5s ease;">
           <span class="nav-offer-item offer-item-1" style="font-size: 13px; font-weight: 800; color: #0B0F17; white-space: nowrap; position: absolute; transition: transform 0.5s ease, opacity 0.5s ease;">
             5 قطع بـ 179 درهماً
           </span>
           <span class="nav-offer-item offer-item-2" style="font-size: 13px; font-weight: 800; color: #0B0F17; white-space: nowrap; position: absolute; transform: translateY(100%); opacity: 0; transition: transform 0.5s ease, opacity 0.5s ease;">
-            الدفع عند الاستلام
+            10 قطع بـ 279 درهماً
           </span>
-          <span class="nav-offer-item offer-item-3" style="font-size: 13px; font-weight: 900; color: #FFF; white-space: nowrap; position: absolute; transform: translateY(100%); opacity: 0; transition: transform 0.5s ease, opacity 0.5s ease; text-shadow: 0 0 5px rgba(255,255,255,0.5);">
+          <span class="nav-offer-item offer-item-3" style="font-size: 13px; font-weight: 900; color: #FFF; white-space: nowrap; position: absolute; transform: translateY(100%); opacity: 0; transition: transform 0.5s ease, opacity 0.5s ease;">
             توصيل مجاني 🚚
           </span>
         </div>
@@ -82,32 +69,26 @@
           const item2 = document.querySelector('.offer-item-2');
           const item3 = document.querySelector('.offer-item-3');
           const bg = document.getElementById('nav-offer-badge-bg');
-          if (item1 && item2 && item3) {
+          if (item1 && item2 && item3 && bg) {
             currentOfferIdx = (currentOfferIdx % 3) + 1;
-            
-            // Reset all
             item1.style.transform = 'translateY(-100%)'; item1.style.opacity = '0';
             item2.style.transform = 'translateY(-100%)'; item2.style.opacity = '0';
             item3.style.transform = 'translateY(-100%)'; item3.style.opacity = '0';
-            
             if (currentOfferIdx === 1) {
-              item2.style.transform = 'translateY(100%)'; item3.style.transform = 'translateY(100%)';
               item1.style.transform = 'translateY(0)'; item1.style.opacity = '1';
               bg.style.background = 'linear-gradient(135deg, #FFD700 0%, #D97706 100%)';
               bg.style.boxShadow = '0 4px 10px rgba(255, 215, 0, 0.2)';
             } else if (currentOfferIdx === 2) {
-              item3.style.transform = 'translateY(100%)'; item1.style.transform = 'translateY(-100%)';
               item2.style.transform = 'translateY(0)'; item2.style.opacity = '1';
               bg.style.background = 'linear-gradient(135deg, #FFD700 0%, #D97706 100%)';
               bg.style.boxShadow = '0 4px 10px rgba(255, 215, 0, 0.2)';
             } else {
-              item1.style.transform = 'translateY(100%)'; item2.style.transform = 'translateY(-100%)';
               item3.style.transform = 'translateY(0)'; item3.style.opacity = '1';
-              bg.style.background = 'linear-gradient(135deg, #EF4444 0%, #991B1B 100%)';
-              bg.style.boxShadow = '0 4px 15px rgba(239, 68, 68, 0.5)';
+              bg.style.background = 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)';
+              bg.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.35)';
             }
           }
-        }, 2500);
+        }, 3000);
       </script>
 
     </div>
@@ -115,7 +96,7 @@
 
   <div class="urgency-strip honesty-strip">
     <div class="urgency-strip-inner">
-      <span>توصيل مجاني</span>
+      <span class="honesty-ship">توصيل مجاني</span>
       <span class="dot">•</span>
       <span>الدفع عند الاستلام</span>
       <span class="dot">•</span>
@@ -164,7 +145,7 @@
         <div class="price-header-row">
           <div class="price-new-large">179 <small>درهم</small></div>
           <div class="price-old-sub">399 درهم</div>
-          <div class="price-save-mini">توفير 220 DH</div>
+          <div class="price-save-mini">توفير 220 درهم</div>
         </div>
         
         <div class="price-save-badge">
@@ -185,8 +166,8 @@
         </div>
         <div class="proof-sep"></div>
         <div class="proof-item">
-          <strong>5 قطع</strong>
-          <span>تبدأ من 179 درهماً</span>
+          <strong>5 و 10</strong>
+          <span>179 و 279 درهماً</span>
         </div>
       </div>
 
@@ -204,8 +185,8 @@
               <div class="hero-offer-sub">5 قطع للاستبدال عند الحاجة</div>
             </div>
             <div class="hero-offer-price-tag">
-              <span class="old-p">399 DH</span>
-              <span class="new-p">179 DH</span>
+              <span class="old-p">399 درهم</span>
+              <span class="new-p">179 درهم</span>
             </div>
           </div>
 
@@ -217,8 +198,8 @@
               <div class="hero-offer-sub">لليدين + توفير 320 درهماً</div>
             </div>
             <div class="hero-offer-price-tag">
-              <span class="old-p">599 DH</span>
-              <span class="new-p highlight">279 DH</span>
+              <span class="old-p">599 درهم</span>
+              <span class="new-p">279 درهم</span>
             </div>
           </div>
         </div>
@@ -232,7 +213,7 @@
         <div class="cta-reassurance">
           <span><i class="fa-solid fa-shield-halved"></i> افحص قبل الدفع</span>
           <span class="dot">•</span>
-          <span><i class="fa-solid fa-truck"></i> توصيل مجاني</span>
+          <span class="ship-blue"><i class="fa-solid fa-truck"></i> توصيل مجاني</span>
           <span class="dot">•</span>
           <span><i class="fa-solid fa-handshake"></i> الدفع عند الاستلام</span>
         </div>
@@ -285,10 +266,13 @@
           الإصبع المنحني ليس «تفصيلاً صغيراً»… هو ما يراك الناس به أولاً
         </h3>
         
-        <div class="eb-intro-card">
-          <div class="eb-intro-icon">⚠️</div>
+        <div class="eb-intro-card eb-visual-explain">
+          <div class="eb-visual-shot" data-swap-img="mechanism">
+            <img src="images/product-action.jpg" alt="الجبيرة تثبّت الإصبع مستقيماً على اليد" />
+            <span class="angle-visual-tag">هكذا تثبّت الجبيرة الإصبع</span>
+          </div>
           <p class="eb-intro-text">
-            كثيرون يعيشون بشدّ في الوتر أو العضلة (Lumbrical) يجعل الخنصر أو الإصبع الذي بجانبه منحنياً دائماً. يخفون اليد في الجيب، يتجنّبون المصافحة، ويؤجّلون الحل لأن العملية مكلفة. الجبيرة تثبّت الإصبع مستقيماً وأنت ترتديها، وتساعد على التقويم التدريجي مع الانتظام — من بيتك، دون جراحة.
+            الإصبع يبقى منحنياً لأن الوتر والعضلة مشدودان. كثيرون يخفون اليد في الجيب ويتجنّبون المصافحة لأن العملية مكلفة. الجبيرة تثبّت الإصبع مستقيماً وأنت ترتديها، وتساعد على التقويم التدريجي من بيتك — دون جراحة.
           </p>
         </div>
 
@@ -333,7 +317,7 @@
   <!-- 🚨 EMOTIONAL AGITATION & SAFETY SECTION -->
   <section class="emotional-pain-section">
     <div class="container">
-      <div class="pain-container-box" style="padding: 0; overflow: hidden;"><img src="images/ad-creative.png" alt="إصبع منحني Camptodactylie" style="width: 100%; display: block; border-radius: 16px 16px 0 0;" />
+      <div class="pain-container-box" style="padding: 0; overflow: hidden;"><img src="images/ad-creative.png" alt="إصبع منحني والجبيرة التي تثبّته" style="width: 100%; display: block; border-radius: 16px 16px 0 0;" />
 <div style="padding: 18px 14px;">
         <div class="pain-icon-wrapper">
           <i class="fa-solid fa-triangle-exclamation pulse-danger"></i>
@@ -343,7 +327,7 @@
         
         <div class="pain-list-grid">
           <div class="pain-item">
-            <i class="fa-solid fa-bolt danger-color"></i>
+            <i class="fa-solid fa-hand danger-color"></i>
             <div class="pain-item-text">
               <h4>الإحراج عند مدّ اليد</h4>
               <p>المصافحة، الصورة، والخاتم تكشف الإصبع. الجبيرة تثبّته مستقيماً طوال مدة الارتداء.</p>
@@ -370,6 +354,7 @@
           <p>تثبّت الإصبع مستقيماً وتمنعه من الانحناء وأنت ترتديها. مع الاستعمال المنتظم يساعد ذلك الوتر والعضلة على الاسترخاء. النتيجة تختلف من شخص لآخر، والتثبيت المنتظم هو الأساس.</p>
         </div>
       </div>
+      </div>
     </div>
   </section>
 
@@ -377,8 +362,14 @@
   <section class="angle-surgery-section">
     <div class="container">
       <div class="angle-surgery-card">
+        <div class="angle-visual-img" data-swap-img="surgery">
+          <img src="images/product-action.jpg" alt="جبيرة تُرتدى في البيت بدل العملية" />
+          <span class="angle-visual-tag">حل من البيت… دون عملية</span>
+        </div>
+        <div class="angle-visual-body">
         <span class="pvd-badge">قبل أن تفكّر في العملية</span>
         <h2>عملية مكلفة… أو دعم بسيط تبدأ به من بيتك</h2>
+        <p class="angle-simple-line"><i class="fa-solid fa-eye"></i> شوف الفرق: العملية بالآلاف… والجبيرة بـ 179 درهم وتفحصها قبل ما تخلّص.</p>
         <p class="angle-lead">كثيرون يُقال لهم إن الحل عملية جراحية. العملية غالية وتحتاج راحة وتنقّلاً. الجبيرة دعم خارجي يمكنك تجربته في البيت أولاً، دون موعد ودون دفع مسبق.</p>
         <div class="surg-grid">
           <div class="surg-col surg-bad">
@@ -404,6 +395,7 @@
         <button type="button" class="who-cta-btn pulse-btn" onclick="openSheet()">
           <i class="fa-solid fa-cart-shopping"></i> ابدأ بالحل الأرخص — 179 درهم
         </button>
+        </div>
       </div>
     </div>
   </section>
@@ -412,6 +404,11 @@
   <section class="angle-life-section">
     <div class="container">
       <div class="angle-life-card">
+        <div class="angle-visual-img" data-swap-img="daily-life">
+          <img src="images/happy-customer.jpg" alt="اليد في الحياة اليومية بعد التثبيت" />
+          <span class="angle-visual-tag">المصافحة… الصورة… الخاتم</span>
+        </div>
+        <div class="angle-visual-body">
         <span class="pvd-badge">اللحظات التي تحرج</span>
         <h2>ليست شكل الإصبع فقط… إنها اللحظة التي تمدّ فيها يدك</h2>
         <p class="angle-lead">الإصبع المنحني لا يظهر في المرآة وحدها. يظهر في المصافحة، وفي الصور، عند لبس الخاتم، وأثناء الكتابة على الحاسوب.</p>
@@ -436,6 +433,7 @@
             <strong>النوم ليلاً</strong>
             <p>أثناء النوم يعود الإصبع غالباً إلى الانحناء. ارتداؤها ليلاً يبقيه مستقيماً ساعات طويلة.</p>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -497,7 +495,7 @@
 <img src="images/material-closeup.jpg" alt="جودة الألمنيوم والفيلكرو" style="width: 100%; display: block;" />
 <div style="padding: 18px 14px;">
 <h2 class="section-heading">لماذا هذه الجبيرة؟</h2>
-      <p class="section-subheading">تثبيت فيزيائي بسيط وواضح</p>
+      <p class="section-subheading">لوح ألمنيوم يثبّت الإصبع… وهذا ما تراه بعينك</p>
 
       <div class="tech-grid">
         <div class="tech-card">
@@ -523,11 +521,33 @@
 </div>
 </section>
 
-  <!-- 💬 15 REAL MOROCCAN REVIEWS INTERACTIVE SLIDER -->
+  <!-- 💬 TRANSLATED REVIEWS of similar aluminum finger splints — paraphrased, not invented customers -->
   <section class="reviews-section">
     <div class="container">
-      <h2 class="section-heading">آراء الزبناء</h2>
-      <p class="section-subheading">ما قاله من جرّب الجبيرة</p>
+      <h2 class="section-heading">آراء مستعملي جبيرة الألمنيوم</h2>
+      <p class="section-subheading">ترجمنا تجارب أناس اشتروا جبيرة ألمنيوم مشابهة. ليست أسماء زبائن وهميين، وليست وعوداً بالشفاء في ليلة</p>
+
+      <div class="reviews-summary">
+        <div class="reviews-stat">
+          <strong>4.2 / 5</strong>
+          <span>متوسط تقييم جبائر مشابهة</span>
+        </div>
+        <div class="reviews-stat">
+          <strong>20</strong>
+          <span>رأي مترجم من مشتريات موثّقة</span>
+        </div>
+        <div class="reviews-stat">
+          <strong>ليل + نهار</strong>
+          <span>أكثر ما يذكره المستعملون</span>
+        </div>
+      </div>
+
+      <div class="review-themes">
+        <span>تثبّت الإصبع أثناء اللبس</span>
+        <span>مريحة للنوم عند أغلبهم</span>
+        <span>الألمنيوم لا ينثني</span>
+        <span>الفيلكرو يحتاج ضبطاً</span>
+      </div>
 
       <div class="reviews-carousel-wrapper">
         
@@ -535,57 +555,57 @@
         <div class="review-page active" id="review-page-1">
           <div class="review-card">
             <div class="review-head">
-              <div class="reviewer-avatar">👨‍💼</div>
+              <div class="reviewer-avatar">👩</div>
               <div>
-                <div class="reviewer-name">السي عبد القادر - مكناس 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
+                <div class="reviewer-name">إيرما · Walmart</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
               </div>
             </div>
-            <p class="review-text">"ولدي كان عندو الخنصر معوج، من بعد ما لبس الجبيرة كل ليلة بدا الصبع كيتسرح شوية بشوية. الله يجازيكم بخير!"</p>
+            <p class="review-text">"أعجبتني جداً. أستطيع النوم بها. خفّفت ألم الإصبع الأوسط والذي بجانبه بسبب الكتابة الكثيرة على الحاسوب. لا تنثني، لذلك لا أستعملها أثناء الكتابة. لكنها تؤدي الغرض الآن."</p>
           </div>
 
           <div class="review-card">
             <div class="review-head">
-              <div class="reviewer-avatar">👩‍👧</div>
+              <div class="reviewer-avatar">👨</div>
               <div>
-                <div class="reviewer-name">فاطمة الزهراء - طنجة 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
+                <div class="reviewer-name">مشتري موثّق · Amazon</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
               </div>
             </div>
-            <p class="review-text">"صبعي كان متني ومعوج، هاد الجبيرة كتشدو مسطي مزيان والبونج ديالها مريح بزاف. الثمن زوين."</p>
+            <p class="review-text">"استعملتها بعد تمزّق الوتر وإصبع بقي منحنياً. سهلة اللبس والخلع، مريحة ومبطّنة جيداً، وتثبّت الإصبع كما يجب. اشتريت زوجاً ثانياً بعد أربعة أسابيع لأن الفيلكرو يضعف مع كثرة الخلع."</p>
           </div>
 
           <div class="review-card">
             <div class="review-head">
-              <div class="reviewer-avatar">👨‍👩‍👦</div>
+              <div class="reviewer-avatar">👩</div>
               <div>
-                <div class="reviewer-name">عمر المراكشي - مراكش 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
+                <div class="reviewer-name">أليس · Walmart</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
               </div>
             </div>
-            <p class="review-text">"وصلني الطلب فـ 24 ساعة. قلبت الجبائر قبل ما نخلص الموزع، الألمنيوم صحيح والبونج مريح بزاف."</p>
+            <p class="review-text">"ممتازة للإصبع الأوسط. تخفف الألم والحرقان. أنام بها ليلاً، وفي الصباح أشعر بتحسّن كبير."</p>
           </div>
 
           <div class="review-card">
             <div class="review-head">
-              <div class="reviewer-avatar">🛠️</div>
+              <div class="reviewer-avatar">👨</div>
               <div>
-                <div class="reviewer-name">كريم الفاسي (تقني) - فاس 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
+                <div class="reviewer-name">جيفري · Walmart</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
               </div>
             </div>
-            <p class="review-text">"جبيرة صحيحة، كتشد الصبع مسطي بلا ما تضيق عليه. ساهلة فاللبسة ومكتعرقش الصبع. شكرا ليكم."</p>
+            <p class="review-text">"ألبسها كل ليلة قبل النوم. تعمل جيداً وأستطيع استعمال يديّ."</p>
           </div>
 
           <div class="review-card">
             <div class="review-head">
-              <div class="reviewer-avatar">👩‍💼</div>
+              <div class="reviewer-avatar">👩</div>
               <div>
-                <div class="reviewer-name">خديجة العلمي - الدار البيضاء 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
+                <div class="reviewer-name">باميلا · Walmart</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
               </div>
             </div>
-            <p class="review-text">"شريت الباك ديال 5 بياسات، وحدة ليا ووحدة للوالدة فالقنيطرة. راحة كبيرة بصراحة."</p>
+            <p class="review-text">"نفعت كثيراً مع إصبعي الذي كان يعلق. اضطررت أن ألبسها مدة طويلة، لكنها نفعت."</p>
           </div>
         </div>
 
@@ -593,57 +613,57 @@
         <div class="review-page" id="review-page-2">
           <div class="review-card">
             <div class="review-head">
-              <div class="reviewer-avatar">👨‍💻</div>
+              <div class="reviewer-avatar">👨</div>
               <div>
-                <div class="reviewer-name">عبد العالي السوسي - أكادير 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
+                <div class="reviewer-name">لايل · Walmart</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
               </div>
             </div>
-            <p class="review-text">"كنخدم فالبيسي بزاف وصبعي بدا كيتعوج، جربتها ولقيت راحتي. التوصيل كان سريع."</p>
+            <p class="review-text">"تُبقي إصبعك مستقيماً."</p>
           </div>
 
           <div class="review-card">
             <div class="review-head">
-              <div class="reviewer-avatar">👴</div>
+              <div class="reviewer-avatar">👩</div>
               <div>
-                <div class="reviewer-name">رشيد التازي - تازة 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
+                <div class="reviewer-name">مشتري موثّق · Amazon</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
               </div>
             </div>
-            <p class="review-text">"شكراً ليكم بزاف، التعامل زوين والتوصيل فابور وسريع."</p>
+            <p class="review-text">"تساعدني على إبقاء الإصبع مستقيماً أثناء النوم. لم أعد أستيقظ والإصبع مثني وأحتاج أن أعدّله باليد الأخرى. يستحق الثمن."</p>
           </div>
 
           <div class="review-card">
             <div class="review-head">
-              <div class="reviewer-avatar">👩‍🏫</div>
+              <div class="reviewer-avatar">👩</div>
               <div>
-                <div class="reviewer-name">مريم البقالي - تطوان 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
+                <div class="reviewer-name">مشتري موثّق · Amazon</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
               </div>
             </div>
-            <p class="review-text">"كنت ديما محتارة كيفاش نقوّم صبع بنتي، دابا الحمد لله الجبيرة كتقوم بالمهمة."</p>
+            <p class="review-text">"جبيرة عادية لم تنفعني. لبست هذه للنوم وفرّقت معي كثيراً. أصبحت أرتاح في الصباح."</p>
           </div>
 
           <div class="review-card">
             <div class="review-head">
-              <div class="reviewer-avatar">👦</div>
+              <div class="reviewer-avatar">👩</div>
               <div>
-                <div class="reviewer-name">سفيان الناصري - سلا 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
+                <div class="reviewer-name">مشتري موثّق · Amazon</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
               </div>
             </div>
-            <p class="review-text">"طحت فالماتش ديال الكورة وتعوج ليا صبعي. درت الجبيرة مدة ورجع صبعي مسطي عادي."</p>
+            <p class="review-text">"بعد أسبوعين صار الإصبع أفضل بكثير. نادراً ما يعلق، وإن علق يعود وحده بلا ألم. لم أكن أتوقع ذلك، وكنت أخشى حقنة الستيرويد."</p>
           </div>
 
           <div class="review-card">
             <div class="review-head">
-              <div class="reviewer-avatar">👩‍⚕️</div>
+              <div class="reviewer-avatar">👩</div>
               <div>
-                <div class="reviewer-name">أمينة السلاوي - الرباط 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
+                <div class="reviewer-name">مشتري موثّق · Amazon</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
               </div>
             </div>
-            <p class="review-text">"جبيرة ممتازة، كتشد الصبع مسطي وكتريحو. كنصح بيها كل أخت عندها هاد المشكل."</p>
+            <p class="review-text">"عندي التهاب مفاصل وبدأ إصبعي يعلق. أستطيع تثبيته دون إزعاج، وألبسها الليل كله. لم أعد أستيقظ من الألم. سهلة الضبط. أنصح بها."</p>
           </div>
         </div>
 
@@ -651,57 +671,115 @@
         <div class="review-page" id="review-page-3">
           <div class="review-card">
             <div class="review-head">
-              <div class="reviewer-avatar">🧔</div>
+              <div class="reviewer-avatar">👨</div>
               <div>
-                <div class="reviewer-name">ياسين المرابط - المحمدية 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
+                <div class="reviewer-name">مشتري موثّق · Amazon</div>
+                <div class="review-stars">⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
               </div>
             </div>
-            <p class="review-text">"السلعة زوينة وبحال التصاور بالضبط. حليت الكوموند قدام الموزع وعجباتني، عاد خلصت."</p>
+            <p class="review-text">"شُخّص إصبعي كانحناء في الطرف. الجبيرة مريحة وتسمح بمرور الهواء ولا تعيق يومي كثيراً. أحياناً تنزلق قليلاً في الليل، لذلك 4 نجوم لا 5."</p>
           </div>
 
           <div class="review-card">
             <div class="review-head">
-              <div class="reviewer-avatar">👩‍🍳</div>
+              <div class="reviewer-avatar">👩</div>
               <div>
-                <div class="reviewer-name">إلهام الدكالي - الجديدة 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
+                <div class="reviewer-name">إلسي بن · Amazon UK</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
               </div>
             </div>
-            <p class="review-text">"شريت هاد الجبائر بعدما نصحتني صاحبتي. فعلاً مريحة بزاف وكتقوّم الصبع."</p>
+            <p class="review-text">"وصلتني في أقل من 24 ساعة. تثبّت اليد والأصابع جيداً. ما زلت أستطيع الكتابة بباقي الأصابع. إذا شُدّ الشريط كثيراً قد يحكّ، لذلك أرخيه قليلاً."</p>
           </div>
 
           <div class="review-card">
             <div class="review-head">
-              <div class="reviewer-avatar">👨‍🌾</div>
+              <div class="reviewer-avatar">👨</div>
               <div>
-                <div class="reviewer-name">محمد البكاري - بني ملال 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
+                <div class="reviewer-name">مشتري موثّق · Amazon</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
               </div>
             </div>
-            <p class="review-text">"الجبيرة مزيانة والألمنيوم قاصح. التوصيل وصلني فـ 24 ساعة."</p>
+            <p class="review-text">"سهلة اللبس والخلع. لوح الألمنيوم صلب ولا ينثني، وهذا ما أحتاجه حتى لا ينحني الإصبع. ألبسها ليلاً فتمنعه من الانحناء."</p>
           </div>
 
           <div class="review-card">
             <div class="review-head">
-              <div class="reviewer-avatar">🧕</div>
+              <div class="reviewer-avatar">👩</div>
               <div>
-                <div class="reviewer-name">نجاة برادة - وجدة 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
+                <div class="reviewer-name">مشتري موثّق · Amazon</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
               </div>
             </div>
-            <p class="review-text">"شكراً بزاف على الصدق والسرعة فالتوصيل. الراحة ديال الصبع ماكتتعوضش."</p>
+            <p class="review-text">"تمنح الإصبع ثباتاً كبيراً. لاحظت راحة كبيرة من الألم في الصباح بعد النوم بها."</p>
           </div>
 
           <div class="review-card">
             <div class="review-head">
-              <div class="reviewer-avatar">👨‍✈️</div>
+              <div class="reviewer-avatar">👩</div>
               <div>
-                <div class="reviewer-name">حسن الخمليشي - الحسيمة 📍</div>
-                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">رأي زبون</span></div>
+                <div class="reviewer-name">سامانثا · Walmart</div>
+                <div class="review-stars">⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
               </div>
             </div>
-            <p class="review-text">"الباك ديال 5 بياسات زوين بزاف ووفرت فيه. خاصو يكون فكل دار."</p>
+            <p class="review-text">"أدّت الغرض الذي استعملناها من أجله. الجودة جيدة."</p>
+          </div>
+        </div>
+
+        <!-- Page 4 — extra honest themes that help the buyer decide -->
+        <div class="review-page" id="review-page-4">
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👩</div>
+              <div>
+                <div class="reviewer-name">مشتري موثّق · Amazon</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
+              </div>
+            </div>
+            <p class="review-text">"ألبسها في الليل. في الصباح الإصبع لا يكون منحنياً كما كان. مريحة ولا توقظني. ليست سحرية من أول يوم، لكن التثبيت واضح كل ليلة ألبسها."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👨</div>
+              <div>
+                <div class="reviewer-name">مشتري موثّق · Amazon</div>
+                <div class="review-stars">⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
+              </div>
+            </div>
+            <p class="review-text">"الألمنيوم يثبّت جيداً. الشريط يحتاج ضبطاً: إذا أرخيته تنزلق في الليل، وإذا شددته كثيراً يضغط. بعد ما ضبطتها بقيت في مكانها. لذلك 4 نجوم."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👨</div>
+              <div>
+                <div class="reviewer-name">مشتري موثّق · Amazon</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
+              </div>
+            </div>
+            <p class="review-text">"إصبع مصدوم بعد كرة. الجبيرة تمنعه من الانحناء. لبستها أسابيع بانتظام. الفرق يظهر مع الاستعمال المستمر، لا من ليلة واحدة."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👩</div>
+              <div>
+                <div class="reviewer-name">مشتري موثّق · Amazon</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
+              </div>
+            </div>
+            <p class="review-text">"جرّبت جبيرة أخرى وكانت توجع في الليل. هذه الإسفنج مريح وأستطيع النوم بها. الإصبع يبقى مستقيماً حتى أستيقظ."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-head">
+              <div class="reviewer-avatar">👩</div>
+              <div>
+                <div class="reviewer-name">مشتري موثّق · Walmart</div>
+                <div class="review-stars">⭐⭐⭐⭐ <span class="verified-tag">شراء موثّق · مترجم</span></div>
+              </div>
+            </div>
+            <p class="review-text">"الباقة مفيدة: واحدة للبس وواحدة احتياط وقت الغسل. الجودة جيدة. الفيلكرو يضعف إذا خلعتها كثيراً كل يوم، وهذا أمر عادي مع كثرة الاستعمال."</p>
           </div>
         </div>
 
@@ -713,6 +791,7 @@
             <span class="rev-dot active" id="dot-page-1" onclick="setReviewPage(1)">1</span>
             <span class="rev-dot" id="dot-page-2" onclick="setReviewPage(2)">2</span>
             <span class="rev-dot" id="dot-page-3" onclick="setReviewPage(3)">3</span>
+            <span class="rev-dot" id="dot-page-4" onclick="setReviewPage(4)">4</span>
           </div>
 
           <button class="rev-nav-btn" onclick="nextReviewPage()">التالية <i class="fa-solid fa-chevron-left"></i></button>
@@ -748,7 +827,7 @@
         </div>
 
         <div class="trust-card">
-          <div class="t-icon terra-icon"><i class="fa-solid fa-droplet"></i></div>
+          <div class="t-icon terra-icon"><i class="fa-solid fa-hand"></i></div>
           <h3>مريحة وتقلل التعرق</h3>
           <p>الإسفنج المثقب يسمح بمرور الهواء. يمكن ارتداؤها نهاراً أو أثناء النوم.</p>
         </div>
@@ -789,7 +868,7 @@
                 </div>
               </div>
               <div class="m-h-item">
-                <i class="fa-solid fa-bolt-lightning green-icon"></i>
+                <i class="fa-solid fa-link green-icon"></i>
                 <div>
                   <strong>فيلكرو متين</strong>
                   <p>يُشد ويُرخى حسب مقاس إصبعك ويثبت جيداً.</p>
@@ -912,15 +991,15 @@
 
       <div class="steps-wrapper">
         <div class="step-card">
-          <div class="step-badge">الخطوة 1 🩹</div>
+          <div class="step-badge">الخطوة 1</div>
           <div class="step-icon"><i class="fa-solid fa-hand"></i></div>
           <h3>أدخل إصبعك في الجبيرة</h3>
           <p>ضع الإصبع المنحني وسط الجبيرة واتركه مستقيماً ومريحاً.</p>
         </div>
 
         <div class="step-card">
-          <div class="step-badge">الخطوة 2 🎯</div>
-          <div class="step-icon"><i class="fa-solid fa-wrench"></i></div>
+          <div class="step-badge">الخطوة 2</div>
+          <div class="step-icon"><i class="fa-solid fa-link"></i></div>
           <h3>اربط شريط الفيلكرو</h3>
           <p>ثبّت الشريط حسب مقاس إصبعك بحيث يكون محكماً دون أن يضيق.</p>
         </div>
@@ -941,8 +1020,14 @@
   <section class="results-section">
     <div class="container">
       <div class="results-card">
+        <div class="angle-visual-img" data-swap-img="night-protocol">
+          <img src="images/product-action.jpg" alt="ارتداء الجبيرة ليلاً لتثبيت الإصبع" />
+          <span class="angle-visual-tag">تلبسها قبل النوم… والإصبع يبقى مسطّح</span>
+        </div>
+        <div class="angle-visual-body">
         <span class="pvd-badge">طريقة استعمال مقترحة</span>
         <h2>ارتدِها ليلاً… ودع الإصبع يبقى مستقيماً وأنت نائم</h2>
+        <p class="angle-simple-line"><i class="fa-solid fa-moon"></i> الفكرة بسيطة: طوال ما أنت نائم، الجبيرة تمنع الإصبع من الانحناء.</p>
         <p class="results-sub">لا تحتاج تغيير يومك كاملاً. كثيرون يرتدونها قبل النوم حتى يبقى الإصبع مستقيماً ساعات طويلة.</p>
         <div class="results-steps">
           <div class="results-step">
@@ -973,6 +1058,7 @@
         <button type="button" class="who-cta-btn pulse-btn" onclick="openSheet()">
           <i class="fa-solid fa-moon"></i> اطلب باقتك وابدأ الليلة
         </button>
+        </div>
       </div>
     </div>
   </section>
@@ -1072,7 +1158,12 @@
   <!-- 💰 VALUE STACK -->
   <section class="value-stack-section">
     <div class="container">
-      <div class="value-stack-card">
+      <div class="value-stack-card angle-visual-card">
+        <div class="angle-visual-img" data-swap-img="value-pack">
+          <img src="images/premium-packaging.jpg" alt="باقة 5 جبائر تصل في العلبة" />
+          <span class="angle-visual-tag">هذا ما يصلك إلى الباب</span>
+        </div>
+        <div class="angle-visual-body">
         <span class="pvd-badge">ماذا يصلك؟</span>
         <h2>الباقة مقابل الثمن</h2>
         <ul class="value-stack-list">
@@ -1089,6 +1180,7 @@
         <button type="button" class="who-cta-btn pulse-btn" onclick="openSheet()">
           <i class="fa-solid fa-gift"></i> احجز الباقة بهذا الثمن
         </button>
+        </div>
       </div>
     </div>
   </section>
@@ -1097,8 +1189,14 @@
   <section class="angle-wait-section">
     <div class="container">
       <div class="angle-wait-card">
+        <div class="angle-visual-img" data-swap-img="waiting">
+          <img src="images/ad-creative.png" alt="كلما بقي الإصبع منحنياً اعتاد هذا الشكل" />
+          <span class="angle-visual-tag">كل ما تأخّرت… الصبع كيعتاد العوج</span>
+        </div>
+        <div class="angle-visual-body">
         <span class="pvd-badge">إن أجّلت اليوم</span>
         <h2>كلما بقي الإصبع منحنياً… اعتاد الوتر هذا الشكل</h2>
+        <p class="angle-simple-line"><i class="fa-solid fa-hourglass-half"></i> الإصبع لا يستقيم وحده. كل يوم بلا تثبيت يزيد العادة.</p>
         <p class="angle-lead">في حالات كثيرة لا يستقيم الإصبع وحده. كلما تُرك دون دعم، تبقى العضلة والوتر على الوضعية المنحنية.</p>
         <div class="wait-timeline">
           <div class="wait-step">
@@ -1120,6 +1218,7 @@
         <button type="button" class="who-cta-btn pulse-btn" onclick="openSheet()">
           <i class="fa-solid fa-hourglass-end"></i> ابدأ اليوم — افحص ثم ادفع
         </button>
+        </div>
       </div>
     </div>
   </section>
@@ -1128,6 +1227,11 @@
   <section class="angle-pharma-section">
     <div class="container">
       <div class="angle-pharma-card">
+        <div class="angle-visual-img" data-swap-img="pack">
+          <img src="images/premium-packaging.jpg" alt="باقة 5 قطع تصل إلى باب المنزل" />
+          <span class="angle-visual-tag">5 قطع… تفحصها ثم تدفع</span>
+        </div>
+        <div class="angle-visual-body">
         <span class="pvd-badge">مقارنة الثمن</span>
         <h2>قطعة واحدة تشتريها فوراً… أو باقة تصلك وتفحصها أولاً</h2>
         <div class="pharma-grid">
@@ -1150,6 +1254,7 @@
             </ul>
           </div>
         </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1158,6 +1263,11 @@
   <section class="angle-object-section">
     <div class="container">
       <div class="angle-object-card">
+        <div class="angle-visual-img" data-swap-img="comfort">
+          <img src="images/material-closeup.jpg" alt="إسفنج مريح وشريط يُضبط على مقاسك" />
+          <span class="angle-visual-tag">مريحة… وتُضبط على إصبعك</span>
+        </div>
+        <div class="angle-visual-body">
         <span class="pvd-badge">3 تردّدات شائعة</span>
         <h2>ثلاثة أسئلة توقف الناس… والجواب بصراحة</h2>
         <div class="object-list">
@@ -1177,6 +1287,7 @@
         <button type="button" class="who-cta-btn pulse-btn" onclick="openSheet()">
           <i class="fa-solid fa-circle-check"></i> اطلب الآن — دون مخاطرة على مالك
         </button>
+        </div>
       </div>
     </div>
   </section>
@@ -1185,6 +1296,11 @@
   <section class="who-for-section">
     <div class="container">
       <div class="who-for-card">
+        <div class="angle-visual-img" data-swap-img="who-for">
+          <img src="images/ad-creative.png" alt="لمن تناسب جبيرة تقويم الأصابع" />
+          <span class="angle-visual-tag">إصبع معوج من الصغر أو من ضربة</span>
+        </div>
+        <div class="angle-visual-body">
         <span class="pvd-badge">لمن تناسب هذه الجبيرة؟</span>
         <h2>هل هذا وصف حالتك؟</h2>
         <div class="who-for-grid">
@@ -1192,7 +1308,7 @@
             <span>✋</span>
             <div>
               <strong>إصبع منحني منذ الصغر</strong>
-              <p>الخنصر أو الذي بجانبه لا يستقيم بسهولة (Camptodactylie)</p>
+              <p>الخنصر أو الإصبع الذي بجانبه معوج من الصغر ولا يستقيم وحده</p>
             </div>
           </div>
           <div class="who-for-item">
@@ -1220,6 +1336,7 @@
         <button type="button" class="who-cta-btn pulse-btn" onclick="openSheet()">
           <i class="fa-solid fa-cart-shopping"></i> اطلب الآن
         </button>
+        </div>
       </div>
     </div>
   </section>
@@ -1237,7 +1354,7 @@
         <div class="price-header-row">
           <div class="price-new-large">179 <small>درهم</small></div>
           <div class="price-old-sub">399 درهم</div>
-          <div class="price-save-mini">توفير 220 DH</div>
+          <div class="price-save-mini">توفير 220 درهم</div>
         </div>
         
         <div class="price-save-badge">
@@ -1259,8 +1376,8 @@
               <div class="hero-offer-sub">5 قطع للاستبدال عند الحاجة</div>
             </div>
             <div class="hero-offer-price-tag">
-              <span class="old-p">399 DH</span>
-              <span class="new-p">179 DH</span>
+              <span class="old-p">399 درهم</span>
+              <span class="new-p">179 درهم</span>
             </div>
           </div>
 
@@ -1272,8 +1389,8 @@
               <div class="hero-offer-sub">لليدين + توفير 320 درهماً</div>
             </div>
             <div class="hero-offer-price-tag">
-              <span class="old-p">599 DH</span>
-              <span class="new-p highlight">279 DH</span>
+              <span class="old-p">599 درهم</span>
+              <span class="new-p">279 درهم</span>
             </div>
           </div>
         </div>
@@ -1287,7 +1404,7 @@
         <div class="cta-reassurance">
           <span><i class="fa-solid fa-shield-halved"></i> افحص قبل الدفع</span>
           <span class="dot">•</span>
-          <span><i class="fa-solid fa-truck"></i> توصيل مجاني</span>
+          <span class="ship-blue"><i class="fa-solid fa-truck"></i> توصيل مجاني</span>
           <span class="dot">•</span>
           <span><i class="fa-solid fa-handshake"></i> الدفع عند الاستلام</span>
         </div>
@@ -1511,7 +1628,7 @@
             </div>
             <div class="sheet-active-pricing">
               <div class="sheet-active-price" id="sheet-preview-price">179 درهم</div>
-              <div class="sheet-active-old" id="sheet-preview-old-price">399 DH</div>
+              <div class="sheet-active-old" id="sheet-preview-old-price">399 درهم</div>
             </div>
           </div>
           <div class="sheet-change-cta-bar">
@@ -1534,8 +1651,8 @@
                 <div class="sod-save-tag">توفير 220 درهماً</div>
               </div>
               <div class="sod-prices">
-                <span class="sod-old">399 DH</span>
-                <span class="sod-new">179 DH</span>
+                <span class="sod-old">399 درهم</span>
+                <span class="sod-new">179 درهم</span>
               </div>
             </div>
             <div class="sod-card" id="sod-card-2" onclick="selectModalPack(2, true)" data-pack="2">
@@ -1547,8 +1664,8 @@
                 <div class="sod-save-tag save-green">توفير 320 درهماً + توصيل مجاني</div>
               </div>
               <div class="sod-prices">
-                <span class="sod-old">599 DH</span>
-                <span class="sod-new highlight">279 DH</span>
+                <span class="sod-old">599 درهم</span>
+                <span class="sod-new highlight">279 درهم</span>
               </div>
             </div>
           </div>

@@ -125,13 +125,35 @@ img {
   transition: transform 0.3s ease;
 }
 
-.nav-logo-shield svg {
+.nav-logo-shield svg,
+.nav-logo-shield img {
   width: 28px;
   height: 28px;
 }
 
 .nav-logo-shield:hover {
   transform: scale(1.08) rotate(-3deg);
+}
+
+.nav-logo-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-brand-logo {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  border-radius: 50%;
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.45));
+  transition: transform 0.3s ease;
+}
+
+.nav-brand-logo:hover {
+  transform: scale(1.08);
 }
 
 .nav-brand-text {
@@ -569,7 +591,7 @@ img {
   line-height: 1;
 }
 .hero-offer-price-tag .new-p.highlight {
-  color: #34D399;
+  color: var(--gold);
 }
 
 /* 🛒 MAIN CTA BUTTON & REASSURANCE WRAPPER */
@@ -1121,6 +1143,59 @@ img {
 .section-heading { position: relative; z-index: 1; text-align: center; font-size: 2rem; font-weight: 900; margin-bottom: 0.8rem; color: #FFF; line-height: 1.4; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
 .section-subheading { position: relative; z-index: 1; text-align: center; color: var(--gold); font-size: 1.15rem; margin-bottom: 1rem; font-weight: 700; }
 
+.reviews-summary {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.7rem;
+  margin: 0 0 1rem 0;
+}
+.reviews-stat {
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 215, 0, 0.18);
+  border-radius: 14px;
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+}
+.reviews-stat strong {
+  display: block;
+  color: #FFD700;
+  font-size: 1.15rem;
+  font-weight: 900;
+  margin-bottom: 0.2rem;
+}
+.reviews-stat span {
+  display: block;
+  color: #CBD5E1;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.review-themes {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-bottom: 1.15rem;
+}
+.review-themes span {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  color: #6EE7B7;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+}
+@media (max-width: 600px) {
+  .reviews-stat { padding: 0.55rem 0.3rem; }
+  .reviews-stat strong { font-size: 0.95rem; }
+  .reviews-stat span { font-size: 0.64rem; }
+}
+
 .reviews-carousel-wrapper { position: relative; z-index: 1; }
 .review-page { display: none; flex-direction: column; gap: 1.2rem; }
 .review-page.active { display: flex; animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -1640,7 +1715,7 @@ img {
 }
 
 .sod-new.highlight {
-  color: #34D399;
+  color: var(--gold);
 }
 
 .sod-new.super-green {
@@ -2912,6 +2987,13 @@ img {
   text-align: center;
   overflow: visible;
 }
+.honesty-ship {
+  color: #93C5FD;
+}
+.cta-reassurance .ship-blue,
+.cta-reassurance .ship-blue i {
+  color: #60A5FA;
+}
 .urgency-timer {
   background: #0B0F17;
   color: #FFD700;
@@ -3205,6 +3287,7 @@ img {
 .angle-object-section,
 .wa-reviews-section {
   padding: 0.45rem 0 1rem;
+  scroll-margin-top: 72px;
 }
 
 .angle-surgery-card,
@@ -3464,6 +3547,10 @@ img {
     font-size: 1rem !important;
     direction: ltr;
   }
+  .nav-brand-logo {
+    width: 44px;
+    height: 44px;
+  }
   #nav-offer-badge-bg {
     width: 120px !important;
     height: 30px !important;
@@ -3490,5 +3577,108 @@ img {
     bottom: 88px;
     right: 12px;
   }
+}
+
+/* ==========================================================================
+   📸 ANGLE VISUAL FRAMES — hard concepts become pictures first
+   ========================================================================== */
+
+.angle-visual-card,
+.angle-surgery-card,
+.angle-life-card,
+.angle-wait-card,
+.angle-pharma-card,
+.angle-object-card,
+.who-for-card,
+.results-card {
+  padding: 0;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.94) 0%, rgba(15, 23, 42, 0.98) 100%);
+  border: 2px solid rgba(255, 215, 0, 0.32);
+  border-radius: 22px;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.48), 0 0 26px rgba(245, 158, 11, 0.12);
+}
+
+.angle-visual-img {
+  position: relative;
+  overflow: hidden;
+  background: #0B0F17;
+}
+
+.angle-visual-img img {
+  width: 100%;
+  display: block;
+  max-height: 300px;
+  object-fit: contain;
+  object-position: center;
+  background: #F8FAFC;
+}
+
+.angle-visual-tag {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  max-width: calc(100% - 24px);
+  background: rgba(11, 15, 23, 0.9);
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  color: #FFD700;
+  font-weight: 900;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  padding: 0.4rem 0.85rem;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.angle-visual-body {
+  padding: 18px 14px 20px;
+}
+
+.eb-visual-explain {
+  display: block;
+  padding: 0;
+  overflow: hidden;
+  background: rgba(11, 15, 23, 0.55);
+  border: 1.5px solid rgba(239, 68, 68, 0.28);
+}
+
+.eb-visual-explain .eb-visual-shot {
+  position: relative;
+  margin: 0;
+}
+
+.eb-visual-explain .eb-visual-shot img {
+  width: 100%;
+  display: block;
+  max-height: 240px;
+  object-fit: contain;
+  object-position: center;
+  background: #F8FAFC;
+}
+
+.eb-visual-explain .eb-intro-text {
+  padding: 0.95rem 1.05rem 1.05rem;
+  margin: 0;
+}
+
+.angle-simple-line {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: rgba(255, 215, 0, 0.08);
+  border: 1px dashed rgba(255, 215, 0, 0.35);
+  border-radius: 12px;
+  padding: 0.7rem 0.85rem;
+  color: #FDE68A;
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.angle-simple-line i {
+  color: #FFD700;
+  flex-shrink: 0;
 }
 

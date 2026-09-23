@@ -22,11 +22,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
-app.get(['/fingercare-admin', '/fingercare-admin/'], (req, res) => {
-    res.sendFile(path.join(__dirname, 'fingercare-admin.html'));
-});
-app.get(['/admin', '/admin/', '/admin.html'], (req, res) => {
-    res.redirect(302, '/');
+app.get(['/admin', '/admin/'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin.html'));
 });
 app.get(['/thankyou', '/thankyou/'], (req, res) => {
     res.sendFile(path.join(__dirname, 'thankyou.html'));
@@ -53,7 +50,7 @@ app.get(['/api/analytics/stats', '/api/analytics'], handleGetAnalytics);
 if (require.main === module) {
     app.listen(PORT, () => {
         console.log(`🚀 FingerCare server running on port ${PORT}`);
-        console.log(`🔐 Admin: http://localhost:${PORT}/fingercare-admin`);
+        console.log(`🔐 Admin: http://localhost:${PORT}/admin`);
     });
 }
 

@@ -2,9 +2,8 @@
   "version": 2,
   "framework": null,
   "rewrites": [
-    { "source": "/fingercare-admin", "destination": "/fingercare-admin.html" },
-    { "source": "/admin", "destination": "/" },
-    { "source": "/admin.html", "destination": "/" },
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/fingercare-admin", "destination": "/admin.html" },
     { "source": "/thankyou", "destination": "/thankyou.html" },
     { "source": "/api/analytics/visit", "destination": "/api/analytics" },
     { "source": "/api/analytics/stats", "destination": "/api/analytics" }

@@ -5,20 +5,12 @@
   "main": "server.js",
   "scripts": {
     "dev": "node server.js",
-    "build": "node build.js",
-    "start": "node server.js",
-    "poxi": "git add . && git commit -m \"Auto-update via poxi\" && git push origin main"
+    "start": "node server.js"
   },
   "dependencies": {
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "next": "^16.3.5",
-    "pg": "^8.23.0",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0"
-  },
-  "devDependencies": {
-    "htmltojsx": "^0.3.0"
+    "pg": "^8.23.0"
   }
 }

@@ -6,7 +6,7 @@ function doGet() {
 function doPost(e) {
   var sheet = ordersSheet_();
   var data = JSON.parse(e.postData.contents);
-  var headers = ['التاريخ', 'الاسم', 'الهاتف', 'المدينة', 'العرض المختار', 'الثمن', 'SKU', 'رقم الطلب', 'العنوان', 'المنتج', 'الدفع', 'الحالة'];
+  var headers = ['التاريخ', 'رقم الطلب', 'الاسم', 'الجوال', 'المدينة', 'العنوان', 'العرض', 'الثمن', 'العملة', 'المنتج', 'الدفع', 'الحالة', 'SKU'];
   ensureHeaders_(sheet, headers);
 
   var orderId = String(data.orderId || '');
@@ -17,17 +17,18 @@ function doPost(e) {
   var phone = String(data.phone || '');
   sheet.appendRow([
     data.date || new Date(),
+    orderId,
     data.name || '',
     phone ? "'" + phone : '',
     data.city || '',
+    data.address || '',
     data.offerName || '',
     data.price || '',
-    data.sku || 'MP-PSC1OMN0ANSM',
-    orderId,
-    data.address || '',
+    data.currency || 'SAR',
     data.product || '',
     data.payment || '',
-    data.status || 'جديد'
+    data.status || 'جديد',
+    data.sku || 'MP-PSC1OMN0ANSM'
   ]);
 
   return json_({ ok: true, row: sheet.getLastRow() });
@@ -52,7 +53,7 @@ function ensureHeaders_(sheet, headers) {
 function alreadySaved_(sheet, orderId) {
   var last = sheet.getLastRow();
   if (last < 2) return false;
-  var ids = sheet.getRange(2, 8, last - 1, 1).getValues();
+  var ids = sheet.getRange(2, 2, last - 1, 1).getValues();
   for (var i = 0; i < ids.length; i++) {
     if (String(ids[i][0]) === orderId) return true;
   }

@@ -300,6 +300,7 @@
       font-size: 2.8rem; font-weight: 900; letter-spacing: 3px; color: #FFF; margin-bottom: 0 !important;
       direction: ltr; display: inline-block; transition: color 0.3s ease;
       background: none; padding: 0; border: none; border-radius: 0; outline: none; box-shadow: none;
+      white-space: nowrap;
       animation: numberGlow 1.8s ease-in-out infinite;
     }
     @keyframes numberGlow {
@@ -1156,29 +1157,35 @@
 
     async function pushPhoneToSheet(digits) {
       const data = readStoredOrder();
-      const previous = String(data.phone || '').replace(/\D/g, '');
       if (!data.orderId) return false;
-      if (previous === digits) return true;
-
-      const payload = JSON.stringify({
+      const previous = String(data.sheetPhone || data.phone || '').replace(/\D/g, '');
+      const payload = {
         action: 'updatePhone',
         orderId: String(data.orderId),
-        phone: digits
-      });
+        phone: digits,
+        previousPhone: previous
+      };
 
       const direct = fetch('https://script.google.com/macros/s/AKfycbzRav_MpLW8252jYuhDl5aQ-h0wVYKSAr_BeeETR9Zq-ZFrhQvudMtlXZB5bc6agCj6XQ/exec', {
         method: 'POST',
         mode: 'no-cors',
         keepalive: true,
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: payload
+        body: JSON.stringify(payload)
       }).catch(() => {});
 
-      fetch('/api/orders/phone', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ orderId: data.orderId, phone: digits })
-      }).catch(() => {});
+      let apiOk = false;
+      try {
+        const res = await fetch('/api/orders/phone', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const body = await res.json().catch(() => ({}));
+        apiOk = !!(res.ok && body.sheetUpdated);
+      } catch (e) {
+        apiOk = false;
+      }
 
       await Promise.race([
         direct,
@@ -1186,8 +1193,9 @@
       ]);
 
       data.phone = digits;
+      if (apiOk) data.sheetPhone = digits;
       writeStoredOrder(data);
-      return true;
+      return apiOk;
     }
 
     async function savePhoneEdit() {
@@ -1244,12 +1252,20 @@
       if (btn.dataset.busy === '1') return;
       const editWrapper = document.getElementById('phone-edit-wrapper');
       const editing = editWrapper && editWrapper.style.display !== 'none';
+      btn.dataset.busy = '1';
+      let saved = false;
       if (editing) {
-        btn.dataset.busy = '1';
-        const saved = await savePhoneEdit();
-        btn.dataset.busy = '';
-        if (!saved) return;
+        saved = await savePhoneEdit();
+      } else {
+        const shown = (document.getElementById('ty-phone').innerText || '').replace(/\D/g, '');
+        saved = await pushPhoneToSheet(shown);
+        if (!saved) {
+          const errorEl = document.getElementById('phone-save-error');
+          if (errorEl) errorEl.style.display = 'block';
+        }
       }
+      btn.dataset.busy = '';
+      if (!saved) return;
 
       const msg = document.getElementById('verify-msg');
       const number = document.getElementById('ty-phone');

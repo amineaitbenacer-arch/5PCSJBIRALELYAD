@@ -143,9 +143,11 @@ img {
 }
 
 .nav-brand-logo {
-  width: 52px;
-  height: 52px;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 auto;
   object-fit: cover;
+  object-position: center 32%;
   border-radius: 50%;
   display: block;
   filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.45));
@@ -159,9 +161,11 @@ img {
 .nav-brand-text {
   display: flex;
   flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
-  gap: 0.55rem;
-  flex: 1;
+  justify-content: flex-start;
+  gap: 0.6rem;
+  flex: 1 1 auto;
   min-width: 0;
 }
 
@@ -169,7 +173,8 @@ img {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  direction: ltr;
+  justify-content: center;
+  gap: 0.2rem;
   min-width: 0;
 }
 
@@ -179,18 +184,28 @@ img {
   font-weight: 600;
   color: #E8C872;
   line-height: 1;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   white-space: nowrap;
+  direction: ltr;
 }
 
 .nav-name-line {
-  margin-top: 0.22rem;
-  font-size: 0.72rem;
+  margin-top: 0;
+  padding: 0;
+  border: 0;
+  font-size: 0.78rem;
   font-weight: 700;
   color: #E7D7B1;
   line-height: 1;
-  direction: rtl;
   letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.nav-dynamic-offer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0 0 auto;
 }
 
 .prod-brand-name {
@@ -3587,19 +3602,24 @@ img {
 
 @media (max-width: 640px) {
   .nav-title-main {
-    font-size: 0.86rem !important;
-    letter-spacing: 0.1em;
-    direction: ltr;
+    font-size: 0.82rem !important;
+    letter-spacing: 0.08em;
   }
   .nav-name-line {
-    font-size: 0.66rem;
+    font-size: 0.68rem;
   }
   .nav-brand-logo {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
+  }
+  .nav-brand-text {
+    gap: 0.45rem;
+  }
+  .nav-name-stack {
+    gap: 0.16rem;
   }
   #nav-offer-badge-bg {
-    width: 120px !important;
+    width: 118px !important;
     height: 30px !important;
   }
 }
@@ -3727,5 +3747,29 @@ img {
 .angle-simple-line i {
   color: #FFD700;
   flex-shrink: 0;
+}
+
+.emotional-pain-section,
+.angle-surgery-section,
+.angle-life-section,
+.visual-before-after-section,
+.tech-explanation-section,
+.reviews-section,
+.trust-marketing-section,
+.materials-showcase-section,
+.product-visual-description-section,
+.comparison-section,
+.installation-section,
+.results-section,
+.guarantee-section,
+.bonuses-section,
+.value-stack-section,
+.angle-wait-section,
+.angle-object-section,
+.who-for-section,
+.final-order-section,
+.faq-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 640px;
 }
 

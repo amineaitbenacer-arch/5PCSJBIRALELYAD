@@ -2,11 +2,11 @@
    FingerCare 🩹 - Mobile E-Commerce JavaScript Application
    ========================================================================== */
 
-// Selected Bundle: 1 = jar (149 SAR), 2 = two jars (229 SAR), 3 = three jars (299 SAR)
+// Selected Bundle: 1 = jar (169 SAR), 2 = two jars (229 SAR), 3 = three jars (299 SAR)
 let currentBundle = {
     id: 1,
     name: 'عبوة واحدة',
-    price: 149
+    price: 169
 };
 
 // Global Image Fallback Handler (Works if images are in /images/ or in root /)
@@ -27,7 +27,7 @@ window.addEventListener('error', function(e) {
 }, true);
 
 document.addEventListener('DOMContentLoaded', () => {
-    selectModalPack(1);
+    selectModalPack(2);
 });
 
 /* --------------------------------------------------------------------------
@@ -90,11 +90,11 @@ function selectModalPack(packId, fromUserClick) {
     let id = parseInt(packId, 10) || 1;
     if (id !== 2 && id !== 3) id = 1;
 
-    let price = 149;
+    let price = 169;
     let oldPrice = 299;
-    let saveAmount = 150;
+    let saveAmount = 130;
     let name = 'عبوة واحدة';
-    let subtext = 'علبة 50 غراماً • توصيل مجاني';
+    let subtext = 'للتجربة • توصيل مجاني';
     let tag = 'للتجربة';
     const fixedImg = 'images/cream.jpg?v=ksa1';
 
@@ -103,15 +103,15 @@ function selectModalPack(packId, fromUserClick) {
         oldPrice = 458;
         saveAmount = 229;
         name = 'عبوتان';
-        subtext = 'روتين أطول • توفير 229 ريالاً';
-        tag = 'توفير أكبر';
+        subtext = 'يكمل الفرق • توصيل مجاني';
+        tag = 'الأكثر طلباً';
     } else if (id === 3) {
         price = 299;
         oldPrice = 598;
         saveAmount = 299;
         name = '3 عبوات';
-        subtext = 'أقل ثمن للعلبة • توفير 299 ريالاً';
-        tag = 'أفضل عرض';
+        subtext = 'لمدة أطول • توصيل مجاني';
+        tag = 'لمدة أطول';
     }
 
     currentBundle = { id: id, price: price, name: name };

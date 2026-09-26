@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>لانثوم | تم استلام الطلب</title>
-  <link rel="icon" type="image/png" href="images/favicon.png?v=logo1" />
-  <link rel="apple-touch-icon" href="images/logo.png?v=logo1" />
+  <link rel="icon" type="image/png" href="images/favicon.png?v=lite1" />
+  <link rel="apple-touch-icon" href="images/logo.png?v=lite1" />
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +22,7 @@
   <script src="pixels.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-        let price = 149;
+        let price = 169;
         let orderId = null;
         try {
           const orderDataStr = localStorage.getItem('fc_last_order') || localStorage.getItem('ac_last_order');
@@ -307,6 +307,89 @@
     }
     .rev-dot.active, .rev-dot:hover { background: linear-gradient(135deg, #34D399, #059669); color: #06281C; border-color: #34D399; box-shadow: 0 0 15px rgba(52, 211, 153, 0.55); transform: scale(1.1); }
 
+    /* 💔→💚 SOLVE-THE-PAIN CADRES (same frame language as the landing page) */
+    .solve-section { margin: 0 0 3.2rem; }
+    .solve-kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(239, 68, 68, 0.12); color: #FCA5A5;
+      border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 999px;
+      padding: 0.35rem 0.9rem; font-weight: 900; font-size: 0.82rem; margin-bottom: 0.85rem;
+    }
+    .solve-section .section-heading { font-size: 1.65rem; margin-bottom: 0.7rem; }
+    .solve-lead {
+      text-align: center; color: #E2E8F0; font-size: 1.05rem; line-height: 1.9;
+      font-weight: 600; margin-bottom: 1.4rem;
+    }
+    .solve-cadre {
+      background: linear-gradient(180deg, rgba(239, 68, 68, 0.08) 0%, rgba(7, 20, 16, 0.92) 42%, rgba(16, 185, 129, 0.08) 100%);
+      border: 1.5px solid rgba(52, 211, 153, 0.28);
+      border-radius: 22px; padding: 1.15rem 1rem 1.05rem; margin-bottom: 1rem;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+      text-align: right;
+    }
+    .solve-top { display: flex; gap: 0.85rem; align-items: flex-start; margin-bottom: 0.75rem; }
+    .solve-icon {
+      width: 52px; height: 52px; border-radius: 16px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 1.7rem; line-height: 1;
+      background: radial-gradient(circle at 30% 30%, rgba(248, 113, 113, 0.35), rgba(239, 68, 68, 0.12));
+      color: #FECACA; border: 1px solid rgba(248, 113, 113, 0.55);
+      box-shadow: 0 0 16px rgba(239, 68, 68, 0.28), inset 0 0 10px rgba(255,255,255,0.04);
+    }
+    .solve-cadre h3 { color: #FFF; font-size: 1.18rem; font-weight: 900; line-height: 1.45; margin-bottom: 0.25rem; }
+    .solve-tag { color: #FCA5A5; font-size: 0.78rem; font-weight: 800; }
+    .solve-feel {
+      background: rgba(0, 0, 0, 0.28); border-right: 3px solid #F87171; border-radius: 12px;
+      padding: 0.8rem 0.9rem; color: #F1F5F9; font-size: 0.98rem; line-height: 1.85;
+      font-weight: 600; margin-bottom: 0.75rem;
+    }
+    .solve-block { margin-bottom: 0.7rem; }
+    .solve-label {
+      display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 0.92rem;
+      margin-bottom: 0.35rem;
+    }
+    .solve-label.why { color: #FDBA74; }
+    .solve-label.how { color: #6EE7B7; }
+    .solve-block p { color: #E2E8F0; font-size: 0.96rem; line-height: 1.8; font-weight: 500; }
+    .solve-steps { display: flex; flex-direction: column; gap: 0.55rem; margin-top: 0.35rem; }
+    .solve-step {
+      display: flex; gap: 0.7rem; align-items: flex-start;
+      background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(52, 211, 153, 0.18);
+      border-radius: 14px; padding: 0.7rem 0.8rem;
+    }
+    .solve-num {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, #34D399, #059669); color: #06281C;
+      font-weight: 900; display: flex; align-items: center; justify-content: center; font-size: 0.85rem;
+    }
+    .solve-step strong { display: block; color: #FFF; font-size: 0.95rem; margin-bottom: 0.15rem; }
+    .solve-step span { color: #CBD5E1; font-size: 0.9rem; line-height: 1.7; font-weight: 500; }
+    .solve-payoff {
+      background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(52, 211, 153, 0.28);
+      border-radius: 14px; padding: 0.8rem 0.9rem; color: #ECFDF5; font-size: 0.95rem; line-height: 1.8; font-weight: 600;
+    }
+    .solve-payoff i { color: #34D399; margin-left: 6px; }
+    .moments-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin: 0.2rem 0 1rem; }
+    .moment-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px; padding: 0.85rem 0.8rem;
+    }
+    .moment-card span { font-size: 1.35rem; display: block; margin-bottom: 0.25rem; }
+    .moment-card strong { display: block; color: #FFF; font-size: 0.95rem; margin-bottom: 0.25rem; }
+    .moment-card p { color: #CBD5E1; font-size: 0.84rem; line-height: 1.65; font-weight: 500; }
+    .protocol-cadre {
+      background: linear-gradient(180deg, rgba(52, 211, 153, 0.12), rgba(7, 20, 16, 0.95));
+      border: 1.5px solid rgba(52, 211, 153, 0.4); border-radius: 22px; padding: 1.2rem 1rem;
+      box-shadow: 0 0 28px rgba(16, 185, 129, 0.12); margin-bottom: 1rem;
+    }
+    .protocol-cadre h3 { text-align: center; color: #FFF; font-size: 1.3rem; font-weight: 900; line-height: 1.45; margin-bottom: 0.4rem; }
+    .protocol-sub { text-align: center; color: #A7F3D0; font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.9rem; font-weight: 600; }
+    .heart-close {
+      text-align: center; background: rgba(0,0,0,0.28); border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08); padding: 1.1rem 1rem;
+    }
+    .heart-close p { color: #F8FAFC; font-size: 1.02rem; line-height: 1.9; font-weight: 700; }
+    .heart-note { display: block; margin-top: 0.7rem; color: #94A3B8; font-size: 0.82rem; line-height: 1.7; font-weight: 500; }
+
     /* FAQs */
     .faq-title { text-align: center; font-size: 1.8rem; font-weight: 900; margin-bottom: 2rem; color: #FFF; }
     .faq-item { margin-bottom: 1.2rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; overflow: hidden; background: rgba(0,0,0,0.2); }
@@ -334,6 +417,8 @@
       .receipt-card { padding: 1.5rem; }
       .hero h1 { font-size: 2.2rem; }
       .hero { padding: 2rem 0 1.5rem; }
+      .solve-section .section-heading { font-size: 1.35rem; }
+      .moments-grid { grid-template-columns: 1fr; }
       .success-icon { font-size: 4.5rem; margin-bottom: 1rem; }
     }
   </style>
@@ -648,6 +733,197 @@
       </div>
     </div>
   </section>
+
+    <!-- 💔 كيف تنحل المشاكل — نفس إطار صفحة الهبوط، بعد الطلب -->
+    <section class="solve-section">
+      <div style="text-align:center;">
+        <span class="solve-kicker"><i class="fa-solid fa-heart-crack"></i> نفس المشاكل… والحل صار في طلبك</span>
+      </div>
+      <h2 class="section-heading">طلبك في الطريق. وهذي طريقة حل كل شيء شفتيه في المرآة</h2>
+      <p class="solve-lead">ما طلبتِ علبة. طلبتِ إن الصورة القريبة ما تخليكِ تبعدين وجهك، وإن الابتسامة ترجع لك، وإن الخد ما يشدّ قبل العصر. تحت كل مشكلة: ليش بقيت معاكِ، وكيف يفكّها الكريم ليلة بعد ليلة.</p>
+
+      <article class="solve-cadre">
+        <div class="solve-top">
+          <div class="solve-icon" aria-hidden="true">👁️</div>
+          <div>
+            <div class="solve-tag">المشكلة الأولى · الإحراج أمام المرآة</div>
+            <h3>الأساس يخفي ساعة… ثم يرجع الخط والجفاف تحت الضوء</h3>
+          </div>
+        </div>
+        <p class="solve-feel">تقربين من المغسلة والضوء فوقك. زاوية العين، والجبهة، وخط الضحكة يبانوا قبل المكياج. في العشاء الصورة القريبة تخليكِ تميلين راسك. تضعين الأساس، ترتاحين ساعة، ثم يرجع نفس الوجه. الإحراج مو من شكلك. الإحراج إنكِ تعبتِ تخبّينه.</p>
+        <div class="solve-block">
+          <div class="solve-label why"><i class="fa-solid fa-circle-xmark"></i> ليش ما راح مع الكريمات السابقة</div>
+          <p>الأساس غطاء. المرطّب العادي يريح الجفاف ساعات ويرجع. ما في تكرار ليلي يشتغل وأنتِ نايمة على الخط الرفيع نفسه كل ليلة. عشان كذا تحسّين إنكِ تبدين من الصفر كل صباح.</p>
+        </div>
+        <div class="solve-block">
+          <div class="solve-label how"><i class="fa-solid fa-wand-magic-sparkles"></i> كيف ينحل مع لانثوم</div>
+          <div class="solve-steps">
+            <div class="solve-step">
+              <div class="solve-num">1</div>
+              <div>
+                <strong>الليل، مو الصباح</strong>
+                <span>بعد ما تغسلين وجهك ويصير ناشف، خذي كمية صغيرة على زاوية العين والجبهة وخط الضحكة. الريتينول يتنعّم الخطوط الرفيعة وهو بعيد عن شمس النهار.</span>
+              </div>
+            </div>
+            <div class="solve-step">
+              <div class="solve-num">2</div>
+              <div>
+                <strong>كل ثلاث ليالٍ في البداية</strong>
+                <span>لا تكثّرين أول أسبوع. البشرة تتعوّد بهدوء. إذا ارتاحت، تصير كل ليلة. الفرق ما يجي من أول دهنة، يجي لأنكِ ما قطعتِ.</span>
+              </div>
+            </div>
+            <div class="solve-step">
+              <div class="solve-num">3</div>
+              <div>
+                <strong>الصبح واقي شمس</strong>
+                <span>عشان النعومة والإشراق اللي بديتيهم بالليل ما يرجعون يتبهتون أول ما تطلعين. الروتين نصّه ليل ونصّه حماية.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="solve-payoff"><i class="fa-solid fa-heart"></i> بعد أسابيع، الصورة القريبة تصير أهدأ. ما نعدكِ إن الخط يختفي في ليلة. نعدكِ إنكِ وقفتي تخبّين الابتسامة كل ما طلع الجوال.</p>
+      </article>
+
+      <article class="solve-cadre">
+        <div class="solve-top">
+          <div class="solve-icon"><i class="fa-solid fa-user"></i></div>
+          <div>
+            <div class="solve-tag">المشكلة الثانية · الوجه كله والرقبة</div>
+            <h3>الكاميرا ما تصوّر زاوية العين… تصوّر البشرة كلها</h3>
+          </div>
+        </div>
+        <p class="solve-feel">تحطين العناية على العين بس، والعدسة تلقط الجبهة، وجفاف الخد، وخط الضحكة، والرقبة اللي نزل عليها الخط. في صورة العيلة يبان الفرق: الوجه مرتب من فوق، والرقبة تحكي عمر ثاني. هذا الإحراج أهدى… وأوجع، لأنه يطلع وأنتِ مبتسمة.</p>
+        <div class="solve-block">
+          <div class="solve-label why"><i class="fa-solid fa-circle-xmark"></i> ليش زاوية العين وحدها ما تكفي</div>
+          <p>الخط ما يوقف عند العين. الشمس والجفاف والسنوات يمشون من الجبهة للخد للفم ثم للرقبة. إذا عالجتي مكان واحد، الباقي يفضحك في أول صورة قريبة.</p>
+        </div>
+        <div class="solve-block">
+          <div class="solve-label how"><i class="fa-solid fa-wand-magic-sparkles"></i> كيف ينحل مع لانثوم</div>
+          <div class="solve-steps">
+            <div class="solve-step">
+              <div class="solve-num">1</div>
+              <div>
+                <strong>حبة بازلاء للوجه والرقبة</strong>
+                <span>كمية صغيرة تكفي. وزّعيها على الجبهة، الخدود، خط الضحكة، وحول العين، وانزلي بهدوء على الرقبة. القوام خفيف ويمتص، ما يدهن المخدة.</span>
+              </div>
+            </div>
+            <div class="solve-step">
+              <div class="solve-num">2</div>
+              <div>
+                <strong>نفس العلبة، أربعة آثار</strong>
+                <span>الريتينول للخطوط، الكولاجين لمظهر التماسك، الهيالورونيك للجفاف، وفيتامين C للإشراق وتوحيد اللون. مو أربع علب. روتين واحد وأنتِ نايمة.</span>
+              </div>
+            </div>
+            <div class="solve-step">
+              <div class="solve-num">3</div>
+              <div>
+                <strong>ابدئي قليلة، وكمّلي الأسابيع</strong>
+                <span>إذا حسّيتي وخز خفيف في البداية فهذا شائع مع الريتينول. خفّفي الكمية وارجعي كل ثلاث ليالٍ. الحامل والمرضع لا تستعملانه.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="solve-payoff"><i class="fa-solid fa-heart"></i> يوم صورة العيلة، الوجه والرقبة تحت نفس العناية. ما في زاوية «مخبّية» وزاوية ناسية. هذا اللي يريح القلب قبل ما يريح البشرة.</p>
+      </article>
+
+      <article class="solve-cadre">
+        <div class="solve-top">
+          <div class="solve-icon"><i class="fa-solid fa-droplet"></i></div>
+          <div>
+            <div class="solve-tag">المشكلة الثالثة · المرطّب وحده لا يكفي</div>
+            <h3>يريح الخد ساعات… ثم يرجع الشدّ والبهتان والخط</h3>
+          </div>
+        </div>
+        <p class="solve-feel">الصباح البشرة أهدى. الظهر الخد يشدّ، واللون يبهت، والخط يصير أوضح تحت شمس المجلس. تشترين مرطّب ثاني، ثم ثالث، وتحسّين إنكِ تدفعين عشان ترتاحين لين العصر. التعب مو من بشرتك. التعب إن كل علبة كانت تسكّت المشكلة وما تحلّها.</p>
+        <div class="solve-block">
+          <div class="solve-label why"><i class="fa-solid fa-circle-xmark"></i> ليش الترطيب لحاله يرجعك لنفس المكان</div>
+          <p>الجفاف يبان، لكن الخط والبهتان وملمس التماسك يحتاجون أكثر من ماء على السطح. إذا ما في روتين ليلي يتعاود، الصباح الجاي يرجع نفس الوجه المتعب حتى بعد النوم.</p>
+        </div>
+        <div class="solve-block">
+          <div class="solve-label how"><i class="fa-solid fa-wand-magic-sparkles"></i> كيف تنحل الأربعة مع بعض</div>
+          <div class="solve-steps">
+            <div class="solve-step">
+              <div class="solve-num">1</div>
+              <div>
+                <strong>الريتينول ينعّم</strong>
+                <span>على الخط الرفيع حول العين والجبهة وخط الضحكة. النتيجة تتراكم أسبوعاً بعد أسبوع، مو في ليلة سحرية.</span>
+              </div>
+            </div>
+            <div class="solve-step">
+              <div class="solve-num">2</div>
+              <div>
+                <strong>الكولاجين والهيالورونيك يملون المظهر</strong>
+                <span>الجفاف يهدأ، والخد يحسّه أطرى، والملمس أشد تماسكاً. هذا اللي يفرق عن مرطّب يختفي قبل الغدا.</span>
+              </div>
+            </div>
+            <div class="solve-step">
+              <div class="solve-num">3</div>
+              <div>
+                <strong>فيتامين C يرجّع النضارة</strong>
+                <span>اللون الباهت يصير أنضر مع الاستمرار. في الصباح البشرة أصفى من أول ما حطيتيه بالليل، بشرط واقي الشمس.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="solve-payoff"><i class="fa-solid fa-heart"></i> تتوقفين عن شراء علبة تريحك لين الظهر. صار عندك روتين واحد: نعومة، ترطيب، إشراق، وتماسك. وكل ليلة تكمّل اللي قبلها.</p>
+      </article>
+
+      <div class="moments-grid">
+        <div class="moment-card">
+          <span>📸</span>
+          <strong>الصورة القريبة</strong>
+          <p>العدسة تكشف الجبهة والعين والجفاف. الاستمرار الليلي يهدّي هذا المظهر، عشان ما تبعدين وجهك كل ما طلع الجوال.</p>
+        </div>
+        <div class="moment-card">
+          <span>😊</span>
+          <strong>الضحكة</strong>
+          <p>خطوط العين وخط الضحكة يطلعون مع بعض. لما الروتين يثبت، الابتسامة في الصورة تصير أهدأ… وأنتِ ما زلتِ تضحكين بنفس القلب.</p>
+        </div>
+        <div class="moment-card">
+          <span>✨</span>
+          <strong>البهتان والجفاف</strong>
+          <p>فيتامين C يشرق، الهيالورونيك يرطّب، والكولاجين يدعم التماسك. الخد ما يشدّ نص اليوم واللون ما يبهت أول ما تطلعين.</p>
+        </div>
+        <div class="moment-card">
+          <span>🌙</span>
+          <strong>أول ليلة توصل العلبة</strong>
+          <p>تفتحينها، تتأكدّين إنها نفس الصورة، وتدفعين. بعدها تغسلين وجهك وتدهنين كمية صغيرة. المرآة ما تتغير هالليلة… تتغير لأنكِ بديتي.</p>
+        </div>
+      </div>
+
+      <div class="protocol-cadre">
+        <h3>لما يوصل المندوب… خلّي الروتين يشتغل من أول ليلة</h3>
+        <p class="protocol-sub">الطلب وصل لمرحلتك. الباقي ثلاث عادات صغيرة، وهي اللي تفرق بين «جربت كريم» وبين «بشرتي صارت أهدأ».</p>
+        <div class="solve-steps">
+          <div class="solve-step">
+            <div class="solve-num">1</div>
+            <div>
+              <strong>افحصي ثم ادفعِي</strong>
+              <span>افتحي الطرد قدام المندوب. العلبة نفس الصورة؟ كمّلي. ما تناسبك؟ من حقك ترفضين بدون دفع. ما في مخاطرة على فلوسك.</span>
+            </div>
+          </div>
+          <div class="solve-step">
+            <div class="solve-num">2</div>
+            <div>
+              <strong>ثلاثة ليالي، ثم زيدي</strong>
+              <span>أول أسبوع كل ثلاث ليالٍ. إذا ارتاحت البشرة، كل ليلة قبل النوم. لا تحطينه الصبح. النهار لواقي الشمس.</span>
+            </div>
+          </div>
+          <div class="solve-step">
+            <div class="solve-num">3</div>
+            <div>
+              <strong>لا تقطعين في نص الأسابيع</strong>
+              <span>اللي حسّوا الفرق هم اللي كمّلوا. العلبة الثانية تكمل المدة اللي تحتاجها البشرة. النتيجة تختلف من وجه لوجه، والانتظام هو الأساس.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="heart-close">
+        <p>أنتِ ما استنيتِ جلسة ولا حقنة ولا موعد عيادة. اخترتِ تبدأين الليلة، من بيتك، وبعد ما تشوفين العلبة بعينك. خلّي الجوال قريب: التأكيد مكالمة واحدة، وبعدها الروتين يصير عادتك. المرآة ما تتغيّر لأنكِ خفتي منها. تتغيّر لأنكِ رجعتِ لها كل ليلة.</p>
+        <span class="heart-note">كريم عناية بمظهر البشرة، مو علاج طبي. ما نعد بمسح التجاعيد أو تغيير اللون في ليلة. الحامل والمرضع لا تستعملانه. ابدئي بكمية قليلة، ومع الصباح واقي شمس.</span>
+      </div>
+    </section>
 
     <!-- 5 STRONG FAQS -->
     <div class="faq-title">أسئلة شائعة</div>

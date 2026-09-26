@@ -6,5 +6,19 @@
     { "source": "/thankyou", "destination": "/thankyou.html" },
     { "source": "/api/analytics/visit", "destination": "/api/analytics" },
     { "source": "/api/analytics/stats", "destination": "/api/analytics" }
+  ],
+  "headers": [
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/(style.css|app.js|pixels.js)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    }
   ]
 }

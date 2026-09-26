@@ -2,11 +2,11 @@
    FingerCare 🩹 - Mobile E-Commerce JavaScript Application
    ========================================================================== */
 
-// Selected Bundle: 1 = 5 PCS (179 DH), 2 = 10 PCS (279 DH)
+// Selected Bundle: 1 = jar (149 SAR), 2 = two jars (229 SAR), 3 = three jars (299 SAR)
 let currentBundle = {
     id: 1,
-    name: 'باقة 5 قطع (يد واحدة)',
-    price: 179
+    name: 'عبوة واحدة',
+    price: 149
 };
 
 // Global Image Fallback Handler (Works if images are in /images/ or in root /)
@@ -88,23 +88,30 @@ function closeOrderModal() {
    -------------------------------------------------------------------------- */
 function selectModalPack(packId, fromUserClick) {
     let id = parseInt(packId, 10) || 1;
-    if (id !== 2) id = 1;
+    if (id !== 2 && id !== 3) id = 1;
 
-    let price = 179;
-    let oldPrice = 399;
-    let saveAmount = 220;
-    let name = 'باقة 5 قطع (يد واحدة)';
-    let subtext = '5 قطع للاستبدال عند الحاجة • توصيل مجاني';
-    let tag = 'العرض الأساسي';
-    const fixedImg = 'images/premium-packaging.jpg';
+    let price = 149;
+    let oldPrice = 299;
+    let saveAmount = 150;
+    let name = 'عبوة واحدة';
+    let subtext = 'علبة 50 غراماً • توصيل مجاني';
+    let tag = 'للتجربة';
+    const fixedImg = 'images/cream.jpg?v=ksa1';
 
     if (id === 2) {
-        price = 279;
-        oldPrice = 599;
-        saveAmount = 320;
-        name = 'باقة 10 قطع (لليدين)';
-        subtext = '10 قطع لليدين • توفير 320 درهماً';
+        price = 229;
+        oldPrice = 458;
+        saveAmount = 229;
+        name = 'عبوتان';
+        subtext = 'روتين أطول • توفير 229 ريالاً';
         tag = 'توفير أكبر';
+    } else if (id === 3) {
+        price = 299;
+        oldPrice = 598;
+        saveAmount = 299;
+        name = '3 عبوات';
+        subtext = 'أقل ثمن للعلبة • توفير 299 ريالاً';
+        tag = 'أفضل عرض';
     }
 
     currentBundle = { id: id, price: price, name: name };
@@ -120,23 +127,23 @@ function selectModalPack(packId, fromUserClick) {
     });
 
     document.querySelectorAll('.price-new-large').forEach(el => {
-        el.innerHTML = `${price} <small>درهم</small>`;
+        el.innerHTML = `${price} <small>ريال</small>`;
     });
     document.querySelectorAll('.price-old-sub').forEach(el => {
-        el.textContent = `${oldPrice} درهم`;
+        el.textContent = `${oldPrice} ريال`;
     });
     document.querySelectorAll('.price-save-mini').forEach(el => {
-        el.textContent = `توفير ${saveAmount} درهم`;
+        el.textContent = `توفير ${saveAmount} ريال`;
     });
     document.querySelectorAll('.price-save-badge').forEach(el => {
-        el.textContent = `توفير ${saveAmount} درهماً + توصيل مجاني`;
+        el.textContent = `توفير ${saveAmount} ريالاً + توصيل مجاني`;
     });
 
     document.querySelectorAll('.offer-cta-main').forEach(btn => {
-        btn.innerHTML = `<i class="fa-solid fa-cart-shopping"></i> اطلب الآن - ${price} درهم`;
+        btn.innerHTML = `<i class="fa-solid fa-cart-shopping"></i> اطلب الآن - ${price} ريال`;
     });
     const buyBtn = document.querySelector('.buy-bar .buy-btn');
-    if (buyBtn) buyBtn.innerHTML = `اطلب الآن — ${price} درهم`;
+    if (buyBtn) buyBtn.innerHTML = `اطلب الآن — ${price} ريال`;
 
     const sheetBundleName = document.getElementById('sheet-bundle-name');
     if (sheetBundleName) sheetBundleName.textContent = name;
@@ -148,29 +155,32 @@ function selectModalPack(packId, fromUserClick) {
     if (sheetActiveBadge) sheetActiveBadge.textContent = tag;
 
     const sheetPreviewPrice = document.getElementById('sheet-preview-price');
-    if (sheetPreviewPrice) sheetPreviewPrice.textContent = price + ' درهم';
+    if (sheetPreviewPrice) sheetPreviewPrice.textContent = price + ' ريال';
 
     const sheetPreviewOld = document.getElementById('sheet-preview-old-price');
-        if (sheetPreviewOld) sheetPreviewOld.textContent = oldPrice + ' درهم';
+        if (sheetPreviewOld) sheetPreviewOld.textContent = oldPrice + ' ريال';
 
     const sheetPreviewImg = document.getElementById('sheet-preview-img');
     if (sheetPreviewImg) sheetPreviewImg.src = fixedImg;
 
     const sheetTotal = document.getElementById('sheet-total-price');
-    if (sheetTotal) sheetTotal.textContent = price + ' درهم';
+    if (sheetTotal) sheetTotal.textContent = price + ' ريال';
 
     const stickyNewPrice = document.querySelector('.buy-bar .bar-new');
-    if (stickyNewPrice) stickyNewPrice.innerHTML = price + ' <small>درهم</small>';
+    if (stickyNewPrice) stickyNewPrice.innerHTML = price + ' <small>ريال</small>';
 
     const stickyOldPrice = document.querySelector('.buy-bar .bar-old');
-    if (stickyOldPrice) stickyOldPrice.textContent = oldPrice + ' درهم';
+    if (stickyOldPrice) stickyOldPrice.textContent = oldPrice + ' ريال';
 
     const aovCongrats = document.getElementById('sheet-aov-congrats');
     const aovMsg = document.getElementById('sheet-aov-msg');
     if (aovCongrats && aovMsg) {
         if (id === 2) {
             aovCongrats.style.display = 'flex';
-            aovMsg.textContent = 'تم اختيار باقة 10 قطع. التوفير: 320 درهماً.';
+            aovMsg.textContent = 'تم اختيار العبوتين. التوفير: 229 ريالاً.';
+        } else if (id === 3) {
+            aovCongrats.style.display = 'flex';
+            aovMsg.textContent = 'تم اختيار 3 عبوات. التوفير: 299 ريالاً.';
         } else {
             aovCongrats.style.display = 'none';
         }
@@ -207,7 +217,7 @@ async function handleOrderSubmit(event) {
     const address = addressInp ? addressInp.value.trim() : city;
 
     if (!name || !phone || !city) {
-        alert("يرجى إكمال جميع المعلومات (الاسم، الهاتف، والمدينة).");
+        alert("يرجى إكمال الاسم والجوال والمدينة.");
         return;
     }
 
@@ -215,8 +225,9 @@ async function handleOrderSubmit(event) {
     const phoneInput = document.getElementById('inp-phone');
     const phoneError = document.getElementById('phone-error');
     // Remove spaces/dashes to count digits accurately
-    const cleanPhone = phone.replace(/[^0-9+]/g, '');
-    if (cleanPhone.length < 10) {
+    const cleanPhone = phone.replace(/[^0-9+]/g, '').replace(/^\+/, '');
+    const saudiOk = /^05\d{8}$/.test(cleanPhone) || /^9665\d{8}$/.test(cleanPhone);
+    if (!saudiOk) {
         if (phoneInput) {
             phoneInput.style.border = '2px solid #ef4444';
             phoneInput.style.backgroundColor = 'rgba(239, 68, 68, 0.05)';

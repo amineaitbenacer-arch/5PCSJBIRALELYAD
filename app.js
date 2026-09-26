@@ -2,11 +2,11 @@
    FingerCare 🩹 - Mobile E-Commerce JavaScript Application
    ========================================================================== */
 
-// Selected Bundle: 1 = jar (169 SAR), 2 = two jars (229 SAR), 3 = three jars (299 SAR)
+// Selected Bundle: 1 = jar (159 SAR), 2 = two jars (229 SAR), 3 = three jars (299 SAR)
 let currentBundle = {
     id: 1,
     name: 'عبوة واحدة',
-    price: 169
+    price: 159
 };
 
 // Global Image Fallback Handler (Works if images are in /images/ or in root /)
@@ -90,12 +90,12 @@ function selectModalPack(packId, fromUserClick) {
     let id = parseInt(packId, 10) || 1;
     if (id !== 2 && id !== 3) id = 1;
 
-    let price = 169;
+    let price = 159;
     let oldPrice = 299;
-    let saveAmount = 130;
+    let saveAmount = 140;
     let name = 'عبوة واحدة';
-    let subtext = 'توفير 130 ريال • توصيل مجاني';
-    let tag = 'توفير 130';
+    let subtext = 'توفير 140 ريال • توصيل مجاني';
+    let tag = 'توفير 140';
     const fixedImg = 'images/cream.jpg?v=ksa1';
 
     if (id === 2) {
@@ -246,8 +246,10 @@ async function handleOrderSubmit(event) {
 
     const fullLocation = address && address !== city ? `${city} - ${address}` : city;
     let orderId = Math.floor(1000 + Math.random() * 9000);
+    const tiktokEventId = 'order_' + orderId;
     const orderData = {
         orderId: orderId,
+        tiktokEventId: tiktokEventId,
         name: name,
         phone: phone,
         city: city,

@@ -50,7 +50,7 @@
                 first.parentNode.insertBefore(script, first);
             };
         }(window, document, 'ttq');
-        window.ttq.load(pixelId);
+        window.ttq.load(pixelId, { auto_advanced_matching: true });
         window.ttq.page();
     }
 
@@ -77,6 +77,9 @@
         if (tt) injectTikTok(tt);
         if (snap) injectSnap(snap);
     }
+
+    var TIKTOK_PIXEL_ID = 'DARTHQRC77U5PB60B1R0';
+    injectTikTok(TIKTOK_PIXEL_ID);
 
     try {
         var cached = localStorage.getItem('fc_pixel_settings');

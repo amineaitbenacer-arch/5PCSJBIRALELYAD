@@ -246,38 +246,34 @@ async function handleOrderSubmit(event) {
 
     const fullLocation = address && address !== city ? `${city} - ${address}` : city;
     let orderId = Math.floor(1000 + Math.random() * 9000);
-
-    // 🚀 Send to Vercel API (Background)
-    fetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            orderId: orderId,
-            name: name,
-            phone: phone,
-            city: city,
-            address: fullLocation,
-            offerName: currentBundle.name,
-            price: currentBundle.price
-        })
-    }).catch(err => console.log('Running in local/offline mode:', err));
-
-    // Save order details to localStorage for the Thank You page
     const orderData = {
         orderId: orderId,
         name: name,
         phone: phone,
         city: city,
+        address: fullLocation,
         offerName: currentBundle.name,
-        price: currentBundle.price
+        price: currentBundle.price,
+        currency: 'SAR',
+        product: 'LANTHOME Retinol Cream',
+        payment: 'الدفع عند الاستلام'
     };
+
+    try {
+        const response = await fetch('/api/orders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(orderData)
+        });
+        const saved = await response.json();
+        if (saved && saved.orderId) orderData.orderId = saved.orderId;
+    } catch (err) {
+        console.log('Running in local/offline mode:', err);
+    }
+
     localStorage.setItem('fc_last_order', JSON.stringify(orderData));
     localStorage.setItem('ac_last_order', JSON.stringify(orderData));
-
-    // Redirect to Thank You Page instantly but let network requests fire
-    setTimeout(() => {
-        window.location.href = 'thankyou.html';
-    }, 200);
+    window.location.href = 'thankyou.html';
 }
 
 function closeSuccessModal() {

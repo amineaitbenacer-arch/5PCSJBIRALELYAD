@@ -2,9 +2,14 @@ function doPost(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   var data = JSON.parse(e.postData.contents);
   var headers = ['التاريخ', 'رقم الطلب', 'الاسم', 'الجوال', 'المدينة', 'العنوان', 'العرض', 'الثمن', 'العملة', 'المنتج', 'الدفع', 'الحالة'];
-
-  if (sheet.getLastRow() === 0) {
-    sheet.appendRow(headers);
+  var current = sheet.getRange(1, 1, 1, headers.length).getValues()[0];
+  var headersMatch = headers.every(function (header, index) {
+    return String(current[index] || '') === header;
+  });
+  if (!headersMatch) {
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+    sheet.getRange(1, 1, 1, headers.length).setBackground('#188038').setFontColor('#ffffff').setFontWeight('bold');
+    sheet.setFrozenRows(1);
   }
 
   var orderId = String(data.orderId || '');

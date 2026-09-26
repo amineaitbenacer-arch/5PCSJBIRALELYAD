@@ -1217,7 +1217,7 @@ img {
   .reviews-section { margin: 0 auto 3.5rem auto; max-width: 700px; padding: 1rem 2rem !important; }
 }
 @media (max-width: 600px) {
-  .reviews-section { padding: 1.5rem 1rem !important; margin: 0 0.5rem 2rem 0.5rem; border-radius: 16px; }
+  .reviews-section { padding: 1.1rem 0.7rem !important; margin: 0 0.35rem 2rem 0.35rem; border-radius: 16px; }
   .section-heading { font-size: 1.5rem; }
   .section-subheading { font-size: 0.95rem; margin-bottom: 1.5rem; }
   .review-card { padding: 1rem; border-radius: 16px; }
@@ -1319,6 +1319,21 @@ img {
   display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.95rem; cursor: pointer; transition: all 0.3s;
 }
 .rev-dot.active, .rev-dot:hover { background: linear-gradient(135deg, #FFD700, #D97706); color: #0B0F17; border-color: #FFD700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.6); transform: scale(1.1); }
+
+@media (max-width: 600px) {
+  .reviews-nav-bar {
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 6px;
+  }
+  .rev-nav-btn {
+    padding: 0.32rem 0.45rem;
+    font-size: 0.7rem;
+    white-space: nowrap;
+  }
+  .rev-page-indicators { gap: 0.25rem; }
+  .rev-dot { width: 26px; height: 26px; font-size: 0.72rem; }
+}
 
 /* ❓ FAQ ACCORDION */
 .faq-accordion { display: flex; flex-direction: column; gap: 0.85rem; }
@@ -2502,6 +2517,32 @@ img {
   object-position: center;
   display: block;
   border-radius: 12px;
+}
+
+@media (max-width: 640px) {
+  .vba-square .vba-card {
+    padding: 0.9rem;
+  }
+  .vba-square .vba-card-badge {
+    display: table;
+    margin: 0 auto 0.7rem;
+  }
+  .vba-square .vba-card-body {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.7rem;
+  }
+  .vba-square .vba-card-body .vba-img-wrapper {
+    order: -1;
+    width: 100%;
+    max-width: none;
+    flex: none;
+    aspect-ratio: 1 / 1;
+  }
+  .vba-square .vba-card-content h4,
+  .vba-square .vba-card-content li {
+    text-align: right;
+  }
 }
 
 .vba-square .vba-card-content h4 {
@@ -3846,9 +3887,10 @@ img {
 .eb-visual-explain .eb-visual-shot img {
   width: 100%;
   display: block;
-  max-height: 240px;
-  object-fit: contain;
-  object-position: center;
+  height: 168px;
+  max-height: 168px;
+  object-fit: cover;
+  object-position: center 42%;
   background: #F8FAFC;
 }
 

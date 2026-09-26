@@ -1906,7 +1906,7 @@ img {
 }
 .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
-.success-card {
+.modal-overlay .success-card {
   background: var(--dark2); border: 2px solid var(--success); border-radius: 24px;
   padding: 1rem 1.5rem; text-align: center; max-width: 480px; width: 100%;
   box-shadow: 0 15px 40px rgba(16, 185, 129, 0.3); transform: scale(0.9); transition: transform 0.3s ease;
@@ -1914,8 +1914,8 @@ img {
 .modal-overlay.active .success-card { transform: scale(1); }
 
 .success-icon { font-size: 3.8rem; color: var(--success); margin-bottom: 0.85rem; }
-.success-card h2 { font-size: 1.45rem; color: #FFF; margin-bottom: 0.6rem; font-weight: 900; }
-.success-card p { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 1.2rem; line-height: 1.6; }
+.modal-overlay .success-card h2 { font-size: 1.45rem; color: #FFF; margin-bottom: 0.6rem; font-weight: 900; }
+.modal-overlay .success-card p { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 1.2rem; line-height: 1.6; }
 
 .details-box {
   background: var(--dark3); border: 1.5px solid var(--gb); border-radius: 16px;
@@ -2452,8 +2452,9 @@ img {
   transition: var(--tr);
 }
 
-.vba-card:hover {
-  transform: translateY(-4px);
+.vba-card:hover,
+.vba-card:active {
+  transform: none;
 }
 
 .vba-card.danger-card {
@@ -2463,6 +2464,9 @@ img {
 .vba-card.success-card {
   border: 2px solid rgba(16, 185, 129, 0.45);
   box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+  transform: none;
+  max-width: none;
+  width: 100%;
 }
 
 .vba-card-badge {
@@ -3901,15 +3905,18 @@ img {
 .eb-visual-explain .eb-visual-shot {
   position: relative;
   margin: 0;
+  width: 100%;
+  aspect-ratio: 1 / 1;
 }
 
 .eb-visual-explain .eb-visual-shot img {
   width: 100%;
+  height: 100%;
   display: block;
-  height: 168px;
-  max-height: 168px;
-  object-fit: cover;
-  object-position: center 42%;
+  max-height: none;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  object-position: center;
   background: #F8FAFC;
 }
 

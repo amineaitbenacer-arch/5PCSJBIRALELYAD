@@ -227,13 +227,61 @@
     /* PHONE VERIFICATION - VERY ELEGANT */
     .phone-verify-box {
       background: linear-gradient(145deg, rgba(16, 25, 40, 0.9), rgba(15, 30, 45, 0.95));
-      border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 24px; padding: 2.5rem; text-align: center;
-      position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.4); margin-bottom: 2.5rem;
+      border: 1px solid rgba(16, 185, 129, 0.45); border-radius: 24px; padding: 2.5rem; text-align: center;
+      position: relative; overflow: hidden; margin-bottom: 2.5rem;
+      animation: verifyFloat 2.2s ease-in-out infinite;
     }
     .phone-verify-box::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
       background: linear-gradient(to right, transparent, var(--success), transparent);
+      z-index: 2;
     }
+    .phone-verify-box::after {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: -70%;
+      width: 42%;
+      height: 140%;
+      background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.05) 35%, rgba(167, 243, 208, 0.42) 50%, rgba(255,255,255,0.05) 65%, transparent 100%);
+      transform: skewX(-18deg);
+      animation: verifyShine 2.6s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .phone-verify-box > * { position: relative; z-index: 2; }
+    @keyframes verifyFloat {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+        border-color: rgba(16, 185, 129, 0.4);
+        box-shadow:
+          0 16px 36px rgba(0, 0, 0, 0.45),
+          0 0 16px rgba(16, 185, 129, 0.28),
+          inset 0 0 0 1px rgba(52, 211, 153, 0.08);
+      }
+      50% {
+        transform: translateY(-8px) scale(1.012);
+        border-color: rgba(110, 231, 183, 0.95);
+        box-shadow:
+          0 28px 48px rgba(0, 0, 0, 0.5),
+          0 0 28px rgba(52, 211, 153, 0.75),
+          0 0 64px rgba(16, 185, 129, 0.38),
+          inset 0 0 24px rgba(16, 185, 129, 0.08);
+      }
+    }
+    @keyframes verifyShine {
+      0% { left: -75%; opacity: 0; }
+      12% { opacity: 1; }
+      48% { left: 130%; opacity: 1; }
+      60%, 100% { left: 130%; opacity: 0; }
+    }
+    .phone-verify-box.is-confirmed {
+      animation: none;
+      transform: none;
+      border-color: rgba(59, 130, 246, 0.45);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.4);
+    }
+    .phone-verify-box.is-confirmed::after { display: none; }
     .phone-msg-container {
       background: rgba(255, 255, 255, 0.03);
       border-radius: 16px;
@@ -250,8 +298,21 @@
     .phone-display-wrapper { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 2rem; }
     .the-number {
       font-size: 2.8rem; font-weight: 900; letter-spacing: 3px; color: #FFF; margin-bottom: 0 !important;
-      text-shadow: 0 0 25px rgba(255, 255, 255, 0.3); direction: ltr; display: inline-block; transition: all 0.3s ease;
+      direction: ltr; display: inline-block; transition: color 0.3s ease, border-color 0.3s ease;
       background: rgba(0,0,0,0.3); padding: 10px 30px; border-radius: 16px; border: 1px dashed rgba(255,255,255,0.2);
+      animation: numberGlow 1.8s ease-in-out infinite;
+    }
+    @keyframes numberGlow {
+      0%, 100% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
+        border-color: rgba(255, 255, 255, 0.22);
+        box-shadow: 0 0 0 rgba(52, 211, 153, 0);
+      }
+      50% {
+        text-shadow: 0 0 18px rgba(167, 243, 208, 0.95);
+        border-color: rgba(52, 211, 153, 0.85);
+        box-shadow: 0 0 22px rgba(16, 185, 129, 0.45);
+      }
     }
     .edit-phone-btn { 
       background: rgba(52, 211, 153, 0.15); border: 1px solid var(--joy); color: var(--joy); 
@@ -278,11 +339,22 @@
     .btn-verify {
       background: linear-gradient(135deg, #10B981, #059669); color: white; border: none; padding: 1.3rem 2rem;
       font-size: 1.25rem; font-weight: 900; border-radius: 50px; cursor: pointer; width: 100%;
-      box-shadow: 0 15px 30px rgba(16, 185, 129, 0.4); transition: all 0.3s ease; display: flex;
-      align-items: center; justify-content: center; gap: 12px;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      animation: btnPulse 1.5s ease-in-out infinite;
     }
-    .btn-verify:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(16, 185, 129, 0.5); }
-    .btn-verify.success { background: linear-gradient(135deg, #3B82F6, #2563EB); box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4); pointer-events: none; }
+    @keyframes btnPulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 12px 24px rgba(16, 185, 129, 0.4), 0 0 0 0 rgba(52, 211, 153, 0.55);
+      }
+      50% {
+        transform: scale(1.035);
+        box-shadow: 0 16px 34px rgba(16, 185, 129, 0.7), 0 0 28px rgba(52, 211, 153, 0.85), 0 0 0 8px rgba(16, 185, 129, 0);
+      }
+    }
+    .btn-verify:hover { animation-play-state: paused; transform: translateY(-4px) scale(1.02); box-shadow: 0 20px 40px rgba(16, 185, 129, 0.55); }
+    .btn-verify.success { background: linear-gradient(135deg, #3B82F6, #2563EB); box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4); pointer-events: none; animation: none; transform: none; }
+    .phone-verify-box.is-confirmed .the-number { animation: none; }
     .success-msg-hidden { display: none; color: #60A5FA; font-weight: 900; margin-top: 1.5rem; font-size: 1.1rem; animation: fadeIn 0.5s ease; }
 
     /* 💎 ULTRA-PREMIUM REVIEWS SECTION */
@@ -438,6 +510,14 @@
     @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
 
     /* RESPONSIVE MOBILE ADJUSTMENTS */
+    @media (prefers-reduced-motion: reduce) {
+      .phone-verify-box,
+      .phone-verify-box::after,
+      .the-number,
+      .btn-verify,
+      .edit-phone-btn { animation: none !important; }
+    }
+
     @media (max-width: 600px) {
       .phone-verify-box { padding: 1.5rem; }
       .phone-msg-container { padding: 1.1rem; margin-bottom: 1.5rem; }
@@ -555,6 +635,7 @@
           <i class="fa-solid fa-floppy-disk"></i> حفظ
         </button>
       </div>
+      <p id="phone-save-error" style="display:none;color:#fca5a5;font-weight:800;margin:-0.6rem 0 1.2rem;">ما قدرنا نحدّث الرقم في الطلب. أعد المحاولة.</p>
       
       <button id="verify-btn" class="btn-verify" onclick="verifyPhone()">
         <i class="fa-solid fa-check"></i> نعم، لقد تأكدت ورقمي صحيح 100%
@@ -1061,46 +1142,127 @@
       input.focus();
     }
 
-    function savePhoneEdit() {
+    function readStoredOrder() {
+      try {
+        const raw = localStorage.getItem('fc_last_order') || localStorage.getItem('ac_last_order');
+        return raw ? JSON.parse(raw) : {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function writeStoredOrder(data) {
+      const stored = JSON.stringify(data);
+      localStorage.setItem('fc_last_order', stored);
+      localStorage.setItem('ac_last_order', stored);
+    }
+
+    function formatPhone(digits) {
+      if (String(digits).startsWith('966')) return String(digits);
+      return String(digits).replace(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5');
+    }
+
+    async function pushPhoneToSheet(digits) {
+      const data = readStoredOrder();
+      const previous = String(data.phone || '').replace(/\D/g, '');
+      if (!data.orderId) return false;
+      if (previous === digits) return true;
+
+      const payload = JSON.stringify({
+        action: 'updatePhone',
+        orderId: String(data.orderId),
+        phone: digits
+      });
+
+      const direct = fetch('https://script.google.com/macros/s/AKfycbzRav_MpLW8252jYuhDl5aQ-h0wVYKSAr_BeeETR9Zq-ZFrhQvudMtlXZB5bc6agCj6XQ/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        keepalive: true,
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: payload
+      }).catch(() => {});
+
+      fetch('/api/orders/phone', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderId: data.orderId, phone: digits })
+      }).catch(() => {});
+
+      await Promise.race([
+        direct,
+        new Promise((resolve) => setTimeout(resolve, 2500))
+      ]);
+
+      data.phone = digits;
+      writeStoredOrder(data);
+      return true;
+    }
+
+    async function savePhoneEdit() {
       const displayWrapper = document.getElementById('phone-display-wrapper');
       const editWrapper = document.getElementById('phone-edit-wrapper');
       const input = document.getElementById('ty-phone-input');
       const numberElement = document.getElementById('ty-phone');
+      const saveBtn = editWrapper.querySelector('.save-phone-btn');
+      const errorEl = document.getElementById('phone-save-error');
       
-      let newPhone = input.value.trim();
-      const digits = newPhone.replace(/\D/g, '');
+      const digits = input.value.trim().replace(/\D/g, '');
       const saudiOk = /^05\d{8}$/.test(digits) || /^9665\d{8}$/.test(digits);
       if (!saudiOk) {
         input.style.borderColor = '#ef4444';
-        return;
+        if (errorEl) errorEl.style.display = 'block';
+        return false;
       }
       input.style.borderColor = '';
-      let formattedPhone = digits.replace(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5');
-      if (digits.startsWith('966')) {
-        formattedPhone = digits;
+      if (errorEl) errorEl.style.display = 'none';
+
+      if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.dataset.label = saveBtn.innerHTML;
+        saveBtn.textContent = 'جاري الحفظ...';
       }
-        numberElement.innerText = formattedPhone;
-        
-        try {
-          const orderDataStr = localStorage.getItem('fc_last_order') || localStorage.getItem('ac_last_order');
-          if (orderDataStr) {
-            const data = JSON.parse(orderDataStr);
-            data.phone = digits;
-            localStorage.setItem('ac_last_order', JSON.stringify(data));
-          }
-        } catch(e) {}
-      
+
+      let sheetSaved = false;
+      try {
+        sheetSaved = await pushPhoneToSheet(digits);
+      } catch (e) {
+        sheetSaved = false;
+      }
+
+      if (saveBtn) {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = saveBtn.dataset.label || '<i class="fa-solid fa-floppy-disk"></i> حفظ';
+      }
+
+      if (!sheetSaved) {
+        if (errorEl) errorEl.style.display = 'block';
+        return false;
+      }
+
+      numberElement.innerText = formatPhone(digits);
       editWrapper.style.display = 'none';
       displayWrapper.style.display = 'flex';
-      
       numberElement.style.color = "var(--gold)";
       setTimeout(() => { numberElement.style.color = "#FFF"; }, 800);
+      return true;
     }
 
-    function verifyPhone() {
+    async function verifyPhone() {
       const btn = document.getElementById('verify-btn');
+      if (btn.dataset.busy === '1') return;
+      const editWrapper = document.getElementById('phone-edit-wrapper');
+      const editing = editWrapper && editWrapper.style.display !== 'none';
+      if (editing) {
+        btn.dataset.busy = '1';
+        const saved = await savePhoneEdit();
+        btn.dataset.busy = '';
+        if (!saved) return;
+      }
+
       const msg = document.getElementById('verify-msg');
       const number = document.getElementById('ty-phone');
+      const box = document.querySelector('.phone-verify-box');
+      if (box) box.classList.add('is-confirmed');
       
       number.style.transform = "scale(1.05)";
       number.style.color = "#10B981";

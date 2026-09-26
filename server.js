@@ -8,6 +8,7 @@ const {
     handleListOrders,
     handleCreateOrder,
     handleUpdateOrder,
+    handleUpdateOrderPhone,
     handleDeleteOrder,
     handleGetSettings,
     handleSaveSettings,
@@ -46,6 +47,7 @@ initDb().then(() => {
 });
 
 app.post('/api/orders', handleCreateOrder);
+app.post('/api/orders/phone', handleUpdateOrderPhone);
 app.get('/api/orders', handleListOrders);
 app.put('/api/orders', handleUpdateOrder);
 app.put('/api/orders/:id/status', handleUpdateOrder);

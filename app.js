@@ -245,6 +245,7 @@ async function handleOrderSubmit(event) {
     }
 
     const fullLocation = address && address !== city ? `${city} - ${address}` : city;
+    const params = new URLSearchParams(window.location.search);
     let orderId = Math.floor(1000 + Math.random() * 9000);
     const tiktokEventId = 'order_' + orderId;
     const orderData = {
@@ -256,9 +257,17 @@ async function handleOrderSubmit(event) {
         address: fullLocation,
         offerName: currentBundle.name,
         price: currentBundle.price,
-        currency: 'SAR',
-        product: 'LANTHOME Retinol Cream',
-        payment: 'الدفع عند الاستلام'
+        quantity: currentBundle.id,
+        url: window.location.origin + window.location.pathname + window.location.search,
+        currency: 'sar',
+        product: 'كريم لانثوم ريتينول',
+        sku: 'MP-PSC1OMN0ANSM',
+        payment: 'الدفع عند الاستلام',
+        utm_source: params.get('utm_source') || '',
+        utm_medium: params.get('utm_medium') || '',
+        utm_campaign: params.get('utm_campaign') || '',
+        utm_term: params.get('utm_term') || '',
+        utm_content: params.get('utm_content') || ''
     };
 
     try {

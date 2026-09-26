@@ -27,7 +27,7 @@ window.addEventListener('error', function(e) {
 }, true);
 
 document.addEventListener('DOMContentLoaded', () => {
-    selectModalPack(2);
+    selectModalPack(3);
 });
 
 /* --------------------------------------------------------------------------
@@ -94,8 +94,8 @@ function selectModalPack(packId, fromUserClick) {
     let oldPrice = 299;
     let saveAmount = 130;
     let name = 'عبوة واحدة';
-    let subtext = 'للتجربة • توصيل مجاني';
-    let tag = 'للتجربة';
+    let subtext = 'توفير 130 ريال • توصيل مجاني';
+    let tag = 'توفير 130';
     const fixedImg = 'images/cream.jpg?v=ksa1';
 
     if (id === 2) {
@@ -103,15 +103,15 @@ function selectModalPack(packId, fromUserClick) {
         oldPrice = 458;
         saveAmount = 229;
         name = 'عبوتان';
-        subtext = 'يكمل الفرق • توصيل مجاني';
+        subtext = 'توفير 229 ريال • توصيل مجاني';
         tag = 'الأكثر طلباً';
     } else if (id === 3) {
         price = 299;
         oldPrice = 598;
         saveAmount = 299;
         name = '3 عبوات';
-        subtext = 'لمدة أطول • توصيل مجاني';
-        tag = 'لمدة أطول';
+        subtext = 'أقوى توفير • توصيل مجاني';
+        tag = 'عرض قوي جداً';
     }
 
     currentBundle = { id: id, price: price, name: name };
@@ -175,12 +175,9 @@ function selectModalPack(packId, fromUserClick) {
     const aovCongrats = document.getElementById('sheet-aov-congrats');
     const aovMsg = document.getElementById('sheet-aov-msg');
     if (aovCongrats && aovMsg) {
-        if (id === 2) {
+        if (id === 3) {
             aovCongrats.style.display = 'flex';
-            aovMsg.textContent = 'تم اختيار العبوتين. التوفير: 229 ريالاً.';
-        } else if (id === 3) {
-            aovCongrats.style.display = 'flex';
-            aovMsg.textContent = 'تم اختيار 3 عبوات. التوفير: 299 ريالاً.';
+            aovMsg.textContent = 'عرض قوي جداً. وفّرتِ 299 ريالاً.';
         } else {
             aovCongrats.style.display = 'none';
         }

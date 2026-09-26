@@ -562,6 +562,7 @@ img {
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
+  padding-top: 0.35rem;
 }
 .hero-offer-card {
   background: var(--dark2);
@@ -598,6 +599,22 @@ img {
   align-items: center;
   gap: 0.25rem;
 }
+.hero-offer-badge-green {
+  background: #10B981;
+  color: #fff;
+  font-weight: 900;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.45);
+}
+.hero-offer-card.selected.offer-strong {
+  border: 1.5px solid #10B981;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(16, 185, 129, 0.05) 100%);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.22);
+}
+.hero-offer-card.selected.offer-strong .hero-offer-radio {
+  border-color: #10B981;
+  background: #10B981;
+  box-shadow: inset 0 0 0 3px var(--dark2);
+}
 .hero-offer-radio {
   width: 20px;
   height: 20px;
@@ -613,6 +630,10 @@ img {
   border-color: var(--gold);
   background: var(--gold);
   box-shadow: inset 0 0 0 3px var(--dark2);
+}
+.hero-offer-card.selected.offer-strong .hero-offer-radio {
+  border-color: #10B981;
+  background: #10B981;
 }
 .hero-offer-info {
   flex: 1;

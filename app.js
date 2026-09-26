@@ -100,15 +100,15 @@ function selectModalPack(packId, fromUserClick) {
 
     if (id === 2) {
         price = 229;
-        oldPrice = 458;
-        saveAmount = 229;
+        oldPrice = 598;
+        saveAmount = 369;
         name = 'عبوتان';
-        subtext = 'توفير 229 ريال • توصيل مجاني';
+        subtext = 'توفير 369 ريال • توصيل مجاني';
         tag = 'الأكثر طلباً';
     } else if (id === 3) {
         price = 299;
-        oldPrice = 598;
-        saveAmount = 299;
+        oldPrice = 897;
+        saveAmount = 598;
         name = '3 عبوات';
         subtext = 'أقوى توفير • توصيل مجاني';
         tag = 'عرض قوي جداً';
@@ -177,7 +177,7 @@ function selectModalPack(packId, fromUserClick) {
     if (aovCongrats && aovMsg) {
         if (id === 3) {
             aovCongrats.style.display = 'flex';
-            aovMsg.textContent = 'عرض قوي جداً. وفّرتِ 299 ريالاً.';
+            aovMsg.textContent = 'عرض قوي جداً. وفّرتِ 598 ريالاً.';
         } else {
             aovCongrats.style.display = 'none';
         }
